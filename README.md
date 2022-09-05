@@ -11,15 +11,16 @@ Personal finance manager app
 - Redux
 
 ### Backend
-- Nodejs/TS
+- Nodejs
 - MongoDB
 - AWS tools (cognito / s3)
 
 ## Todo
-- [ ] - Research and list down core functionality of a budget managing app
-- [ ] - Design a logo
+- [x] - Research and list down core functionality of a budget managing app
+- [x] - Design a logo
+- [ ] - Complete the UI Design
 - [ ] - Start Building UI with antd
-- [ ] - Learn Redux State Management
+- [x] - Learn Redux State Management
  
 ### Branding
 - [ ] - Decide a name for the app
@@ -103,15 +104,31 @@ Personal finance manager app
 - Currency
     - select your preferred currency
 
+- Settings
+    - User Profile
+        - first name
+        - last name
+        - profile picture
+        - logout
+        - password change
+        - delete all user data
+    - Language
+    - Default Account
+    - Default Period
+
+
 ###  UI Design
 
-- Pages
-- Dashboard
-    - Should include incomes and expenses records
-    - Most important statistic charts
-- Accounts
-- Regular payments / planned payments / recurring payments
-- Goals
-- Reminders
-- Statistics
-- Settings
+[Figma UI Design](https://www.figma.com/proto/VQyuxu1DiNoVAnUR5sCiOy/budgetbook?node-id=14:9&scaling=min-zoom&page-id=0:1)
+
+- [x] - Dashboard
+    - [x] - Should include incomes and expenses records
+    - [x] - Most important statistic charts
+    - [ ] - Add income portal
+    - [x] - Add expense portal
+- [x] - Accounts
+    - [x] - Regular payments / planned payments / recurring payments
+- [ ] - Goals
+- [ ] - Statistics
+- [ ] - Settings
+    - [ ] - user profile edit portal
