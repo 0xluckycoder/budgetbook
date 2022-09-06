@@ -21,14 +21,41 @@ Personal finance manager app
 - [ ] - Complete the UI Design
 - [ ] - Start Building UI with antd
 - [x] - Learn Redux State Management
+- [x] - Learn React hooks
+- [x] - Learn React HOC
+- [/] - TopNav
+- [ ] - SideNav
+
+#### Resources
+- File System
+    - https://github.com/altence/lightence-ant-design-react-template/tree/main/src
+    - https://aamnah.com/redux/redux-folder-structure-patterns
+
+#### File Structure
+- src
+    - api
+    - store
+        - slices
+    - components
+    - containers
+    - router
+    - pages
+    - utils
+
+#### Frontend Routes
+- /home
+- /accounts
+- /payments
+- /settings
+- /goals
+- /statistics
  
-### Branding
+#### Branding
 - [ ] - Decide a name for the app
 - [ ] - Design a new logo
 - [ ] - Choose theme color
 
-### Common Features
-
+#### Common Features
 - User Account
     - Language
     - default account
@@ -118,7 +145,6 @@ Personal finance manager app
 
 
 ###  UI Design
-
 [Figma UI Design](https://www.figma.com/proto/VQyuxu1DiNoVAnUR5sCiOy/budgetbook?node-id=14:9&scaling=min-zoom&page-id=0:1)
 
 - [x] - Dashboard
@@ -132,3 +158,4 @@ Personal finance manager app
 - [ ] - Statistics
 - [ ] - Settings
     - [ ] - user profile edit portal
+
