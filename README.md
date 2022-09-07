@@ -25,7 +25,8 @@ Personal finance manager app
 - [x] - Learn React HOC
 - [/] - Organize resources
 - [/] - TopNav
-- [ ] - SideNav
+- [/] - SideNav
+- [ ] - Clean up and oragnize according to filesystem
 - [ ] - Break into components and fix
 
 #### Resources

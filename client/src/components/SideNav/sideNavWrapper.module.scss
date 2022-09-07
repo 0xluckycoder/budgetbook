@@ -1,0 +1,19 @@
+.sideNavWrapper {
+    position: fixed;
+    padding-top: 110px;
+    background-color: #fff;
+    z-index: 2;
+    height: calc(100vh - 120px);
+    width: 230px;
+    transition: 350ms;
+}
+
+@media (max-width: 768px) {
+    .sideNavWrapper {
+        transform: translateX(-230px);
+    }
+
+    .sideNavWrapperActive {
+        transform: translateX(0px);
+    }
+}

@@ -8,7 +8,13 @@
     align-items: center;
     justify-content: space-between;
     z-index: 3;
-    // width: 100%;
     background: #6F6AF8;
-    padding: 15.6px;
+    padding: 15.6px 48px;
+}
+
+@media (max-width: 768px) {
+    .topNav {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }

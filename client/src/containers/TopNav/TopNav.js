@@ -1,8 +1,4 @@
-import React from 'react';
-// import { Logo } from '../../components/Logo/Logo';
-// import { TopNavWrapper } from '../../components/TopNavWrapper/TopNavWrapper';
-// import { HamburgerIcon } from '../../components/HamburgerIcon/HamburgerIcon';
-// import { ProfileCard } from '../../components/ProfileCard/ProfileCard';
+import React, { useContext } from 'react';
 import { TopNavWrapper } from '../../components/TopNav/TopNavWrapper';
 import { NavLeft } from '../../components/TopNav/NavLeft';
 import { ProfileCard } from '../../components/TopNav/ProfileCard';

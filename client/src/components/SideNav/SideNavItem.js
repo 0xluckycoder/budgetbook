@@ -1,5 +1,4 @@
 import React from "react";
-
 import styles from './sideNavItem.module.scss';
 
 export const SideNavItem = ({ icon, name }) => {
