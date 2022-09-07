@@ -23,13 +23,17 @@ Personal finance manager app
 - [x] - Learn Redux State Management
 - [x] - Learn React hooks
 - [x] - Learn React HOC
+- [/] - Organize resources
 - [/] - TopNav
 - [ ] - SideNav
+- [ ] - Break into components and fix
 
 #### Resources
 - File System
-    - https://github.com/altence/lightence-ant-design-react-template/tree/main/src
+    - https://github.com/altence/lightence-ant-design-react-template
     - https://aamnah.com/redux/redux-folder-structure-patterns
+    - https://github.com/alexanderrudnik/lightence-admin
+    - https://github.com/taniarascia/takenote
 
 #### File Structure
 - src

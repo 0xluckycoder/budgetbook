@@ -1,0 +1,18 @@
+.accountCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    p {
+        color: #fff;
+        margin: 0px;
+        padding: 0px;
+    }
+}
+
+@media (max-width: 768px) {
+    .userName {
+        display: none;
+    }
+}

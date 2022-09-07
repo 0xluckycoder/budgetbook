@@ -1,0 +1,14 @@
+.topNav {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
+    left: 0px;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+    // width: 100%;
+    background: #6F6AF8;
+    padding: 15.6px;
+}
