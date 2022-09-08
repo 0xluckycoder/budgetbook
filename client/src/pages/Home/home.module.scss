@@ -1,0 +1,28 @@
+.home {
+    .col {
+        .box {
+            background: red;
+            height: 50px;
+            // max-width: 360px;
+            // margin: auto;
+        }   
+    }
+}
+
+@media(max-width: 992px) {
+    .home {
+        .col {
+            &:not(:first-child) {
+                margin-top: 1rem;
+            }
+            // .box {
+            //     margin: 0;
+            //     max-width: 100%;
+            // }
+        }
+        // .ant-row {
+            // gap: 1rem;
+            // margin: 0;
+        // }
+    }
+}

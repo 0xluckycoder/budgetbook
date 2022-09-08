@@ -10,6 +10,10 @@
     padding-left: 13px;
     cursor: pointer;
 
+    p {
+        font-size: 16px;
+    }
+
     &:hover,
     &:first-child {
         background-color: #6F6AF8;

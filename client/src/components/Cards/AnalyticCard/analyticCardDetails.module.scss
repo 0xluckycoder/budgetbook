@@ -1,0 +1,26 @@
+.analyticCardDetails {
+
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+
+    .amount {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .percentage {
+        display: flex;
+        padding-bottom: 8px;
+        align-items: flex-end;
+        gap: 3px;
+    }
+
+    .green {
+        color: #07A287;
+    }
+
+    .red {
+        color: #FD5555;
+    }
+}

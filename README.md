@@ -23,18 +23,31 @@ Personal finance manager app
 - [x] - Learn Redux State Management
 - [x] - Learn React hooks
 - [x] - Learn React HOC
-- [/] - Organize resources
-- [/] - TopNav
-- [/] - SideNav
-- [ ] - Clean up and oragnize according to filesystem
-- [ ] - Break into components and fix
+- [x] - Organize resources
+- [x] - TopNav
+    - [ ] - refactor topnav
+- [x] - SideNav
+- [/] - Home
+    - [x] - overwrite antd styles
+    - [x] - page layout
+    - [x] - reusable button
+    - [x] - account card
+    - [/] - incomes card
+    - [ ] - expenses card
+    - [ ] - expense records card
+    - [ ] - income records card
+    - [ ] - Portals
+        - [ ] - New Expense Portal
+        - [ ] - New Income Portal
 
 #### Resources
 - File System
+    - https://www.pluralsight.com/guides/how-to-organize-your-react-+-redux-codebase
     - https://github.com/altence/lightence-ant-design-react-template
     - https://aamnah.com/redux/redux-folder-structure-patterns
     - https://github.com/alexanderrudnik/lightence-admin
     - https://github.com/taniarascia/takenote
+    
 
 #### File Structure
 - src
