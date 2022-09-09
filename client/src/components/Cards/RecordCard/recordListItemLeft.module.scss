@@ -1,0 +1,15 @@
+.recordListItemLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+
+    .icon {
+        background-color: rgba(111, 106, 248, 0.2);
+        color: #6F6AF8;
+        padding: 3px 9px 1px 9px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}

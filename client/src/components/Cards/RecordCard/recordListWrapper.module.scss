@@ -1,0 +1,13 @@
+
+.listScrollArea {
+
+    height: 250px;
+    overflow-y: auto;
+    margin-top: 1rem;
+
+    .recordListWrapper {
+        display: grid;
+        row-gap: 1rem;
+        overflow-y: auto;
+    }
+}

@@ -32,11 +32,11 @@ Personal finance manager app
     - [x] - page layout
     - [x] - reusable button
     - [x] - account card
-    - [/] - incomes card
-    - [ ] - expenses card
-    - [ ] - expense records card
-    - [ ] - income records card
-    - [ ] - Portals
+    - [x] - incomes card
+    - [x] - expenses card
+    - [x] - expense records card
+    - [x] - income records card
+    - [/] - Portals
         - [ ] - New Expense Portal
         - [ ] - New Income Portal
 
