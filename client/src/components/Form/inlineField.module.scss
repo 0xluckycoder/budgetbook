@@ -1,0 +1,23 @@
+.inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media(max-width: 520px) {
+    .inline {
+        grid-template-columns: 1fr;
+        margin-bottom: 1rem;
+        gap: 1rem;
+
+        div:nth-child(1),
+        div:nth-child(2) {
+            margin: 0px;
+        }
+    }
+
+    // .ant-form-item {
+    //     display: none !important;
+    //     margin: 0px !important;
+    // }
+}

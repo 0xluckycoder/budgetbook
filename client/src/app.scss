@@ -31,6 +31,15 @@ body {
     transition: 0;
 }
 
+.themed-dropdown {
+    color: #6F6AF8;
+    cursor: pointer;
+
+    svg {
+        fill: #6F6AF8;
+    }
+}
+
 h1,
 h2,
 h3,
@@ -46,6 +55,10 @@ p {
   margin: 0px;
   padding: 0px;
   line-height: normal;
+}
+
+.ant-modal.form-modal {
+    width: auto !important;
 }
 
 @media (max-width: 768px) {
