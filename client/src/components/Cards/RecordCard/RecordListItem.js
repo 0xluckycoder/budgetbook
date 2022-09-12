@@ -9,9 +9,7 @@ export const RecordListItem = () => {
     return (
         <div className={style.recordListItem}>
             <RecordListItemLeft name="Food" percentage="30%" />
-
             <RecordListItemAmount>200</RecordListItemAmount>
-
             <RecordListItemRight />
         </div>
     );

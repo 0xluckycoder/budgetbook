@@ -69,7 +69,6 @@ export const ExpenseRecordCard = () => {
                 centered
                 open={addModalState}
                 onCancel={() => setAddModalState(false)}
-                // width={600}
                 className="form-modal"
                 footer={[
                   <Button className="themed-button" onClick={() => setAddModalState(false)}>
@@ -77,54 +76,52 @@ export const ExpenseRecordCard = () => {
                   </Button>
                 ]}
             >
-
-                <Form form={form} layout="vertical">
-
-                    <InlineField>
-                        <Form.Item label="Name">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Amount">
-                            <Input />
-                        </Form.Item>
-                    </InlineField>
-
-                    <InlineField>
-                        <Form.Item label="Account">
-                            <Dropdown overlay={accountMenu} trigger={['click']}>
-                                <Space className='themed-dropdown'>
-                                    <p className='themed-dropdown'>{accountDropdownState}</p>
-                                    <DownOutlined />
-                                </Space>
-                            </Dropdown>
-                        </Form.Item>
-                        <Form.Item label="Category">
-                            <Dropdown overlay={categoryMenu} trigger={['click']}>
-                                <Space className='themed-dropdown'>
-                                    <p>{categoryDropdownState}</p>
-                                    <DownOutlined />
-                                </Space>
-                            </Dropdown>
-                        </Form.Item>
-                    </InlineField>
-
-                    <Form.Item label="Transaction Date">
-                        <Space direction="vertical">
-                            <DatePicker onChange={() => console.log('hello')}/>
-                        </Space>
+            
+            <Form form={form} layout="vertical">
+                <InlineField>
+                    <Form.Item label="Name">
+                        <Input />
                     </Form.Item>
-
-                    <Form.Item label="Comment">
-                        <TextArea rows={4} />
+                    <Form.Item label="Amount">
+                        <Input />
                     </Form.Item>
+                </InlineField>
 
-                    <Form.Item label="Add Photos">
-                        <div>
-                            <img src={imagePlaceholder} />
-                        </div>
+                <InlineField>
+                    <Form.Item label="Account">
+                        <Dropdown overlay={accountMenu} trigger={['click']}>
+                            <Space className='themed-dropdown'>
+                                <p className='themed-dropdown'>{accountDropdownState}</p>
+                                <DownOutlined />
+                            </Space>
+                        </Dropdown>
                     </Form.Item>
+                    <Form.Item label="Category">
+                        <Dropdown overlay={categoryMenu} trigger={['click']}>
+                            <Space className='themed-dropdown'>
+                                <p>{categoryDropdownState}</p>
+                                <DownOutlined />
+                            </Space>
+                        </Dropdown>
+                    </Form.Item>
+                </InlineField>
 
-                </Form>
+                <Form.Item label="Transaction Date">
+                    <Space direction="vertical">
+                        <DatePicker onChange={() => console.log('hello')}/>
+                    </Space>
+                </Form.Item>
+
+                <Form.Item label="Comment">
+                    <TextArea rows={4} />
+                </Form.Item>
+
+                <Form.Item label="Add Photos">
+                    <div>
+                        <img src={imagePlaceholder} />
+                    </div>
+                </Form.Item>
+            </Form>
 
             </Modal>
             

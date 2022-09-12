@@ -27,7 +27,7 @@ Personal finance manager app
 - [x] - TopNav
     - [ ] - refactor topnav
 - [x] - SideNav
-- [/] - Home
+- [x] - Home
     - [x] - overwrite antd styles
     - [x] - page layout
     - [x] - reusable button
@@ -36,9 +36,16 @@ Personal finance manager app
     - [x] - expenses card
     - [x] - expense records card
     - [x] - income records card
-    - [/] - Portals
-        - [ ] - New Expense Portal
+    - [x] - Portals
+        - [x] - New Expense Portal
         - [ ] - New Income Portal
+            - [x] - try to display both add and view & income/expense data in same portal 
+- [/] - Accounts
+    - [x] - accounts total card
+    - [ ] - redesign list of accounts with dropdown
+    - [ ] - list of accounts
+    - [ ] - add new account portal
+    - [ ] - edit current account portal 
 
 #### Resources
 - File System
@@ -69,11 +76,13 @@ Personal finance manager app
 - /statistics
  
 #### Branding
-- [ ] - Decide a name for the app
-- [ ] - Design a new logo
-- [ ] - Choose theme color
+- [x] - Decide a name for the app
+- [x] - Design a new logo
+- [x] - Choose theme color
 
-#### Common Features
+#### App Features
+
+#### Planned Features
 - User Account
     - Language
     - default account

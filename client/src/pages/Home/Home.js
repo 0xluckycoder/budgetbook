@@ -30,42 +30,40 @@ const Home = () => {
         <AppLayout>
             <h2 className={styles.heading}>Dashboard</h2>
             <div className={styles.home}>
+                <div className={styles.dropdown}>
+                    <DropdownButton
+                        state={state} 
+                        setState={setState} 
+                        dropdownValues={values} 
+                    />
+                </div>
+                                        
+                <Row gutter={20}>
+                    <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
+                        <AccountCard />
+                    </Col>
+                    <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
+                        <div className={styles.box}>
+                            <IncomeCard />
+                        </div>
+                    </Col>
+                    <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
+                        <div className={styles.box}>
+                            <ExpenseCard />
+                        </div>
+                    </Col>
+                </Row>
 
-            <div className={styles.dropdown}>
-                <DropdownButton
-                    state={state} 
-                    setState={setState} 
-                    dropdownValues={values} 
-                />
-            </div>
-                                    
-            <Row gutter={20}>
-                <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                    <AccountCard />
-                </Col>
-                <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                    <div className={styles.box}>
-                        <IncomeCard />
-                    </div>
-                </Col>
-                <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                    <div className={styles.box}>
-                        <ExpenseCard />
-                    </div>
-                </Col>
-            </Row>
+                <br/>
 
-            <br/>
-
-            <Row gutter={20}>
-                <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                    <ExpenseRecordCard />                
-                </Col>
-                <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                    <IncomeRecordCard />                
-                </Col>
-            </Row>
-
+                <Row gutter={20}>
+                    <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
+                        <ExpenseRecordCard />                
+                    </Col>
+                    <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
+                        <IncomeRecordCard />                
+                    </Col>
+                </Row>
             </div>
         </AppLayout>
     );

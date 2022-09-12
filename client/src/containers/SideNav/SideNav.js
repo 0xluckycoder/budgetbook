@@ -8,6 +8,7 @@ import Bell from '../../assets/SideNav/bell.svg';
 import Charts from '../../assets/SideNav/charts.svg';
 import Payment from '../../assets/SideNav/payment.svg';
 import Setting from '../../assets/SideNav/settings.svg';
+import Card from '../../assets/SideNav/card.svg';
 
 import { SideNavContext } from "../../pages/AppLayout";
 
@@ -18,9 +19,10 @@ export const SideNav = () => {
     return (
         <SideNavWrapper isActive={active}>
             <SideNavItem icon={Dashboard} name={"Home"} />
-            <SideNavItem icon={Bell} name={"Bell"} />
-            <SideNavItem icon={Charts} name={"Charts"} />
+            <SideNavItem icon={Card} name={"Accounts"} />
             <SideNavItem icon={Payment} name={"Payment"} />
+            <SideNavItem icon={Bell} name={"Goals"} />
+            <SideNavItem icon={Charts} name={"Charts"} />
             <SideNavItem icon={Setting} name={"Settings"} />
         </SideNavWrapper>
     );
