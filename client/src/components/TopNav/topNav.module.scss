@@ -1,0 +1,66 @@
+.topNav {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
+    left: 0px;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+    background: #6F6AF8;
+    padding: 15.6px 48px;
+
+    .left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .logo {
+            color: #fff;
+            margin: 0px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: normal;
+        }
+        
+        .hamburger {
+            display: none;
+        }
+    }
+
+    .profileCard {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    
+        p {
+            color: #fff;
+            margin: 0px;
+            padding: 0px;
+            font-size: 16px;
+        }
+    
+        img {
+            max-height: 28.8px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .topNav {
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        .left {
+            .hamburger {
+                display: block;
+                cursor: pointer;
+                color: #fff;
+                font-size: 1.3rem;
+            }
+        }
+    }
+}

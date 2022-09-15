@@ -1,0 +1,43 @@
+.cardWrapper {
+    background-color: #fff;
+    padding: 1rem;
+    height: 201px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 3px;
+
+    .cardHeading {
+        p {
+            color: rgba(0, 0, 0, 0.45);
+            font-weight: bold; 
+            padding-bottom: 10px;  
+        }
+    }
+
+    .cardDetails {
+        display: flex;
+        align-items: flex-end;
+        gap: 5px;
+        
+        .amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    
+        .percentage {
+            display: flex;
+            padding-bottom: 8px;
+            align-items: flex-end;
+            gap: 3px;
+        }
+    
+        .green {
+            color: #07A287;
+        }
+    
+        .red {
+            color: #FD5555;
+        }
+    }
+}

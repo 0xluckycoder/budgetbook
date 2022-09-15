@@ -1,12 +1,12 @@
 import React from 'react';
+import { PrivateAppRoute } from './components/router/PrivateRoute/PrivateAppRoute';
 import 'antd/dist/antd.css';
-import { AppRouter } from './router/AppRouter';
 import './app.scss';
 
 function App() {
   return (
     <div className="App">
-      <AppRouter />
+      <PrivateAppRoute />
     </div>
   );
 }

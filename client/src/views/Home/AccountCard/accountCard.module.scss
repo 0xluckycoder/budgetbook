@@ -1,0 +1,32 @@
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 1rem;
+    height: 201px;
+    border-radius: 3px;
+
+    .cardHeading {
+        p {
+            color: rgba(0, 0, 0, 0.45);
+            font-weight: bold; 
+            padding-bottom: 10px;  
+        }
+    }
+
+    .cardDetails {
+        .amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    
+        .accountName {
+            font-size: 1.25rem;
+        }
+    }
+
+    .footer {
+        color: rgba(0, 0, 0, 0.45);
+    }
+}

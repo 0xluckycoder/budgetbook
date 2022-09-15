@@ -1,0 +1,42 @@
+.cardWrapper {
+    background-color: #fff;
+    padding: 1rem;
+    height: 201px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 3px;
+
+    .floatingIconsWrapper {
+
+        display: flex;
+        gap: 10px;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+    
+        .icon {
+            color: #6F6AF8;
+            background-color: rgba(111, 106, 248, 0.2);
+            padding: 3px 9px 1px 9px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+
+    .cardDetails {
+        .amount {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    
+        .accountName {
+            font-size: 1.25rem;
+        }
+    }
+
+    .cardFooter {
+        color: rgba(0, 0, 0, 0.45);
+    }
+}

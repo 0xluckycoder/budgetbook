@@ -1,0 +1,60 @@
+.recordCardWrapper {
+    padding: 1rem;
+    background: #fff;
+    width: 100%;
+
+    .cardHeading {
+        p {
+            color: rgba(0, 0, 0, 0.45);
+            font-weight: bold; 
+            padding-bottom: 10px;  
+        }
+    }
+
+}
+
+.recordListItem {
+    display: flex;
+    align-items: center;
+    background-color: #F8F8F8;
+    justify-content: space-between;
+    padding: 5px 1rem;
+    height: 39.5px;
+}
+
+.recordListItemLeft {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+
+    .icon {
+        background-color: rgba(111, 106, 248, 0.2);
+        color: #6F6AF8;
+        padding: 3px 9px 1px 9px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+.closeWrapper {
+    background-color: rgba(250, 76, 76, 0.2);
+    color: #FA4C4C;
+    padding: 3px 9px 1px 9px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.listScrollArea {
+    height: 250px;
+    overflow-y: auto;
+    margin-top: 1rem;
+
+    .recordListWrapper {
+        display: grid;
+        row-gap: 1rem;
+        overflow-y: auto;
+    }
+}
