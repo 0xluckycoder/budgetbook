@@ -1,4 +1,3 @@
-
 ## budgetbook
 Personal finance manager app
 
@@ -39,16 +38,72 @@ Personal finance manager app
     - [x] - Portals
         - [x] - New Expense Portal
         - [ ] - New Income Portal
-            - [x] - try to display both add and view & income/expense data in same portal 
-- [/] - Accounts
+            - [x] - try to display both add and view & income/expense data in same portal
+- [x] - Accounts
     - [x] - accounts total card
-    - [ ] - redesign list of accounts with dropdown
-    - [ ] - list of accounts
-    - [ ] - add new account portal
-    - [ ] - edit current account portal 
+    - [x] - redesign list of accounts with dropdown
+    - [x] - list of accounts
+    - [x] - add new account portal
+    - [ ] - edit current account portal    
+- [ ] - Payments (skip this section for now)
+- [ ] - Settings
+- [ ] - redesign user profile
+
+#### Backend API
+- [x] - create new mongoose database
+- [/] - Expense
+    - [ ] - Controller
+    - [ ] - Service
+    - [ ] - Model
+    - [x] - /api/expense - create expense record
+    - [x] - /api/:id - get expense record by id
+    - [/] - /api/:id - update expense record
+    - [ ] - /api/:id - delete expense record
+
+- [ ] - Income
+    - [ ] - Controller
+    - [ ] - Service
+    - [ ] - Model
+    - [ ] - /api/expense - create expense record
+    - [ ] - /api/:id - get expense record by id
+    - [ ] - /api/:id - update expense record
+    - [ ] - /api/:id - delete expense record
+
+
+#### Data Entries
+- Expense Entry
+    - ID
+    - userId - (FK)
+    - title
+    - amount - required
+    - category - required
+    - transactionDate - required
+    - photos
+    - comment
+    - account - required
+
+- Income Entry
+    - ID
+    - userId - (FK)
+    - title
+    - amount
+    - category
+    - transactionDate
+    - photos
+    - comment
+    - account
+
+- Finance Account Entry
+    - ID
+    - userId - (FK)
+    - name
+    - value - initial value
+    - currencyType
+    - description
 
 #### Resources
 - File System
+    - https://www.taniarascia.com/react-architecture-directory-structure - using this one
     - https://www.pluralsight.com/guides/how-to-organize-your-react-+-redux-codebase
     - https://github.com/altence/lightence-ant-design-react-template
     - https://aamnah.com/redux/redux-folder-structure-patterns
@@ -67,6 +122,39 @@ Personal finance manager app
     - pages
     - utils
 
+- src
+    - assets
+    - components
+        - forms
+            - TextField
+            - Select
+        - routing
+            - PrivateRoute
+        - layout
+            - navigation
+                - navbar
+    - services
+        - api
+        - LocalStorage
+    - store
+        - authentication
+        - authors
+        - books
+    - utils
+        - constants
+        - helpers
+    - views
+        - Authors
+            - AuthorsPage
+            - AuthorBlurb
+        - Books
+            - BooksPage
+            - BookForm
+        - Login
+            - LoginPage
+            - LoginForm
+    
+
 #### Frontend Routes
 - /home
 - /accounts
@@ -81,6 +169,36 @@ Personal finance manager app
 - [x] - Choose theme color
 
 #### App Features
+- Sorting by
+    - week
+    - month
+    - year
+    - max
+
+- Income
+    - adding income record
+    - expense category / name
+    - expense date
+    - add photos
+    - Comment
+    - Amount
+    - period (week / month / year / custom select)
+
+- Expenses
+    - adding expense record
+    - expense category / name
+    - expense date
+    - add photos
+    - Comment
+    - Amount
+    - period (week / month / year / custom select)
+
+- Finance Accounts
+    - add finance account
+    - account name
+    - initial value
+    - currency type
+    - description
 
 #### Planned Features
 - User Account
@@ -113,15 +231,6 @@ Personal finance manager app
 - Money Accounts
     - user can have different accounts with different values
     - each account have seperate income & expenses listed out
-
-- Expenses
-    - adding expense record
-    - expense category / name
-    - expense date
-    - add photos
-    - Comment
-    - Amount
-    - period (week / month / year / custom select)
 
 - Income
     - adding income record
@@ -169,6 +278,8 @@ Personal finance manager app
     - Language
     - Default Account
     - Default Period
+
+## New Feature Ideas
 
 
 ###  UI Design
