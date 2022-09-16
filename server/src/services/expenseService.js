@@ -18,7 +18,29 @@ const getExpenseById = async (id) => {
     }
 }
 
+const updateExpense = async (expenseData, id) => {
+    try {
+        const updateExpense = expense.updateExpense(expenseData, id);
+        return updateExpense;
+    } catch(error) {
+        throw error;
+    }
+}
+
+const deleteExpense = async (id) => {
+    try {
+        const deleteExpense = expense.deleteExpense(id);
+        return deleteExpense;
+    } catch(error) {
+        throw error;
+    }
+}
+
+
+
 module.exports = {
     createExpense,
-    getExpenseById
+    getExpenseById,
+    updateExpense,
+    deleteExpense
 }

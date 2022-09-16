@@ -19,7 +19,27 @@ const getExpenseById = async (id) => {
     }
 }
 
+const updateExpense = async (expenseData, id) => {
+    try {
+        const expenseEntry = await ExpenseEntry.updateOne({ _id: id }, { ...expenseData });
+        return expenseEntry;
+    } catch(error) {
+        throw error;
+    }
+}
+
+const deleteExpense = async (id) => {
+    try {
+        const expenseEntry = await ExpenseEntry.deleteOne({ _id: id });
+        return expenseEntry;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     createExpense,
-    getExpenseById
+    getExpenseById,
+    updateExpense,
+    deleteExpense
 }

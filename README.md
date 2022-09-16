@@ -51,23 +51,26 @@ Personal finance manager app
 
 #### Backend API
 - [x] - create new mongoose database
-- [/] - Expense
-    - [ ] - Controller
-    - [ ] - Service
-    - [ ] - Model
+
+- [x] - Expense
+    - [x] - Controller
+    - [x] - Service
+    - [x] - Model
     - [x] - /api/expense - create expense record
     - [x] - /api/:id - get expense record by id
-    - [/] - /api/:id - update expense record
-    - [ ] - /api/:id - delete expense record
+    - [x] - /api/:id - update expense record
+    - [x] - /api/:id - delete expense record
 
-- [ ] - Income
-    - [ ] - Controller
-    - [ ] - Service
-    - [ ] - Model
-    - [ ] - /api/expense - create expense record
-    - [ ] - /api/:id - get expense record by id
-    - [ ] - /api/:id - update expense record
-    - [ ] - /api/:id - delete expense record
+- [x] - Income
+    - [x] - Controller
+    - [x] - Service
+    - [x] - Model
+    - [x] - /api/income - create income record
+    - [x] - /api/:id - get income record by id
+    - [x] - /api/:id - update income record
+    - [x] - /api/:id - delete income record
+
+
 
 
 #### Data Entries

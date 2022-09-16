@@ -13,6 +13,7 @@ const middlewares = require('./middlewares');
 // const storeRoutes = require('./v1/api/storeRoutes');
 
 const expenseRoutes = require('./v1/api/expenseRoutes');
+const incomeRoutes = require('./v1/api/incomeRoutes');
 
 const app = express();
 
@@ -49,7 +50,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/expense', expenseRoutes);
-// app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/income', incomeRoutes);
 // app.use('/api/v1/vendor', vendorRoutes);
 // app.use('/api/v1/store', storeRoutes)
 // app.use('/api/v1/vendor', authorize, vendorRoutes);

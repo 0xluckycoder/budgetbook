@@ -1,10 +1,10 @@
 const yup = require('yup');
-const expenseService = require('../services/expenseService');
+const incomeService = require('../services/incomeService');
 
-const createExpense = async (req, res, next) => {
+const createIncome = async (req, res, next) => {
     try {
         // validate user input
-        const expenseSchema = yup.object().shape({
+        const incomeSchema = yup.object().shape({
             title: yup.string('title must be a string')
                         .max(127, 'firstname is too long'),
             amount: yup.string('amount must be a string')
@@ -24,37 +24,37 @@ const createExpense = async (req, res, next) => {
                         .max(127, 'account is too long'),
         });
 
-        const validated = await expenseSchema.validate(req.body);
-        const createExpenseResponse = await expenseService.createExpense(validated);
+        const validated = await incomeSchema.validate(req.body);
+        const createIncomeResponse = await incomeService.createIncome(validated);
 
         res.status(200).json({
             success: true,
-            data: createExpenseResponse
+            data: createIncomeResponse
         });
     } catch(error) {
         next(error);
     }
 }
 
-const getExpenseById = async (req, res, next) => {
+const getIncomeById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const getExpenseResponse = await expenseService.getExpenseById(id);
+        const getIncomeResponse = await incomeService.getIncomeById(id);
 
         res.status(200).json({
             success: true,
-            data: getExpenseResponse
+            data: getIncomeResponse
         });
     } catch(error) {
         next(error);
     }
 }
 
-const updateExpense = async (req, res, next) => {
+const updateIncome = async (req, res, next) => {
     try {
         const { id } = req.params;
 
-        const expenseSchema = yup.object().shape({
+        const incomeSchema = yup.object().shape({
             title: yup.string('title must be a string')
                         .max(127, 'firstname is too long'),
             amount: yup.string('amount must be a string')
@@ -70,12 +70,12 @@ const updateExpense = async (req, res, next) => {
                         .max(127, 'account is too long'),
         });
 
-        const validated = await expenseSchema.validate(req.body);
-        const updatedExpenseResponse = await expenseService.updateExpense(validated, id);
+        const validated = await incomeSchema.validate(req.body);
+        const updatedIncomeResponse = await incomeService.updateIncome(validated, id);
 
         res.status(200).json({
             success: true,
-            data: updatedExpenseResponse
+            data: updatedIncomeResponse
         })
 
     } catch(error) {
@@ -83,22 +83,23 @@ const updateExpense = async (req, res, next) => {
     }
 }
 
-const deleteExpense = async (req, res, next) => {
+const deleteIncome = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const deleteExpenseResponse = await expenseService.deleteExpense(id);
+        const deleteIncomeResponse = await incomeService.deleteIncome(id);
         res.status(200).json({
             success: true,
-            data: deleteExpenseResponse
+            data: deleteIncomeResponse
         });
     } catch(error) {
         next(error);
     }
 }
 
+
 module.exports = {
-    createExpense,
-    getExpenseById,
-    updateExpense,
-    deleteExpense
+    createIncome,
+    getIncomeById,
+    updateIncome,
+    deleteIncome
 }
