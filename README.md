@@ -57,20 +57,29 @@ Personal finance manager app
     - [x] - Service
     - [x] - Model
     - [x] - /api/expense - create expense record
-    - [x] - /api/:id - get expense record by id
-    - [x] - /api/:id - update expense record
-    - [x] - /api/:id - delete expense record
+    - [x] - /api/expense/:id - get expense record by id
+    - [x] - /api/expense/:id - update expense record
+    - [x] - /api/expense/:id - delete expense record
 
 - [x] - Income
     - [x] - Controller
     - [x] - Service
     - [x] - Model
     - [x] - /api/income - create income record
-    - [x] - /api/:id - get income record by id
-    - [x] - /api/:id - update income record
-    - [x] - /api/:id - delete income record
+    - [x] - /api/income/:id - get income record by id
+    - [x] - /api/income/:id - update income record
+    - [x] - /api/income/:id - delete income record
 
+- [ ] - Account
+    - [ ] - Controller
+    - [ ] - Service
+    - [ ] - Model
+    - [ ] - /api/account - create account
+    - [ ] - /api/account/:id - get account by id
+    - [ ] - /api/account/:id - update income record
+    - [ ] - /api/account/:id - delete income record
 
+- [ ] - add relevant api parameters to match the requirement
 
 
 #### Data Entries
@@ -96,7 +105,7 @@ Personal finance manager app
     - comment
     - account
 
-- Finance Account Entry
+- Account Entry
     - ID
     - userId - (FK)
     - name
