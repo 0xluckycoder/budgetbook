@@ -6,6 +6,10 @@ const expenseEntrySchema = new Schema({
         type: String,
         required: true
     },
+    transactionDate: {
+        type: Date,
+        required: true
+    },
     title: {
         type: String
     },
@@ -31,7 +35,7 @@ const expenseEntrySchema = new Schema({
         type: String,
         required: true
     }
-});
+}, { timestamps: true });
 
 const ExpenseEntry = mongoose.model('ExpenseEntry', expenseEntrySchema);
 

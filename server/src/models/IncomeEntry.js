@@ -18,7 +18,7 @@ const incomeEntrySchema = new Schema({
         required: true
     },
     transactionDate: {
-        type: String,
+        type: Date,
         required: true
     },
     photos: {
@@ -31,7 +31,7 @@ const incomeEntrySchema = new Schema({
         type: String,
         required: true
     }
-});
+}, { timestamps: true });
 
 const IncomeEntry = mongoose.model('IncomeEntry', incomeEntrySchema);
 

@@ -36,6 +36,17 @@ const createExpense = async (req, res, next) => {
     }
 }
 
+const getExpenses = async (req, res, next) => {
+    // console.log('🔥', req.query.date);
+    const sortType = req.query.date;
+    const getExpenseResponse = await expenseService.getExpenses(sortType);
+
+    res.status(200).json({
+        success: true,
+        data: getExpenseResponse
+    });
+}
+
 const getExpenseById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -98,6 +109,7 @@ const deleteExpense = async (req, res, next) => {
 
 module.exports = {
     createExpense,
+    getExpenses,
     getExpenseById,
     updateExpense,
     deleteExpense

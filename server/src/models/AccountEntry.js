@@ -20,7 +20,7 @@ const accountEntrySchema = new Schema({
     description: {
         type: String
     }
-});
+}, { timestamps: true });
 
 const AccountEntry = mongoose.model('AccountEntry', accountEntrySchema);
 

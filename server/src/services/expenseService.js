@@ -1,9 +1,21 @@
 const expense = require('../database/expense');
+const moment = require('moment');
 
 const createExpense = async (expenseData) => {
     try {
+        // add transaction date in ISO format
+        expenseData.transactionDate = moment().day(0).toISOString();
         const createExpense = await expense.createExpense(expenseData);
         return createExpense;
+    } catch(error) {
+        throw error;
+    }
+}
+
+const getExpenses = async (sortType) => {
+    try {
+        const getExpense = await expense.getExpenses(sortType);
+        return getExpense;
     } catch(error) {
         throw error;
     }
@@ -40,6 +52,7 @@ const deleteExpense = async (id) => {
 
 module.exports = {
     createExpense,
+    getExpenses,
     getExpenseById,
     updateExpense,
     deleteExpense

@@ -5,6 +5,8 @@ const router = Router();
 
 router.post('/', expenseController.createExpense);
 
+router.get('/', expenseController.getExpenses);
+
 router.get('/:id', expenseController.getExpenseById);
 
 router.put('/:id', expenseController.updateExpense);

@@ -50,6 +50,17 @@ Personal finance manager app
 - [ ] - redesign user profile
 
 #### Backend API
+
+- Architecture
+    - request
+    - router
+    - controller
+        - handling stuff that realted to HTTP (reqeusts and responses)
+    - service layer
+        - business logic goes in service layer
+    - data access layer
+        - data access layer is responsible for hanlding database mutations and queries
+
 - [x] - create new mongoose database
 
 - [x] - Expense
@@ -70,17 +81,33 @@ Personal finance manager app
     - [x] - /api/income/:id - update income record
     - [x] - /api/income/:id - delete income record
 
-- [ ] - Account
-    - [ ] - Controller
-    - [ ] - Service
-    - [ ] - Model
-    - [ ] - /api/account - create account
-    - [ ] - /api/account/:id - get account by id
-    - [ ] - /api/account/:id - update income record
-    - [ ] - /api/account/:id - delete income record
+- [x] - Account
+    - [x] - Controller
+    - [x] - Service
+    - [x] - Model
+    - [x] - /api/account - create account
+    - [x] - /api/account/:id - get account by id
+    - [x] - /api/account/:id - update income record
+    - [x] - /api/account/:id - delete income record
 
-- [ ] - add relevant api parameters to match the requirement
+- [/] - Feed frontend with example data
+    - [/] - add example data set to mongodb
+        - [/] - incomes example data set
+        - [ ] - expense example data set
+        - [ ] - accounts example data set
 
+- add transactionDate field to database schema which will be used when sorting data by date duration
+- extract parameters from request
+- add relevant lt gt functions and fetch records
+
+- [ ] - Sorting endpoints
+    - [ ] - /api/expenses/?time=7days
+    - [ ] - /api/expenses/?time=thismonth
+    - [ ] - /api/expenses/?time=lastmonth
+    - [ ] - /api/expenses/?time=thisyear
+    - [ ] - /api/expenses/?time=lastyear
+
+- [ ] - Build the rest of the frontend components
 
 #### Data Entries
 - Expense Entry
@@ -213,6 +240,9 @@ Personal finance manager app
     - description
 
 #### Planned Features
+- Previous Monthly Records
+
+
 - User Account
     - Language
     - default account

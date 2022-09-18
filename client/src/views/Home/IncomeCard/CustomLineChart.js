@@ -20,6 +20,7 @@ export const CustomLineChart = ({ data }) => {
             width={3}
             strokeWidth={2}
              />
+            <XAxis dataKey={"Date"} display={"none"} />
         </LineChart>
       </ResponsiveContainer>
     );

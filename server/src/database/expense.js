@@ -1,4 +1,5 @@
 const ExpenseEntry = require('../models/ExpenseEntry');
+const moment = require('moment');
 
 const createExpense = async (expense) => {
     try {
@@ -7,6 +8,25 @@ const createExpense = async (expense) => {
         return createdExpenseEntry;
     } catch (error) {
         throw error;
+    }
+}
+
+const getExpenses = async (sortType) => {
+    if (sortType === "7days") {
+        // 2022-09-18T16:08:16.540+00:00
+        // 2022-09-18T17:13:38.641Z
+        const getExpense = await ExpenseEntry.find({"transactionDate": {
+            "$lt": "2022-09-18T18:05:26.936"
+        }});
+        return getExpense;
+    } else if (sortType === "thismonth") {
+
+    } else if (sortType === "lastmonth") {
+
+    } else if (sortType === "thisyear") {
+
+    } else if (sortType === "lastyear") {
+
     }
 }
 
@@ -39,6 +59,7 @@ const deleteExpense = async (id) => {
 
 module.exports = {
     createExpense,
+    getExpenses,
     getExpenseById,
     updateExpense,
     deleteExpense

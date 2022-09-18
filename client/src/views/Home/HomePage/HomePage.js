@@ -12,23 +12,28 @@ import { IncomeRecordCard } from "../IncomeRecordCard/IncomeRecordCard";
 
 const HomePage = () => {
 
-    const [state, setState] = useState('Yearly');
+    const [state, setState] = useState('This Month');
 
     const values = [
         {
-            value: 'Yearly'
+            value: '7 Days'
         },
         {
-            value: 'Daily'
+            value: 'This Month'
         },
         {
-            value: 'Max'
+            value: 'Last Month'
+        },
+        {
+            value: 'This Year'
+        },
+        {
+            value: 'Last Year'
         }
     ];
     
     return (
         <AppLayout>
-            
             <h2 className={styles.heading}>Dashboard</h2>
             <div className={styles.home}>
                 <div className={styles.dropdown}>
