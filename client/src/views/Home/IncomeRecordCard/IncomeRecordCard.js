@@ -17,7 +17,7 @@ export const IncomeRecordCard = () => {
     const [addModalState, setAddModalState] = useState(false);
     const [form] = Form.useForm();
     const [accountDropdownState, setAccountDropdownState] = useState('Select Account');
-    const [categoryDropdownState, setCategoryDropdownState] = useState('Select Category')
+    const [categoryDropdownState, setCategoryDropdownState] = useState('Select Category');
 
     const accountMenuData = [
         {

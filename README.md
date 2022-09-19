@@ -51,8 +51,54 @@ Personal finance manager app
     - [ ] - user info edit modal
     - [x] - logout button
     - [x] - app settings card
-- [ ] - List down and link all endpoints to frontend
+- [ ] - link api endpoints with frontend
+    - plan and code
 - [ ] - redesign user profile
+
+- [ ] - link functionality with endpoints
+    
+
+    - [ ] - general
+    
+        - Managing State 
+            - [ ] - API should retreive data everytime user navigate through pages
+            - [ ] - API should retrieve data everytime user adds or edits relevant data
+            - [ ] - User auth state must presist every reload
+        - [ ] - protect private routes
+    - [ ] - recap redux concepts
+        - [ ] - understand importance of combineReducers
+        - [ ] - learn data flow
+        - [ ] - learn queries
+    - [ ] - add top level redux state & make actions to retreive data properly
+    - [ ] - show loading animation in pages
+        
+    - [ ] - home
+        - [ ] - home sort drodown
+        - [ ] - add expense record
+        - [ ] - incomes chart
+        - [ ] - expense chart
+        - [ ] - show expense record list
+        - [ ] - add income record
+        - [ ] - show income record list
+        - [ ] - edit expense record
+        - [ ] - edit income record
+        - [ ] - delete expense record
+        - [ ] - delete income record
+    - [ ] - Accounts
+        - [ ] - feed pie chart by fetching all accounts records
+        - [ ] - list of accounts
+        - [ ] - view account
+        - [ ] - edit account
+        - [ ] - add new account
+    - [ ] - Settings
+        - [ ] - show user name and email
+        - [ ] - edit user info
+        - [ ] - logout user
+        - [ ] - change default user app settings
+
+    - [ ] - Start to implement authentication
+
+
 
 #### Backend API
 
