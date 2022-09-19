@@ -46,7 +46,12 @@ Personal finance manager app
     - [x] - add new account portal
     - [ ] - edit current account portal    
 - [ ] - Payments (skip this section for now)
-- [ ] - Settings
+- [x] - Settings
+    - [x] - user profile card
+    - [ ] - user info edit modal
+    - [x] - logout button
+    - [x] - app settings card
+- [ ] - List down and link all endpoints to frontend
 - [ ] - redesign user profile
 
 #### Backend API
