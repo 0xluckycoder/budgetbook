@@ -96,9 +96,8 @@ Personal finance manager app
         - [ ] - expense example data set
         - [ ] - accounts example data set
 
-- add transactionDate field to database schema which will be used when sorting data by date duration
-- extract parameters from request
-- add relevant lt gt functions and fetch records
+- get the last month first date and last date
+- use lte gte and fetch data
 
 - [ ] - Sorting endpoints
     - [ ] - /api/expenses/?time=7days

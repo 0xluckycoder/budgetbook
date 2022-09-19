@@ -15,18 +15,51 @@ const getExpenses = async (sortType) => {
     if (sortType === "7days") {
         // 2022-09-18T16:08:16.540+00:00
         // 2022-09-18T17:13:38.641Z
+        // const getExpense = await ExpenseEntry.find({"transactionDate": {
+        //     "$gte": "2022-09-15",
+        //     "$lte": "2022-09-17"
+        // }});
         const getExpense = await ExpenseEntry.find({"transactionDate": {
-            "$lt": "2022-09-18T18:05:26.936"
+            "$gte": moment().day(-6).format('YYYY-MM-DD'),
+            "$lte": moment().day(0).format('YYYY-MM-DD')
         }});
         return getExpense;
     } else if (sortType === "thismonth") {
+        const firstDayOfThisMonth = moment().startOf('month').format('YYYY-MM-DD');
+        const lastDayOfThisMonth = moment().endOf('month').format('YYYY-MM-DD');
 
+        const getExpense = await ExpenseEntry.find({"transactionDate": {
+            "$gte": firstDayOfThisMonth,
+            "$lte": lastDayOfThisMonth
+        }});
+        return getExpense;
     } else if (sortType === "lastmonth") {
+        const firstDayOfLastMonth = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'); 
+        const lastDayOfFirstMonth = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
 
+        const getExpense = await ExpenseEntry.find({"transactionDate": {
+            "$gte": firstDayOfLastMonth,
+            "$lte": lastDayOfFirstMonth
+        }});
+        return getExpense;
     } else if (sortType === "thisyear") {
+        const firstDayOfThisYear = moment().startOf('year').format('YYYY-MM-DD');
+        const lastDayOfThisYear = moment().day(0).format('YYYY-MM-DD');
 
+        const getExpense = await ExpenseEntry.find({"transactionDate": {
+            "$gte": firstDayOfThisYear,
+            "$lte": lastDayOfThisYear
+        }});
+        return getExpense;
     } else if (sortType === "lastyear") {
+        const firstDayOfLastYear = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
+        const lastDayOfLastYear = moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD');
 
+        const getExpense = await ExpenseEntry.find({"transactionDate": {
+            "$gte": firstDayOfLastYear,
+            "$lte": lastDayOfLastYear
+        }});
+        return getExpense;
     }
 }
 

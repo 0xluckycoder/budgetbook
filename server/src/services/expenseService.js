@@ -4,7 +4,7 @@ const moment = require('moment');
 const createExpense = async (expenseData) => {
     try {
         // add transaction date in ISO format
-        expenseData.transactionDate = moment().day(0).toISOString();
+        expenseData.transactionDate = moment().day(-7).format('YYYY-MM-DD');
         const createExpense = await expense.createExpense(expenseData);
         return createExpense;
     } catch(error) {
