@@ -37,14 +37,17 @@ const createExpense = async (req, res, next) => {
 }
 
 const getExpenses = async (req, res, next) => {
-    // console.log('🔥', req.query.date);
-    const sortType = req.query.date;
-    const getExpenseResponse = await expenseService.getExpenses(sortType);
+    try {
+        const sortType = req.query.date;
+        const getExpenseResponse = await expenseService.getExpenses(sortType);
 
-    res.status(200).json({
-        success: true,
-        data: getExpenseResponse
-    });
+        res.status(200).json({
+            success: true,
+            data: getExpenseResponse
+        });
+    } catch (error) {
+        next(error);
+    }
 }
 
 const getExpenseById = async (req, res, next) => {

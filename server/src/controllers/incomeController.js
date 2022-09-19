@@ -36,6 +36,20 @@ const createIncome = async (req, res, next) => {
     }
 }
 
+const getIncomes = async (req, res, next) => {
+    try {
+        const sortType = req.query.date;
+        const getIncomesResponse = await incomeService.getIncomes(sortType);
+
+        res.status(200).json({
+            success: true,
+            data: getIncomesResponse
+        });
+    } catch(error) {
+        next(error);
+    }
+}
+
 const getIncomeById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -99,6 +113,7 @@ const deleteIncome = async (req, res, next) => {
 
 module.exports = {
     createIncome,
+    getIncomes,
     getIncomeById,
     updateIncome,
     deleteIncome

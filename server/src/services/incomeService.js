@@ -9,6 +9,15 @@ const createIncome = async (incomeData) => {
     }
 }
 
+const getIncomes = async (sortType) => {
+    try {
+        const getIncome = await income.getIncomes(sortType);
+        return getIncome;
+    } catch(error) {
+        throw error;
+    }
+}
+
 const getIncomeById = async (id) => {
     try {
         const getIncomeById = await income.getIncomeById(id);
@@ -38,6 +47,7 @@ const deleteIncome = async (id) => {
 
 module.exports = {
     createIncome,
+    getIncomes,
     getIncomeById,
     updateIncome,
     deleteIncome

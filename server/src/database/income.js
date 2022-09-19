@@ -10,6 +10,56 @@ const createIncome = async (income) => {
     }
 }
 
+const getIncomes = async (sortType) => {
+    try {
+        if (sortType === "7days") {
+            const getIncome = await IncomeEntry.find({"transactionDate": {
+                "$gte": moment().day(-6).format('YYYY-MM-DD'),
+                "$lte": moment().day(0).format('YYYY-MM-DD')
+            }});
+            return getIncome;
+        } else if (sortType === "thismonth") {
+            const firstDayOfThisMonth = moment().startOf('month').format('YYYY-MM-DD');
+            const lastDayOfThisMonth = moment().endOf('month').format('YYYY-MM-DD');
+    
+            const getIncome = await IncomeEntry.find({"transactionDate": {
+                "$gte": firstDayOfThisMonth,
+                "$lte": lastDayOfThisMonth
+            }});
+            return getIncome;
+        } else if (sortType === "lastmonth") {
+            const firstDayOfLastMonth = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'); 
+            const lastDayOfFirstMonth = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
+    
+            const getIncome = await IncomeEntry.find({"transactionDate": {
+                "$gte": firstDayOfLastMonth,
+                "$lte": lastDayOfFirstMonth
+            }});
+            return getIncome;
+        } else if (sortType === "thisyear") {
+            const firstDayOfThisYear = moment().startOf('year').format('YYYY-MM-DD');
+            const lastDayOfThisYear = moment().day(0).format('YYYY-MM-DD');
+    
+            const getIncome = await IncomeEntry.find({"transactionDate": {
+                "$gte": firstDayOfThisYear,
+                "$lte": lastDayOfThisYear
+            }});
+            return getIncome;
+        } else if (sortType === "lastyear") {
+            const firstDayOfLastYear = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
+            const lastDayOfLastYear = moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD');
+    
+            const getIncome = await IncomeEntry.find({"transactionDate": {
+                "$gte": firstDayOfLastYear,
+                "$lte": lastDayOfLastYear
+            }});
+            return getIncome;
+        }
+    } catch(error) {
+        throw error;
+    }
+}
+
 const getIncomeById = async (id) => {
     try {
         const getIncomeById = await IncomeEntry.findOne({ _id: id });;
@@ -39,6 +89,7 @@ const deleteIncome = async (id) => {
 
 module.exports = {
     createIncome,
+    getIncomes,
     getIncomeById,
     updateIncome,
     deleteIncome

@@ -90,21 +90,24 @@ Personal finance manager app
     - [x] - /api/account/:id - update income record
     - [x] - /api/account/:id - delete income record
 
-- [/] - Feed frontend with example data
-    - [/] - add example data set to mongodb
-        - [/] - incomes example data set
+- [x] - Sorting endpoints
+    - [x] - /api/expense/?time=7days
+    - [x] - /api/expense/?time=thismonth
+    - [x] - /api/expense/?time=lastmonth
+    - [x] - /api/expense/?time=thisyear
+    - [x] - /api/expense/?time=lastyear
+
+    - [x] - /api/income/?time=7days
+    - [x] - /api/income/?time=thismonth
+    - [x] - /api/income/?time=lastmonth
+    - [x] - /api/income/?time=thisyear
+    - [x] - /api/income/?time=lastyear
+
+- [ ] - Feed frontend with example data
+    - [ ] - add example data set to mongodb
+        - [ ] - incomes example data set
         - [ ] - expense example data set
         - [ ] - accounts example data set
-
-- get the last month first date and last date
-- use lte gte and fetch data
-
-- [ ] - Sorting endpoints
-    - [ ] - /api/expenses/?time=7days
-    - [ ] - /api/expenses/?time=thismonth
-    - [ ] - /api/expenses/?time=lastmonth
-    - [ ] - /api/expenses/?time=thisyear
-    - [ ] - /api/expenses/?time=lastyear
 
 - [ ] - Build the rest of the frontend components
 
