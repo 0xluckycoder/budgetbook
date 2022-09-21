@@ -60,7 +60,10 @@ Personal finance manager app
 
     - [ ] - general
     
-        - Managing State 
+        - Managing State
+	    - [/] - Learn redux toolkit
+		- query
+		- managing multiples states 
             - [ ] - API should retreive data everytime user navigate through pages
             - [ ] - API should retrieve data everytime user adds or edits relevant data
             - [ ] - User auth state must presist every reload
