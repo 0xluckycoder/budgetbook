@@ -6,7 +6,7 @@ const createIncome = async (req, res, next) => {
         // validate user input
         const incomeSchema = yup.object().shape({
             title: yup.string('title must be a string')
-                        .max(127, 'firstname is too long'),
+                        .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
                         .required('amount is required')
                         .max(127, 'amount is too long'),
@@ -36,6 +36,9 @@ const createIncome = async (req, res, next) => {
     }
 }
 
+/**
+ * /api/v1/expense?date=7days
+*/
 const getIncomes = async (req, res, next) => {
     try {
         const sortType = req.query.date;

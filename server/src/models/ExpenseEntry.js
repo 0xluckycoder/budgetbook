@@ -6,10 +6,6 @@ const expenseEntrySchema = new Schema({
         type: String,
         required: true
     },
-    transactionDate: {
-        type: Date,
-        required: true
-    },
     title: {
         type: String
     },
