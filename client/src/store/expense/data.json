@@ -1,0 +1,47 @@
+[
+    {
+      "_id":  "632ef958e2cc9ee3d291bba0",
+      "userId": "111111",
+      "title": "test expense",
+      "amount": "2000",
+      "category": "restaurant",
+      "transactionDate": "2022-09-18",
+      "photos": [
+        "photo_one",
+        "photo_two",
+        "photo_three"
+      ],
+      "comment": "my comment",
+      "account": "my account"
+    },
+    {
+      "_id":  "632ef9ff050a8eae527007c9",
+      "userId": "111111",
+      "title": "test expense",
+      "amount": "1200",
+      "category": "restaurant",
+      "transactionDate": "2022-09-17",
+      "photos": [
+        "photo_one",
+        "photo_two",
+        "photo_three"
+      ],
+      "comment": "my comment",
+      "account": "my account"
+    },
+    {
+      "_id": "632f03f7050a8eae527007ca",
+      "userId": "111111",
+      "title": "test expense",
+      "amount": "300",
+      "category": "restaurant",
+      "transactionDate": "2022-09-16",
+      "photos": [
+        "photo_one",
+        "photo_two",
+        "photo_three"
+      ],
+      "comment": "my comment",
+      "account": "my account"
+    }
+  ]

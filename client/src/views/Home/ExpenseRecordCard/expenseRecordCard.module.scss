@@ -20,13 +20,6 @@
     justify-content: space-between;
     padding: 5px 1rem;
     height: 39.5px;
-}
-
-.recordListItemLeft {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 150px;
 
     .icon {
         background-color: rgba(111, 106, 248, 0.2);
@@ -37,6 +30,15 @@
         cursor: pointer;
     }
 }
+
+// .recordListItemLeft {
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    // width: 150px;
+
+
+// }
 
 .closeWrapper {
     background-color: rgba(250, 76, 76, 0.2);

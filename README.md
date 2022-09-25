@@ -61,7 +61,19 @@ Personal finance manager app
     - [ ] - general
     
         - Managing State
-	    - [/] - Learn redux toolkit
+	        - [x] - Learn redux toolkit
+            - [x] - read again and understand async data fetching and features
+            - [ ] - load sample data on database
+                - [x] - load income records
+                - [ ] - load expense records
+                - [ ] - load accounts records
+            - [/] - setup a store on frontend
+                - [/] - income slice
+                - [ ] - expense slice
+                - [ ] - accounts slice
+
+        - Add authentication
+
 		- query
 		- managing multiples states 
             - [ ] - API should retreive data everytime user navigate through pages
