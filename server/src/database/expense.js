@@ -10,7 +10,7 @@ const createExpense = async (expense) => {
         throw error;
     }
 }
-
+// http://localhost:5500/api/v1/expense?date=7days
 const getExpenses = async (sortType) => {
     try {
         if (sortType === "7days") {

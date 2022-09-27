@@ -72,7 +72,21 @@ Personal finance manager app
                 - [ ] - expense slice
                 - [ ] - accounts slice
 
+            - [x] - add local state with query and mutation
+            - [ ] - add createApi slice and link with database
+            - [ ] - improve performance by adding caching
+                - [ ] - experiment and learn how automatic caching works
+
         - Add authentication
+
+         - [/] - setup state with RTK
+            - [x] - add create api slice 
+            - [x] - add query
+            - [ ] - add mutation
+            - [ ] - automatic refetching
+            - [ ] - understand how refetching and mutation process works 
+            - [ ] - handle loading
+            - [ ] - handle errors
 
 		- query
 		- managing multiples states 

@@ -5,14 +5,28 @@ import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import { InlineField } from '../../../components/Form/InlineField';
-import { useSelector, useDispatch } from 'react-redux';
-import { addRecord, selectExpense } from '../../../store/expense/expense.slice';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { addRecord, selectExpense } from '../../../store/expense/expense.slice';
 import styles from './expenseRecordCard.module.scss';
+
+import { useGetExpenseQuery } from '../../../store/expense/expense.slice';
+
 
 export const ExpenseRecordCard = () => {
 
-    const expense = useSelector(selectExpense);
-    const dispatch = useDispatch();
+    // const expense = useSelector(selectExpense);
+    // const dispatch = useDispatch();
+
+    const {
+        data,
+        isLoading,
+        isFetching,
+        isSuccess,
+        isError,
+        error
+    } = useGetExpenseQuery();
+
+    console.log(data.data)
     
     const { TextArea } = Input;
 
@@ -62,15 +76,16 @@ export const ExpenseRecordCard = () => {
     const categoryMenu = <Menu items={categoryMenuData} />;
 
     const handleSubmit = () => {
-        const uploadFormData = {
-            ...inputState,
-            account: accountDropdownState,
-            category: categoryDropdownState
-        }
+        console.log('submitted');
+        // const uploadFormData = {
+        //     ...inputState,
+        //     account: accountDropdownState,
+        //     category: categoryDropdownState
+        // }
 
-        console.log(uploadFormData);
-        dispatch(addRecord(uploadFormData));
-        setAddModalState(false);
+        // console.log(uploadFormData);
+        // dispatch(addRecord(uploadFormData));
+        // setAddModalState(false);
     }
 
     const handleClose = () => {
@@ -148,7 +163,7 @@ export const ExpenseRecordCard = () => {
             </Modal>
             
             <RecordListWrapper>
-                {expense.map(item => (
+                {data.data.map(item => (
                     <RecordListItem title={item.title} percentage={item.percentage} amount={item.amount} />
                 ))}
             </RecordListWrapper>
