@@ -5,28 +5,33 @@ import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import { InlineField } from '../../../components/Form/InlineField';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { addRecord, selectExpense } from '../../../store/expense/expense.slice';
 import styles from './expenseRecordCard.module.scss';
 
-import { useGetExpenseQuery } from '../../../store/expense/expense.slice';
+import { useGetExpenseQuery, useAddExpenseMutation, expenseApi } from '../../../store/expense/expense.slice';
 
-
-export const ExpenseRecordCard = () => {
-
-    // const expense = useSelector(selectExpense);
-    // const dispatch = useDispatch();
+export const ExpenseRecordCard = ({ dateSortByState }) => {
 
     const {
         data,
-        isLoading,
-        isFetching,
-        isSuccess,
         isError,
-        error
-    } = useGetExpenseQuery();
+        isFetching,
+        isLoading,
+        isSuccess
+    } = expenseApi.endpoints.getExpense.useQueryState(dateSortByState);
+    // console.log('state 🌎', data.data);
 
-    console.log(data.data)
+    // const {
+    //     data,
+    //     isLoading: queryLoading,
+    //     isFetching,
+    //     isSuccess,
+    //     isError,
+    //     error
+    // } = useGetExpenseQuery('thismonth');
+
+    const [addExpense, {
+        isLoading: addMutationLoading 
+    }] = useAddExpenseMutation();
     
     const { TextArea } = Input;
 
@@ -75,17 +80,20 @@ export const ExpenseRecordCard = () => {
 
     const categoryMenu = <Menu items={categoryMenuData} />;
 
-    const handleSubmit = () => {
-        console.log('submitted');
-        // const uploadFormData = {
-        //     ...inputState,
-        //     account: accountDropdownState,
-        //     category: categoryDropdownState
-        // }
+    const handleSubmit = async () => {
+        try {
+            console.log('submitted');
+            const uploadFormData = {
+                ...inputState,
+                account: accountDropdownState,
+                category: categoryDropdownState
+            };
 
-        // console.log(uploadFormData);
-        // dispatch(addRecord(uploadFormData));
-        // setAddModalState(false);
+            await addExpense(uploadFormData).unwrap();
+            setAddModalState(false);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleClose = () => {
@@ -163,9 +171,14 @@ export const ExpenseRecordCard = () => {
             </Modal>
             
             <RecordListWrapper>
-                {data.data.map(item => (
-                    <RecordListItem title={item.title} percentage={item.percentage} amount={item.amount} />
-                ))}
+                {
+                    data !== undefined 
+                    ? 
+                    data.data.map(item => (
+                        <RecordListItem title={item.title} percentage={item.percentage} amount={item.amount} />
+                    ))
+                    : <h2>Loading</h2>
+                }
             </RecordListWrapper>
         </div>
     );
@@ -187,13 +200,9 @@ const RecordListItem = ({ title, percentage, amount }) => {
             <div className={styles.icon}>
                 <FontAwesomeIcon icon={faBarsStaggered} />
             </div>
-
-            <p className={styles.name}>{title}</p>
-            
-            <p>{percentage}</p>
-
-            <p className={styles.amount}>{amount}</p>
-
+                <p className={styles.name}>{title}</p>
+                <p>{percentage}</p>
+                <p className={styles.amount}>{amount}</p>
             <div className={styles.closeWrapper}>
                 <FontAwesomeIcon icon={faXmark} />
             </div>

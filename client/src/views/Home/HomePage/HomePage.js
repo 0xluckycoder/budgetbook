@@ -10,27 +10,45 @@ import { ExpenseCard } from "../ExpenseCard/ExpenseCard";
 import { ExpenseRecordCard } from "../ExpenseRecordCard/ExpenseRecordCard";
 import { IncomeRecordCard } from "../IncomeRecordCard/IncomeRecordCard";
 
+import { useGetExpenseQuery } from "../../../store/expense/expense.slice";
+
+const sortBy = {
+    SEVEN_DAYS: '7days',
+    THIS_MONTH: 'thismonth',
+    LAST_MONTH: 'lastmonth',
+    THIS_YEAR: 'thisyear',
+    LAST_YEAR: 'lastyear'
+};
+
 const HomePage = () => {
 
-    const [state, setState] = useState('This Month');
+    const [state, setState] = useState('thismonth');
+
+    const {data: returned} = useGetExpenseQuery(state);
+    console.log(returned);
 
     const values = [
         {
-            value: '7 Days'
+            value: sortBy.SEVEN_DAYS
         },
         {
-            value: 'This Month'
+            value: sortBy.THIS_MONTH
         },
         {
-            value: 'Last Month'
+            value: sortBy.LAST_MONTH
         },
         {
-            value: 'This Year'
+            value: sortBy.THIS_YEAR
         },
         {
-            value: 'Last Year'
+            value: sortBy.LAST_YEAR
         }
     ];
+
+    const handleDropdownChange = async (data) => {
+        // send as a parameter and trigger query
+        setState(data);
+    }
     
     return (
         <AppLayout>
@@ -39,8 +57,9 @@ const HomePage = () => {
                 <div className={styles.dropdown}>
                     <DropdownButton
                         state={state} 
-                        setState={setState} 
-                        dropdownValues={values} 
+                        // setState={setState}
+                        handleDropdownChange={handleDropdownChange} 
+                        dropdownValues={values}
                     />
                 </div>
                                         
@@ -60,7 +79,7 @@ const HomePage = () => {
 
                 <Row gutter={20}>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <ExpenseRecordCard />                
+                        <ExpenseRecordCard dateSortByState={state} />                
                     </Col>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
                         <IncomeRecordCard />                

@@ -76,15 +76,21 @@ Personal finance manager app
             - [ ] - add createApi slice and link with database
             - [ ] - improve performance by adding caching
                 - [ ] - experiment and learn how automatic caching works
+            - [ ] - enable userId required:true option in expenseEntry and incomeEntry
 
         - Add authentication
 
          - [/] - setup state with RTK
             - [x] - add create api slice 
             - [x] - add query
-            - [ ] - add mutation
+            - [x] - add mutation
             - [ ] - automatic refetching
             - [ ] - understand how refetching and mutation process works 
+            - [/] - optimize requests
+                - [x] - initial query by date = thismonth/lastmonth
+                - [x] - button trigger query
+                - [x] - add useQueryState for read data wihtout fethcing
+                - [/] - add caching and invalidation when making changes
             - [ ] - handle loading
             - [ ] - handle errors
 
@@ -102,7 +108,7 @@ Personal finance manager app
     - [ ] - show loading animation in pages
         
     - [ ] - home
-        - [ ] - home sort drodown
+        - [/] - home sort drodown
         - [ ] - add expense record
         - [ ] - incomes chart
         - [ ] - expense chart

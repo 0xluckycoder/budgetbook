@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const expenseEntrySchema = new Schema({
     userId: {
         type: String,
-        required: true
+        // required: true
     },
     title: {
         type: String

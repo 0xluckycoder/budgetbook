@@ -1,12 +1,12 @@
 import React from "react";
 import {  Dropdown, Menu, Button } from 'antd';
 
-export const DropdownButton = ({ state, setState, dropdownValues }) => {
+export const DropdownButton = ({ state, handleDropdownChange, dropdownValues }) => {
 
     const dropdownItems = dropdownValues.map((item, index) => {
         return {
             key: `${index + 1}`,
-            label: <a target="_blank" onClick={() => setState(item.value)} rel="noopener noreferrer"> {item.value}</a>
+            label: <a target="_blank" onClick={() => handleDropdownChange(item.value)} rel="noopener noreferrer"> {item.value}</a>
         }
     });
 

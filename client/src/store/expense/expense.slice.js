@@ -6,14 +6,24 @@ export const expenseApi = createApi({
     tagTypes: ['Expense'],
     endpoints: (build) => ({
         getExpense: build.query({
-            query: () => '/expense?date=thisyear',
+            query: (para) => `/expense?date=${para}`,
         }),
+        addExpense: build.mutation({
+            query: (initialExpense) => ({
+                url: '/expense',
+                method: 'POST',
+                body: initialExpense
+            })
+        })
     })
 });
 
 export const {
-    useGetExpenseQuery
+    useGetExpenseQuery,
+    useAddExpenseMutation
 } = expenseApi;
+
+// export const queryStateResult = expenseApi.endpoints.getExpense.useQueryState();
 
 // import { createSlice } from "@reduxjs/toolkit";
 // const initialState = {
