@@ -7,13 +7,15 @@ export const expenseApi = createApi({
     endpoints: (build) => ({
         getExpense: build.query({
             query: (para) => `/expense?date=${para}`,
+            providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense'],
         }),
         addExpense: build.mutation({
             query: (initialExpense) => ({
                 url: '/expense',
                 method: 'POST',
                 body: initialExpense
-            })
+            }),
+            invalidatesTags: ['Expense']
         })
     })
 });
@@ -22,6 +24,18 @@ export const {
     useGetExpenseQuery,
     useAddExpenseMutation
 } = expenseApi;
+
+/*
+// https://redux-toolkit.js.org/rtk-query/usage/automated-refetching
+editPost: build.mutation({
+    query: (body) => ({
+    url: `post/${body.id}`,
+    method: 'POST',
+    body,
+    }),
+    invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+}),
+*/ 
 
 // export const queryStateResult = expenseApi.endpoints.getExpense.useQueryState();
 

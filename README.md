@@ -86,11 +86,11 @@ Personal finance manager app
             - [x] - add mutation
             - [ ] - automatic refetching
             - [ ] - understand how refetching and mutation process works 
-            - [/] - optimize requests
+            - [x] - optimize requests
                 - [x] - initial query by date = thismonth/lastmonth
                 - [x] - button trigger query
                 - [x] - add useQueryState for read data wihtout fethcing
-                - [/] - add caching and invalidation when making changes
+                - [x] - add caching and invalidation when making changes
             - [ ] - handle loading
             - [ ] - handle errors
 
