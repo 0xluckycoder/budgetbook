@@ -12,36 +12,32 @@ import { IncomeRecordCard } from "../IncomeRecordCard/IncomeRecordCard";
 
 import { useGetExpenseQuery } from "../../../store/expense/expense.slice";
 
-const sortBy = {
-    SEVEN_DAYS: '7days',
-    THIS_MONTH: 'thismonth',
-    LAST_MONTH: 'lastmonth',
-    THIS_YEAR: 'thisyear',
-    LAST_YEAR: 'lastyear'
-};
+import { SORT_DATE_BY } from "../../../utils/constants";
 
 const HomePage = () => {
 
-    const [state, setState] = useState('thismonth');
+    const [state, setState] = useState(SORT_DATE_BY.THIS_MONTH);
 
-    const {data: returned} = useGetExpenseQuery(state);
-    console.log(returned);
+    const { 
+        data: returned 
+    } = useGetExpenseQuery(state.value);
+    console.log('fetched', returned);
 
     const values = [
         {
-            value: sortBy.SEVEN_DAYS
+            value: SORT_DATE_BY.SEVEN_DAYS
         },
         {
-            value: sortBy.THIS_MONTH
+            value: SORT_DATE_BY.THIS_MONTH
         },
         {
-            value: sortBy.LAST_MONTH
+            value: SORT_DATE_BY.LAST_MONTH
         },
         {
-            value: sortBy.THIS_YEAR
+            value: SORT_DATE_BY.THIS_YEAR
         },
         {
-            value: sortBy.LAST_YEAR
+            value: SORT_DATE_BY.LAST_YEAR
         }
     ];
 
@@ -49,6 +45,8 @@ const HomePage = () => {
         // send as a parameter and trigger query
         setState(data);
     }
+
+    const constantToReadable = () => {}
     
     return (
         <AppLayout>
@@ -56,9 +54,8 @@ const HomePage = () => {
             <div className={styles.home}>
                 <div className={styles.dropdown}>
                     <DropdownButton
-                        state={state} 
-                        // setState={setState}
-                        handleDropdownChange={handleDropdownChange} 
+                        state={state.text}
+                        handleDropdownChange={handleDropdownChange}
                         dropdownValues={values}
                     />
                 </div>
@@ -79,7 +76,7 @@ const HomePage = () => {
 
                 <Row gutter={20}>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <ExpenseRecordCard dateSortByState={state} />                
+                        <ExpenseRecordCard dateSortByState={state.value} />                
                     </Col>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
                         <IncomeRecordCard />                

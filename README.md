@@ -80,24 +80,22 @@ Personal finance manager app
 
         - Add authentication
 
-         - [/] - setup state with RTK
+         - [x] - setup state with RTK
             - [x] - add create api slice 
             - [x] - add query
             - [x] - add mutation
-            - [ ] - automatic refetching
-            - [ ] - understand how refetching and mutation process works 
+            - [x] - automatic refetching
+            - [x] - understand how refetching and mutation process works 
             - [x] - optimize requests
                 - [x] - initial query by date = thismonth/lastmonth
                 - [x] - button trigger query
                 - [x] - add useQueryState for read data wihtout fethcing
                 - [x] - add caching and invalidation when making changes
-            - [ ] - handle loading
+            - [x] - handle loading
             - [ ] - handle errors
 
 		- query
 		- managing multiples states 
-            - [ ] - API should retreive data everytime user navigate through pages
-            - [ ] - API should retrieve data everytime user adds or edits relevant data
             - [ ] - User auth state must presist every reload
         - [ ] - protect private routes
     - [ ] - recap redux concepts
@@ -107,9 +105,14 @@ Personal finance manager app
     - [ ] - add top level redux state & make actions to retreive data properly
     - [ ] - show loading animation in pages
         
-    - [ ] - home
-        - [/] - home sort drodown
-        - [ ] - add expense record
+    - [/] - home
+        - [x] - home sort dropdown
+        - [/] - add expense record
+            - [x] - validate fields
+            - [ ] - frontend image upload
+            - [ ] - validation
+            - [ ] - move popup modal to separate component
+            - [ ] - handle image upload
         - [ ] - incomes chart
         - [ ] - expense chart
         - [ ] - show expense record list

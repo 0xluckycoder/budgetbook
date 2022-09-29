@@ -13,9 +13,9 @@ const createExpense = async (req, res, next) => {
             category: yup.string('category must be a string')
                         .required('category is required')
                         .max(127, 'category is too long'),
-            // transactionDate: yup.string('transactionDate must be a string')
-            //             .required('transactionDate is required')
-            //             .max(127, 'transactionDate is too long'),
+            transactionDate: yup.string('transactionDate must be a string')
+                        .required('transactionDate is required')
+                        .max(127, 'transactionDate is too long'),
             photos: yup.array().of(yup.string().max(127)).max(3),
             comment: yup.string('comment must be a string')
                         .max(127, 'comment is too long'),

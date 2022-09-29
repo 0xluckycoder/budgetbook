@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
 import { InlineField } from '../../../components/Form/InlineField';
 import styles from './expenseRecordCard.module.scss';
+
+// import moment from 'moment';
 
 import { useGetExpenseQuery, useAddExpenseMutation, expenseApi } from '../../../store/expense/expense.slice';
 
@@ -18,7 +20,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
         isLoading,
         isSuccess
     } = expenseApi.endpoints.getExpense.useQueryState(dateSortByState);
-    // console.log('state 🌎', data.data);
+    console.log('state 🌎', dateSortByState);
 
     // const {
     //     data,
@@ -37,26 +39,31 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
 
     const [addModalState, setAddModalState] = useState(false);
     const [form] = Form.useForm();
-    const [accountDropdownState, setAccountDropdownState] = useState('Select Account');
-    const [categoryDropdownState, setCategoryDropdownState] = useState('Select Category');
-
     const [inputState, setInputState] = useState({});
-
+    const [error, setError] = useState({
+        title: null,
+        amount: null,
+        account: null,
+        comment: null,
+        transactionDate: null,
+        category: null
+    });
+    
     const handleInputChange = (e) => {
         setInputState({...inputState, [e.target.name]: e.target.value});
     }
 
     const accountMenuData = [
         {
-            label: <p onClick={() => setAccountDropdownState('Bank')}>Bank</p>,
+            label: <p onClick={() => setInputState({...inputState, account: 'Bank'})}>Bank</p>,
             key: '0'
         },
         {
-            label: <p onClick={() => setAccountDropdownState('Personal')}>Personal</p>,
+            label: <p onClick={() => setInputState({...inputState, account: 'Personal'})}>Personal</p>,
             key: '1'
         },
         {
-            label: <p onClick={() => setAccountDropdownState('Investment')}>Investment</p>,
+            label: <p onClick={() => setInputState({...inputState, account: 'Investment'})}>Investment</p>,
             key: '2',
         }
     ];
@@ -64,41 +71,108 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const categoryMenuData = [
         {
             key: '0',
-            label: <p onClick={() => setCategoryDropdownState('Food')}>Food</p>
+            label: <p onClick={() => setInputState({...inputState, category: 'Food'})}>Food</p>
         },
         {
             key: '1',
-            label: <p onClick={() => setCategoryDropdownState('Travel')}>Travel</p>
+            label: <p onClick={() => setInputState({...inputState, category: 'Travel'})}>Travel</p>
         },
         {
             key: '2',
-            label: <p onClick={() => setCategoryDropdownState('Other')}>Other</p>
+            label: <p onClick={() => setInputState({...inputState, category: 'Other'})}>Other</p>
         }
     ];
 
-    const accountMenu = <Menu items={accountMenuData} />;
+    const validate = (value, field) => {
+        // validate empty fields
+        if (value === "" || value === undefined) {
+            setError(error => ({...error, [field]: {
+                validateStatus: "error",
+                help: "This field is required"
+            }}));
+            return;
+        } else {
+            setError(error => ({...error, [field]: null}));
+        }
 
-    const categoryMenu = <Menu items={categoryMenuData} />;
+        if (field === 'title' || field === 'comment') {
+            // validate min values
+            if (value.length < 3) {
+                setError(error => ({...error, [field]: {
+                    validateStatus: "error",
+                    help: "add more characters"
+                }}));
+                return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+        }
+    }
+
+    const accountMenu = <Menu onBlur={() => validate(inputState.account, 'account')} items={accountMenuData} />;
+    const categoryMenu = <Menu onBlur={() => validate(inputState.category, 'category')}  items={categoryMenuData} />;
 
     const handleSubmit = async () => {
         try {
-            console.log('submitted');
-            const uploadFormData = {
-                ...inputState,
-                account: accountDropdownState,
-                category: categoryDropdownState
-            };
+            console.log(inputState);
 
-            await addExpense(uploadFormData).unwrap();
-            setAddModalState(false);
+            // validate every field before submit
+            validate(inputState.title, 'title');
+            validate(inputState.amount, 'amount');
+            validate(inputState.account, 'account');
+            validate(inputState.category, 'category');
+            validate(inputState.transactionDate, 'transactionDate');
+            validate(inputState.comment, 'comment');
+
+            if (
+                error.title === null &&
+                error.amount === null &&
+                error.account === null &&
+                error.category === null &&
+                error.transactionDate === null &&
+                error.comment === null &&
+                inputState.title &&
+                inputState.amount &&
+                inputState.account &&
+                inputState.category &&
+                inputState.transactionDate &&
+                inputState.comment
+            ) {
+                await addExpense(inputState).unwrap();
+                setAddModalState(false);
+                setInputState({});
+                setError({
+                    title: null,
+                    amount: null,
+                    account: null,
+                    comment: null,
+                    transactionDate: null,
+                    category: null
+                });
+
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
     const handleClose = () => {
+        setInputState({});
+        setAddModalState(false);
+        setError({
+            title: null,
+            amount: null,
+            account: null,
+            comment: null,
+            transactionDate: null,
+            category: null
+        });
 
+        // console.log(moment().day(0).format('YYYY-MM-DD'));
     }
+
+    const accountDropdownText = inputState.account === undefined ? 'Select Account' : inputState.account;
+    const categoryDropdownText = inputState.category === undefined ? 'Select Category' : inputState.category;
 
     return (
         <div className={styles.recordCardWrapper}>
@@ -115,7 +189,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                 title="New Expense"
                 centered
                 open={addModalState}
-                onCancel={() => setAddModalState(false)}
+                onCancel={() => handleClose()}
                 className="form-modal"
                 footer={[
                   <Button className="themed-button" onClick={() => handleSubmit()}>
@@ -125,41 +199,70 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             >
                 <Form form={form} layout="vertical">
                     <InlineField>
-                        <Form.Item label="Title">
-                            <Input value={inputState.name} name="title" onChange={handleInputChange} />
+                        <Form.Item label="Title" {...(error.title ? error.title : {})}>
+                            <Input
+                                value={inputState.title && inputState.title} 
+                                name="title" 
+                                onChange={handleInputChange} 
+                                onBlur={(e) => validate(e.target.value, 'title')}
+                            />
                         </Form.Item>
-                        <Form.Item label="Amount">
-                            <Input value={inputState.amount} name="amount" onChange={handleInputChange} />
+                        <Form.Item label="Amount" {...(error.amount ? error.amount : {})}>
+                            <Input 
+                                type='number'
+                                value={inputState.amount && inputState.amount} 
+                                name="amount" 
+                                onChange={handleInputChange} 
+                                onBlur={(e) => validate(e.target.value, 'amount')}
+                            />
                         </Form.Item>
                     </InlineField>
 
                     <InlineField>
-                        <Form.Item label="Account">
-                            <Dropdown overlay={accountMenu} trigger={['click']} name="account" value={inputState.account} onChange={handleInputChange}>
+                        <Form.Item label="Account" {...(error.account ? error.account : {})}>
+                            <Dropdown 
+                                overlay={accountMenu}
+                                trigger={['click']} 
+                                name="account" 
+                                value={inputState.account}
+                            >
                                 <Space className='themed-dropdown'>
-                                    <p className='themed-dropdown'>{accountDropdownState}</p>
+                                    <p className='themed-dropdown'>{accountDropdownText}</p>
                                     <DownOutlined />
                                 </Space>
                             </Dropdown>
                         </Form.Item>
-                        <Form.Item label="Category">
-                            <Dropdown overlay={categoryMenu} trigger={['click']}>
+                        <Form.Item label="Category" {...(error.category ? error.category : {})}>
+                            <Dropdown
+                                overlay={categoryMenu} 
+                                trigger={['click']}
+                                value={inputState.category && inputState.category} 
+                            >
                                 <Space className='themed-dropdown'>
-                                    <p>{categoryDropdownState}</p>
+                                    <p>{categoryDropdownText}</p>
                                     <DownOutlined />
                                 </Space>
                             </Dropdown>
                         </Form.Item>
                     </InlineField>
 
-                    <Form.Item label="Transaction Date">
+                    <Form.Item label="Transaction Date" {...(error.transactionDate ? error.transactionDate : {})}>
                         <Space direction="vertical">
-                            <DatePicker onChange={(date, dateString) => setInputState({...inputState, transactionDate: dateString})} />
+                            <DatePicker 
+                                onChange={(date, dateString) => setInputState({...inputState, transactionDate: dateString})}
+                                onBlur={() => validate(inputState.transactionDate, 'transactionDate')}
+                            />
                         </Space>
                     </Form.Item>
 
-                    <Form.Item label="Comment">
-                        <TextArea name="comment" value={inputState.comment} onChange={handleInputChange} rows={4} />
+                    <Form.Item label="Comment" {...(error.comment ? error.comment : {})}>
+                        <TextArea 
+                            name="comment" 
+                            value={inputState.comment} 
+                            onChange={handleInputChange} 
+                            rows={4}
+                            onBlur={(e) => validate(e.target.value, 'comment')}
+                        />
                     </Form.Item>
 
                     <Form.Item label="Add Photos">
@@ -177,7 +280,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                     data.data.map(item => (
                         <RecordListItem title={item.title} percentage={item.percentage} amount={item.amount} />
                     ))
-                    : <h2>Loading</h2>
+                    : <h2>Loading...</h2>
                 }
             </RecordListWrapper>
         </div>

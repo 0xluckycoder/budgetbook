@@ -3,12 +3,24 @@ import {  Dropdown, Menu, Button } from 'antd';
 
 export const DropdownButton = ({ state, handleDropdownChange, dropdownValues }) => {
 
+    console.log('dropdownValues', dropdownValues);
+
     const dropdownItems = dropdownValues.map((item, index) => {
         return {
             key: `${index + 1}`,
-            label: <a target="_blank" onClick={() => handleDropdownChange(item.value)} rel="noopener noreferrer"> {item.value}</a>
+            label: <a target="_blank" onClick={() => handleDropdownChange(item.value)} rel="noopener noreferrer">
+            {
+                item.value.text
+            }
+            </a>
         }
     });
+
+    /*
+                    item.value.text ?
+                item.value.text :
+                item.value
+    */ 
 
     const menu = <Menu items={dropdownItems} />
 
