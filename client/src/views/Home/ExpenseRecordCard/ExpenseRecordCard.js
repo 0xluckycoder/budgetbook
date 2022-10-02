@@ -39,6 +39,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
 
     const [addModalState, setAddModalState] = useState(false);
     const [form] = Form.useForm();
+    const [imageFile, setImageFile] = useState([]);
     const [inputState, setInputState] = useState({});
     const [error, setError] = useState({
         title: null,
@@ -46,7 +47,8 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
         account: null,
         comment: null,
         transactionDate: null,
-        category: null
+        category: null,
+        image: null
     });
     
     const handleInputChange = (e) => {
@@ -103,6 +105,17 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                     help: "add more characters"
                 }}));
                 return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+        }
+
+        if (field === 'image') {
+            if (imageFile.type === "image/jpeg" || imageFile.type === "image/png") {
+                setError(error => ({...error, [field]: {
+                    validateStatus: "error",
+                    help: "only .png .jpg .jpeg are supported"
+                }}));
             } else {
                 setError(error => ({...error, [field]: null}));
             }
@@ -171,6 +184,20 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
         // console.log(moment().day(0).format('YYYY-MM-DD'));
     }
 
+    const inputUpload = useRef(null);
+    const triggerImageUpload = () => inputUpload.current.click();
+    const handleImageUpload = (file) => {
+        // validate, update state
+        // if (error.image ===  null) {
+            const imageObjUrl = URL.createObjectURL(file);
+            setImageFile([
+                ...imageFile, { blob: imageObjUrl, file }
+            ]);
+
+            console.log('file is 📁', imageFile);
+        // }
+    }
+
     const accountDropdownText = inputState.account === undefined ? 'Select Account' : inputState.account;
     const categoryDropdownText = inputState.category === undefined ? 'Select Category' : inputState.category;
 
@@ -184,7 +211,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                 Add
             </Button>
 
-            {/* add expense modal */}
+            {/* add new expense modal */}
             <Modal
                 title="New Expense"
                 centered
@@ -192,7 +219,10 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                 onCancel={() => handleClose()}
                 className="form-modal"
                 footer={[
-                  <Button className="themed-button" onClick={() => handleSubmit()}>
+                  <Button 
+                    className="themed-button" 
+                    onClick={() => handleSubmit()}
+                   >
                     Save
                   </Button>
                 ]}
@@ -266,8 +296,26 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                     </Form.Item>
 
                     <Form.Item label="Add Photos">
-                        <div>
-                            <img src={imagePlaceholder} alt="placeholder" />
+                        <div className={styles.verticalImageSlider}>
+                            <input 
+                                type="file"
+                                className={styles.uploadButton}
+                                ref={inputUpload}
+                                onChange={(e) => handleImageUpload(e.target.files[0])}
+                                hidden
+                            />
+                            {
+                                imageFile.length > 0 && imageFile.map(fileItem => <img src={fileItem.blob} alt="uploaded slide item" />)
+                            }
+
+                            {
+                                imageFile.length >= 3 || <img 
+                                                            onClick={triggerImageUpload} 
+                                                            src={imagePlaceholder} 
+                                                            alt="placeholder" 
+                                                            className={styles.imageUploadPlaceholder}
+                                                        />
+                            }
                         </div>
                     </Form.Item>
                 </Form>
@@ -278,7 +326,11 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                     data !== undefined 
                     ? 
                     data.data.map(item => (
-                        <RecordListItem title={item.title} percentage={item.percentage} amount={item.amount} />
+                        <RecordListItem 
+                            title={item.title} 
+                            percentage={item.percentage} 
+                            amount={item.amount} 
+                        />
                     ))
                     : <h2>Loading...</h2>
                 }
