@@ -36,6 +36,15 @@ const createExpense = async (req, res, next) => {
     }
 }
 
+const uploadImage = async (req, res, next) => {
+    try {
+        const { files, file } = req;
+        console.log('📁', files);
+    } catch (error) {
+        next(error);
+    }
+}
+
 const getExpenses = async (req, res, next) => {
     try {
         const sortType = req.query.date;
@@ -112,6 +121,7 @@ const deleteExpense = async (req, res, next) => {
 
 module.exports = {
     createExpense,
+    uploadImage,
     getExpenses,
     getExpenseById,
     updateExpense,

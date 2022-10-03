@@ -9,9 +9,9 @@ import styles from './expenseRecordCard.module.scss';
 
 // import moment from 'moment';
 
-import { useGetExpenseQuery, useAddExpenseMutation, expenseApi } from '../../../store/expense/expense.slice';
+import { useGetExpenseQuery, useAddExpenseMutation, expenseApi, useUploadExpenseImageMutation } from '../../../store/expense/expense.slice';
 
-export const ExpenseRecordCard = ({ dateSortByState }) => {
+export const ExpenseRecordCard = ({ dateSortByState }) => { 
 
     const {
         data,
@@ -34,6 +34,10 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const [addExpense, {
         isLoading: addMutationLoading 
     }] = useAddExpenseMutation();
+
+    const [uploadExpenseImage, {
+        isLoading: imageMutationLoading
+    }] = useUploadExpenseImageMutation();
     
     const { TextArea } = Input;
 
@@ -125,6 +129,26 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const accountMenu = <Menu onBlur={() => validate(inputState.account, 'account')} items={accountMenuData} />;
     const categoryMenu = <Menu onBlur={() => validate(inputState.category, 'category')}  items={categoryMenuData} />;
 
+    const handleImageMutation = async () => {
+        try {
+            if (imageFile.length !== 0) {
+                // await uploadExpenseImage().unwrap();
+                let expenseFormData = new FormData();
+                imageFile.forEach((fileObject, index) => {
+                    expenseFormData.append('expense-images', fileObject.file);
+                    // console.log(index, fileObject.file);
+                });
+
+                // console.log(expenseFormData);
+                await uploadExpenseImage(expenseFormData).unwrap();
+            } else {
+                alert('no files to upload');
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     const handleSubmit = async () => {
         try {
             console.log(inputState);
@@ -172,6 +196,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const handleClose = () => {
         setInputState({});
         setAddModalState(false);
+        setImageFile([]);
         setError({
             title: null,
             amount: null,
@@ -188,14 +213,10 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const triggerImageUpload = () => inputUpload.current.click();
     const handleImageUpload = (file) => {
         // validate, update state
-        // if (error.image ===  null) {
-            const imageObjUrl = URL.createObjectURL(file);
-            setImageFile([
-                ...imageFile, { blob: imageObjUrl, file }
-            ]);
-
-            console.log('file is 📁', imageFile);
-        // }
+        const imageObjUrl = URL.createObjectURL(file);
+        setImageFile([
+            ...imageFile, { blob: imageObjUrl, file }
+        ]);
     }
 
     const accountDropdownText = inputState.account === undefined ? 'Select Account' : inputState.account;
@@ -221,7 +242,8 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                 footer={[
                   <Button 
                     className="themed-button" 
-                    onClick={() => handleSubmit()}
+                    // onClick={() => handleSubmit()}
+                    onClick={() => handleImageMutation()}
                    >
                     Save
                   </Button>
@@ -298,6 +320,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                     <Form.Item label="Add Photos">
                         <div className={styles.verticalImageSlider}>
                             <input 
+                                name="expense-images"
                                 type="file"
                                 className={styles.uploadButton}
                                 ref={inputUpload}

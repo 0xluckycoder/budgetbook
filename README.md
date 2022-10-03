@@ -109,10 +109,15 @@ Personal finance manager app
         - [x] - home sort dropdown
         - [/] - add expense record
             - [x] - validate fields
-            - [ ] - frontend image upload
-            - [ ] - validation
-            - [ ] - move popup modal to separate component
-            - [ ] - handle image upload
+            - [x] - validation
+            - [/] - handle frontend image upload
+                - [x] - build request to send
+                - [x] - multiple or single upload with multer
+                - [ ] - configure & upload to s3 storage
+            - [/] - handle backend image upload
+            - [ ] - add loading spinner
+            - [ ] - optimize dispatch requests to redux cache state
+            - [ ] - move popup modal to separate component if necessary
         - [ ] - incomes chart
         - [ ] - expense chart
         - [ ] - show expense record list
