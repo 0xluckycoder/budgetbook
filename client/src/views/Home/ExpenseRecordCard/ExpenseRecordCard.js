@@ -132,14 +132,12 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const handleImageMutation = async () => {
         try {
             if (imageFile.length !== 0) {
-                // await uploadExpenseImage().unwrap();
+
                 let expenseFormData = new FormData();
                 imageFile.forEach((fileObject, index) => {
                     expenseFormData.append('expense-images', fileObject.file);
-                    // console.log(index, fileObject.file);
                 });
 
-                // console.log(expenseFormData);
                 await uploadExpenseImage(expenseFormData).unwrap();
             } else {
                 alert('no files to upload');

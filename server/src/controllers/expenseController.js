@@ -38,9 +38,27 @@ const createExpense = async (req, res, next) => {
 
 const uploadImage = async (req, res, next) => {
     try {
-        const { files, file } = req;
-        console.log('📁', files);
+        const { files } = req;
+
+        if (files.length === 0) throw customError('invalid file size', 'ValidationFailed');
+
+        // upload and get collect urls
+        const imageUrls = [];
+
+        // loop through and upload
+        for (const image of files) {
+            const uploadImageResponse = await expenseService.uploadImage(image);
+            imageUrls.push(uploadImageResponse);
+            console.log('ran');
+        }
+        
+        res.status(200).json({
+            success: true,
+            data: imageUrls
+        });
+
     } catch (error) {
+        console.log(error);
         next(error);
     }
 }

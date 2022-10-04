@@ -68,8 +68,8 @@ Personal finance manager app
                 - [ ] - load expense records
                 - [ ] - load accounts records
             - [/] - setup a store on frontend
-                - [/] - income slice
-                - [ ] - expense slice
+                - [/] - expense slice
+                - [ ] - income slice
                 - [ ] - accounts slice
 
             - [x] - add local state with query and mutation
@@ -113,8 +113,9 @@ Personal finance manager app
             - [/] - handle frontend image upload
                 - [x] - build request to send
                 - [x] - multiple or single upload with multer
-                - [ ] - configure & upload to s3 storage
-            - [/] - handle backend image upload
+                - [x] - configure s3
+                - [/] - upload to s3 storage
+            - [ ] - handle backend image upload
             - [ ] - add loading spinner
             - [ ] - optimize dispatch requests to redux cache state
             - [ ] - move popup modal to separate component if necessary
