@@ -1,8 +1,12 @@
 const yup = require('yup');
 const expenseService = require('../services/expenseService');
+const customError = require('../utils/customError');
 
 const createExpense = async (req, res, next) => {
     try {
+
+        console.log(req.body);
+
         // validate user input
         const expenseSchema = yup.object().shape({
             title: yup.string('title must be a string')
@@ -27,6 +31,8 @@ const createExpense = async (req, res, next) => {
         const validated = await expenseSchema.validate(req.body);
         const createExpenseResponse = await expenseService.createExpense(validated);
 
+        console.log('🔥', createExpenseResponse);
+
         res.status(200).json({
             success: true,
             data: createExpenseResponse
@@ -40,6 +46,8 @@ const uploadImage = async (req, res, next) => {
     try {
         const { files } = req;
 
+        console.log(files);
+
         if (files.length === 0) throw customError('invalid file size', 'ValidationFailed');
 
         // upload and get collect urls
@@ -49,8 +57,10 @@ const uploadImage = async (req, res, next) => {
         for (const image of files) {
             const uploadImageResponse = await expenseService.uploadImage(image);
             imageUrls.push(uploadImageResponse);
-            console.log('ran');
+            // console.log('ran 🌴');
         }
+
+        // console.log(imageUrls);        
         
         res.status(200).json({
             success: true,

@@ -17,7 +17,7 @@ export const expenseApi = createApi({
             }),
             invalidatesTags: ['Expense']
         }),
-        uploadExpenseImage: build.mutation({
+        uploadExpenseImages: build.mutation({
             query: (formData) => ({
                 url: '/expense/image',
                 method: 'POST',
@@ -31,7 +31,7 @@ export const expenseApi = createApi({
 export const {
     useGetExpenseQuery,
     useAddExpenseMutation,
-    useUploadExpenseImageMutation
+    useUploadExpenseImagesMutation
 } = expenseApi;
 
 /*

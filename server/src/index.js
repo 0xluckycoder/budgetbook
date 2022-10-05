@@ -31,8 +31,8 @@ app.use(morgan('common'));
 
 // config with only allowed origins
 app.use(cors({
-    // origin: "http://localhost:3000",
-    origin: "*",
+    origin: "http://localhost:3000",
+    // origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));

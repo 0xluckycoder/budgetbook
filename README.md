@@ -114,8 +114,11 @@ Personal finance manager app
                 - [x] - build request to send
                 - [x] - multiple or single upload with multer
                 - [x] - configure s3
-                - [/] - upload to s3 storage
-            - [ ] - handle backend image upload
+                - [x] - upload to s3 storage
+            - [x] - handle backend image upload
+            - [/] - construct the expense record add request with uploaded images
+            - [ ] - learn about useMemo and useCallback and use it to optimize RTK fetching
+                - [ ] - see optimizing in RTK documentation
             - [ ] - add loading spinner
             - [ ] - optimize dispatch requests to redux cache state
             - [ ] - move popup modal to separate component if necessary
