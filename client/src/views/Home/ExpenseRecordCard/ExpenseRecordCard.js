@@ -95,7 +95,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             // validate min value
             if (value.length !== 0 && value.length < min) {
                 return {
-                    error: "add more characters"
+                    error: true
                 }
             } else {
                 return {
@@ -110,7 +110,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             // validate max value
             if (value.length > max) {
                 return {
-                    error: "Too long"
+                    error: true
                 }
             } else {
                 return {
@@ -123,7 +123,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const validateRequired = (value) => {
         if (value === "" || value === undefined) {
             return {
-                error: "This field is required"
+                error: true
             }
         } else {
             return {
@@ -137,126 +137,77 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
         if (field === 'title') {
             const validatedRequired = validateRequired(value);
             if (validatedRequired.error) {
-                setError(error => ({...error, [field]: { validateStatus: "error", help: 'validatedRequired.error' }}));
+                setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
                 return;
             } else {
                 setError(error => ({...error, [field]: null}));
             }
 
-            // const validatedMin = validateMin(3, value);
-            // if (validatedMin.error)  {
-            //     setError({...error, [field]: { validateStatus: "error", help: validatedMin.error }});
-            //     return;
-            // } else {
-            //     setError({...error, [field]: null});
-            // }
+            const validatedMin = validateMin(3, value);
+            if (validatedMin.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "add more characters" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
 
-            // const validatedMax = validateMax(5, value);
-            // if (validatedMax.error)  {
-            //     setError({...error, [field]: { validateStatus: "error", help: validatedMax.error }});
-            //     return;
-            // } else {
-            //     setError({...error, [field]: null});
-            // }
+            const validatedMax = validateMax(5, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
             
         } 
         
         if (field === 'amount') {
             const validatedRequired = validateRequired(value);
             if (validatedRequired.error) {
-                let errorMessage = `${validateRequired.error}`;
-                setError((error) => ({...error, [field]: { validateStatus: "error", help: errorMessage }}));
+                setError(error => ({...error, [field]: { validateStatus: "error", help: 'This field is required' }}));
                 return;
             } else {
                 setError(error => ({...error, [field]: null}));
             }
-
-            // const validatedMin = validateMin(3, value);
-            // if (validatedMin.error)  {
-            //     setError({...error, [field]: { validateStatus: "error", help: validatedMin.error }});
-            //     return;
-            // } else {
-            //     setError({...error, [field]: null});
-            // }
-
-            // const validatedMax = validateMax(5, value);
-            // if (validatedMax.error)  {
-            //     setError({...error, [field]: { validateStatus: "error", help: validatedMax.error }});
-            //     return;
-            // } else {
-            //     setError({...error, [field]: null});
-            // }
+            
+            const validatedMax = validateMax(10, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
 
         } 
         
-        // if (field === 'comment') {
-        //     const validatedMin = validateMin(3, value);
-        //     if (validatedMin.error)  {
-        //         setError({...error, [field]: { validateStatus: "error", help: validatedMin.error }});
-        //         return;
-        //     } else {
-        //         setError({...error, [field]: null});
-        //     }
+        if (field === 'comment') {
+            const validatedMin = validateMin(3, value);
+            if (validatedMin.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "add more characters" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
 
-        //     const validatedMax = validateMax(255, value);
-        //     if (validatedMax.error)  {
-        //         setError({...error, [field]: { validateStatus: "error", help: validatedMax.error }});
-        //         return;
-        //     } else {
-        //         setError({...error, [field]: null});
-        //     }
-
-        // } 
+            const validatedMax = validateMax(5, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+        } 
         
-        // if (field === 'account' || field === 'category' || field === 'transactionDate') {
-        //     const validatedRequired = validateRequired(value);
-        //     if (validatedRequired.error) {
-        //         setError({...error, [field]: { validateStatus: "error", help: validatedRequired.error }});
-        //         return;
-        //     } else {
-        //         setError({...error, [field]: null});
-        //     }
-        // }
-
-        // validate empty fields
-        // if (value === "" || value === undefined) {
-        //     setError(error => ({...error, [field]: {
-        //         validateStatus: "error",
-        //         help: "This field is required"
-        //     }}));
-        //     return;
-        // } else {
-        //     setError(error => ({...error, [field]: null}));
-        // }
-
-        // if (field === 'title' || field === 'comment') {
-        //     // validate min values
-        //     if (value.length < 3) {
-        //         setError(error => ({...error, [field]: {
-        //             validateStatus: "error",
-        //             help: "add more characters"
-        //         }}));
-        //         return;
-        //     } else {
-        //         setError(error => ({...error, [field]: null}));
-        //     }
-        // }
-
-        // if (field === 'image') {
-        //     if (imageFile.type === "image/jpeg" || imageFile.type === "image/png") {
-        //         setError(error => ({...error, [field]: {
-        //             validateStatus: "error",
-        //             help: "only .png .jpg .jpeg are supported"
-        //         }}));
-        //     } else {
-        //         setError(error => ({...error, [field]: null}));
-        //     }
-        // }
+        if (field === 'account' || field === 'category' || field === 'transactionDate') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                setError(error => ({...error, [field]: { validateStatus: "error", help: 'This field is required' }}));
+                return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+        }
     }
-
-    // const validateFields = (value, fields) => {
-
-    // }
 
     const constructFormData = (arrayOfFiles) => {
         if (arrayOfFiles.length !== 0) {
@@ -283,40 +234,40 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             validate(inputState.transactionDate, 'transactionDate');
             validate(inputState.comment, 'comment');
 
-            // if (
-            //     error.title === null &&
-            //     error.amount === null &&
-            //     error.account === null &&
-            //     error.category === null &&
-            //     error.transactionDate === null &&
-            //     error.comment === null &&
-            //     inputState.title &&
-            //     inputState.amount &&
-            //     inputState.account &&
-            //     inputState.category &&
-            //     inputState.transactionDate
-            // ) {
-            //     const formData = constructFormData(imageFile);
-            //     if (formData) {
-            //         const returned = await uploadExpenseImages(formData);
-            //         console.log(returned.data.data);
-            //         await addExpense({...inputState, photos: returned.data.data }).unwrap();
-            //         return;
-            //     }
-            //     await addExpense({...inputState }).unwrap();
+            if (
+                error.title === null &&
+                error.amount === null &&
+                error.account === null &&
+                error.category === null &&
+                error.transactionDate === null &&
+                error.comment === null &&
+                inputState.title &&
+                inputState.amount &&
+                inputState.account &&
+                inputState.category &&
+                inputState.transactionDate
+            ) {
+                const formData = constructFormData(imageFile);
+                if (formData) {
+                    const returned = await uploadExpenseImages(formData);
+                    console.log(returned.data.data);
+                    await addExpense({...inputState, photos: returned.data.data }).unwrap();
+                    return;
+                }
+                await addExpense({...inputState }).unwrap();
 
-            //     setAddModalState(false);
-            //     setInputState({});
-            //     setImageFile([]);
-            //     setError({
-            //         title: null,
-            //         amount: null,
-            //         account: null,
-            //         comment: null,
-            //         transactionDate: null,
-            //         category: null
-            //     });
-            // }
+                setAddModalState(false);
+                setInputState({});
+                setImageFile([]);
+                setError({
+                    title: null,
+                    amount: null,
+                    account: null,
+                    comment: null,
+                    transactionDate: null,
+                    category: null
+                });
+            }
         } catch (error) {
             console.log(error);
         }
@@ -339,11 +290,20 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const inputUpload = useRef(null);
     const triggerImageUpload = () => inputUpload.current.click();
     const handleImageUpload = (file) => {
-        // validate, update state
-        const imageObjUrl = URL.createObjectURL(file);
-        setImageFile([
-            ...imageFile, { blob: imageObjUrl, file }
-        ]);
+        if (file.size > 1024 * 1024) {
+            alert('file is too large');
+            return;
+        }
+    
+        if (file.type === "image/jpeg" || file.type === "image/png") {
+            const imageObjUrl = URL.createObjectURL(file);
+            setImageFile([
+                ...imageFile, { blob: imageObjUrl, file }
+            ]);
+        } else {
+            alert('invalid file type');
+            return;
+        }
     }
 
     const accountDropdownText = inputState.account === undefined ? 'Select Account' : inputState.account;
