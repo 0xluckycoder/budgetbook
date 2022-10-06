@@ -21,7 +21,7 @@ const HomePage = () => {
     const { 
         data: returned 
     } = useGetExpenseQuery(state.value);
-    console.log('fetched', returned);
+    // console.log('fetched', returned);
 
     const values = [
         {
@@ -44,10 +44,7 @@ const HomePage = () => {
     const handleDropdownChange = async (data) => {
         // send as a parameter and trigger query
         setState(data);
-    }
-
-    const constantToReadable = () => {}
-    
+    }    
     return (
         <AppLayout>
             <h2 className={styles.heading}>Dashboard</h2>

@@ -116,11 +116,9 @@ Personal finance manager app
                 - [x] - configure s3
                 - [x] - upload to s3 storage
             - [x] - handle backend image upload
-            - [/] - construct the expense record add request with uploaded images
-            - [ ] - learn about useMemo and useCallback and use it to optimize RTK fetching
-                - [ ] - see optimizing in RTK documentation
+            - [x] - construct the expense record add request with uploaded images
+            - [/] - clean up the validation
             - [ ] - add loading spinner
-            - [ ] - optimize dispatch requests to redux cache state
             - [ ] - move popup modal to separate component if necessary
         - [ ] - incomes chart
         - [ ] - expense chart
@@ -142,10 +140,14 @@ Personal finance manager app
         - [ ] - edit user info
         - [ ] - logout user
         - [ ] - change default user app settings
+    
+    - [ ] - Optimize RTK - (https://redux.js.org/tutorials/essentials/part-6-performance-normalization)
+    - [ ] - Optimize necessary components
+        - Research and find out how to benchmark and test react apps and optimize performance
+        - https://youtu.be/i9mMe7Esl7Y
+        - https://youtu.be/4FhJkX18fS8 - react pro dos and donts
 
     - [ ] - Start to implement authentication
-
-
 
 #### Backend API
 

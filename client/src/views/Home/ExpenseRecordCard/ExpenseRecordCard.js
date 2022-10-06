@@ -20,8 +20,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
         isLoading,
         isSuccess
     } = expenseApi.endpoints.getExpense.useQueryState(dateSortByState);
-    console.log('state 🌎', dateSortByState);
-
+    // console.log('state 🌎', dateSortByState);
     // const {
     //     data,
     //     isLoading: queryLoading,
@@ -62,15 +61,15 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
 
     const accountMenuData = [
         {
-            label: <p onClick={() => setInputState({...inputState, account: 'Bank'})}>Bank</p>,
+            label: <p key={0} onClick={() => setInputState({...inputState, account: 'Bank'})}>Bank</p>,
             key: '0'
         },
         {
-            label: <p onClick={() => setInputState({...inputState, account: 'Personal'})}>Personal</p>,
+            label: <p key={1} onClick={() => setInputState({...inputState, account: 'Personal'})}>Personal</p>,
             key: '1'
         },
         {
-            label: <p onClick={() => setInputState({...inputState, account: 'Investment'})}>Investment</p>,
+            label: <p key={2} onClick={() => setInputState({...inputState, account: 'Investment'})}>Investment</p>,
             key: '2',
         }
     ];
@@ -78,54 +77,186 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     const categoryMenuData = [
         {
             key: '0',
-            label: <p onClick={() => setInputState({...inputState, category: 'Food'})}>Food</p>
+            label: <p key={0} onClick={() => setInputState({...inputState, category: 'Food'})}>Food</p>
         },
         {
             key: '1',
-            label: <p onClick={() => setInputState({...inputState, category: 'Travel'})}>Travel</p>
+            label: <p key={1} onClick={() => setInputState({...inputState, category: 'Travel'})}>Travel</p>
         },
         {
             key: '2',
-            label: <p onClick={() => setInputState({...inputState, category: 'Other'})}>Other</p>
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Other'})}>Other</p>
         }
     ];
 
-    const validate = (value, field) => {
-        // validate empty fields
-        if (value === "" || value === undefined) {
-            setError(error => ({...error, [field]: {
-                validateStatus: "error",
-                help: "This field is required"
-            }}));
-            return;
-        } else {
-            setError(error => ({...error, [field]: null}));
+    // if want to skip just pass false as an argument
+    const validateMin = (min, value) => {
+        if (min) {
+            // validate min value
+            if (value.length !== 0 && value.length < min) {
+                return {
+                    error: "add more characters"
+                }
+            } else {
+                return {
+                    error: false
+                };
+            } 
         }
+    }
 
-        if (field === 'title' || field === 'comment') {
-            // validate min values
-            if (value.length < 3) {
-                setError(error => ({...error, [field]: {
-                    validateStatus: "error",
-                    help: "add more characters"
-                }}));
+    const validateMax = (max, value) => {
+        if (max) {
+            // validate max value
+            if (value.length > max) {
+                return {
+                    error: "Too long"
+                }
+            } else {
+                return {
+                    error: false
+                };
+            }
+        }
+    }
+
+    const validateRequired = (value) => {
+        if (value === "" || value === undefined) {
+            return {
+                error: "This field is required"
+            }
+        } else {
+            return {
+                error: false
+            }
+        }
+    }
+
+    const validate = (value, field) => {
+
+        if (field === 'title') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                setError(error => ({...error, [field]: { validateStatus: "error", help: 'validatedRequired.error' }}));
                 return;
             } else {
                 setError(error => ({...error, [field]: null}));
             }
-        }
 
-        if (field === 'image') {
-            if (imageFile.type === "image/jpeg" || imageFile.type === "image/png") {
-                setError(error => ({...error, [field]: {
-                    validateStatus: "error",
-                    help: "only .png .jpg .jpeg are supported"
-                }}));
+            // const validatedMin = validateMin(3, value);
+            // if (validatedMin.error)  {
+            //     setError({...error, [field]: { validateStatus: "error", help: validatedMin.error }});
+            //     return;
+            // } else {
+            //     setError({...error, [field]: null});
+            // }
+
+            // const validatedMax = validateMax(5, value);
+            // if (validatedMax.error)  {
+            //     setError({...error, [field]: { validateStatus: "error", help: validatedMax.error }});
+            //     return;
+            // } else {
+            //     setError({...error, [field]: null});
+            // }
+            
+        } 
+        
+        if (field === 'amount') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                let errorMessage = `${validateRequired.error}`;
+                setError((error) => ({...error, [field]: { validateStatus: "error", help: errorMessage }}));
+                return;
             } else {
                 setError(error => ({...error, [field]: null}));
             }
-        }
+
+            // const validatedMin = validateMin(3, value);
+            // if (validatedMin.error)  {
+            //     setError({...error, [field]: { validateStatus: "error", help: validatedMin.error }});
+            //     return;
+            // } else {
+            //     setError({...error, [field]: null});
+            // }
+
+            // const validatedMax = validateMax(5, value);
+            // if (validatedMax.error)  {
+            //     setError({...error, [field]: { validateStatus: "error", help: validatedMax.error }});
+            //     return;
+            // } else {
+            //     setError({...error, [field]: null});
+            // }
+
+        } 
+        
+        // if (field === 'comment') {
+        //     const validatedMin = validateMin(3, value);
+        //     if (validatedMin.error)  {
+        //         setError({...error, [field]: { validateStatus: "error", help: validatedMin.error }});
+        //         return;
+        //     } else {
+        //         setError({...error, [field]: null});
+        //     }
+
+        //     const validatedMax = validateMax(255, value);
+        //     if (validatedMax.error)  {
+        //         setError({...error, [field]: { validateStatus: "error", help: validatedMax.error }});
+        //         return;
+        //     } else {
+        //         setError({...error, [field]: null});
+        //     }
+
+        // } 
+        
+        // if (field === 'account' || field === 'category' || field === 'transactionDate') {
+        //     const validatedRequired = validateRequired(value);
+        //     if (validatedRequired.error) {
+        //         setError({...error, [field]: { validateStatus: "error", help: validatedRequired.error }});
+        //         return;
+        //     } else {
+        //         setError({...error, [field]: null});
+        //     }
+        // }
+
+        // validate empty fields
+        // if (value === "" || value === undefined) {
+        //     setError(error => ({...error, [field]: {
+        //         validateStatus: "error",
+        //         help: "This field is required"
+        //     }}));
+        //     return;
+        // } else {
+        //     setError(error => ({...error, [field]: null}));
+        // }
+
+        // if (field === 'title' || field === 'comment') {
+        //     // validate min values
+        //     if (value.length < 3) {
+        //         setError(error => ({...error, [field]: {
+        //             validateStatus: "error",
+        //             help: "add more characters"
+        //         }}));
+        //         return;
+        //     } else {
+        //         setError(error => ({...error, [field]: null}));
+        //     }
+        // }
+
+        // if (field === 'image') {
+        //     if (imageFile.type === "image/jpeg" || imageFile.type === "image/png") {
+        //         setError(error => ({...error, [field]: {
+        //             validateStatus: "error",
+        //             help: "only .png .jpg .jpeg are supported"
+        //         }}));
+        //     } else {
+        //         setError(error => ({...error, [field]: null}));
+        //     }
+        // }
     }
+
+    // const validateFields = (value, fields) => {
+
+    // }
 
     const constructFormData = (arrayOfFiles) => {
         if (arrayOfFiles.length !== 0) {
@@ -152,44 +283,43 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             validate(inputState.transactionDate, 'transactionDate');
             validate(inputState.comment, 'comment');
 
-            if (
-                error.title === null &&
-                error.amount === null &&
-                error.account === null &&
-                error.category === null &&
-                error.transactionDate === null &&
-                error.comment === null &&
-                inputState.title &&
-                inputState.amount &&
-                inputState.account &&
-                inputState.category &&
-                inputState.transactionDate
-            ) {
-                const formData = constructFormData(imageFile);
-                if (formData) {
-                    const returned = await uploadExpenseImages(formData);
-                    console.log(returned.data.data);
-                    await addExpense({...inputState, photos: returned.data.data }).unwrap();
-                    return;
-                }
+            // if (
+            //     error.title === null &&
+            //     error.amount === null &&
+            //     error.account === null &&
+            //     error.category === null &&
+            //     error.transactionDate === null &&
+            //     error.comment === null &&
+            //     inputState.title &&
+            //     inputState.amount &&
+            //     inputState.account &&
+            //     inputState.category &&
+            //     inputState.transactionDate
+            // ) {
+            //     const formData = constructFormData(imageFile);
+            //     if (formData) {
+            //         const returned = await uploadExpenseImages(formData);
+            //         console.log(returned.data.data);
+            //         await addExpense({...inputState, photos: returned.data.data }).unwrap();
+            //         return;
+            //     }
+            //     await addExpense({...inputState }).unwrap();
 
-                await addExpense({...inputState }).unwrap();
-            }
+            //     setAddModalState(false);
+            //     setInputState({});
+            //     setImageFile([]);
+            //     setError({
+            //         title: null,
+            //         amount: null,
+            //         account: null,
+            //         comment: null,
+            //         transactionDate: null,
+            //         category: null
+            //     });
+            // }
         } catch (error) {
             console.log(error);
         }
-
-        setAddModalState(false);
-        setInputState({});
-        setImageFile([]);
-        setError({
-            title: null,
-            amount: null,
-            account: null,
-            comment: null,
-            transactionDate: null,
-            category: null
-        });
     }
 
     const handleClose = () => {
@@ -204,25 +334,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             transactionDate: null,
             category: null
         });
-
-        // console.log(moment().day(0).format('YYYY-MM-DD'));
     }
-
-    // const handleImageMutation = async () => {
-    //     try {
-    //         if (imageFile.length !== 0) {
-    //             let expenseFormData = new FormData();
-    //             imageFile.forEach((fileObject, index) => {
-    //                 expenseFormData.append('expense-images', fileObject.file);
-    //             });
-    //             const returned = await uploadExpenseImages(expenseFormData);
-    //             return returned.data.data;
-    //         }
-    //     } catch(error) {
-    //         console.log(error);
-    //         return;
-    //     }
-    // }
 
     const inputUpload = useRef(null);
     const triggerImageUpload = () => inputUpload.current.click();
@@ -256,8 +368,8 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                 className="form-modal"
                 footer={[
                   <Button 
-                    className="themed-button" 
-                    // onClick={() => handleSubmit()}
+                    key={1}
+                    className="themed-button"
                     onClick={() => handleSubmit()}
                    >
                     Save
@@ -363,8 +475,9 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                 {
                     data !== undefined 
                     ? 
-                    data.data.map(item => (
-                        <RecordListItem 
+                    data.data.map((item, index) => (
+                        <RecordListItem
+                            key={index} 
                             title={item.title} 
                             percentage={item.percentage} 
                             amount={item.amount} 

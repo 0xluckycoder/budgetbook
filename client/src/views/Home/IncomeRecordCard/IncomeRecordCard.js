@@ -117,7 +117,7 @@ export const IncomeRecordCard = () => {
 
                     <Form.Item label="Add Photos">
                         <div>
-                            <img src={imagePlaceholder} />
+                            <img src={imagePlaceholder} alt="placeholder" />
                         </div>
                     </Form.Item>
                 </Form>
