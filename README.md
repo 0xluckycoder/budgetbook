@@ -108,27 +108,31 @@ test
         
     - [/] - home
         - [x] - home sort dropdown
-        - [/] - add expense record
+        - [x] - add expense record
             - [x] - validate fields
             - [x] - validation
-            - [/] - handle frontend image upload
+            - [x] - handle frontend image upload
                 - [x] - build request to send
                 - [x] - multiple or single upload with multer
                 - [x] - configure s3
                 - [x] - upload to s3 storage
             - [x] - handle backend image upload
             - [x] - construct the expense record add request with uploaded images
-            - [/] - clean up the validation
+            - [x] - clean up the validation
             - [ ] - add loading spinner
             - [ ] - move popup modal to separate component if necessary
+        - [/] - create Modal component that supports Add/Edit/View record data
+        - [/] - view expense record
+            - [ ] - design card UI for the record view
+                - get inspiration and develop a good view
+        - [ ] - edit expense record
+        - [ ] - delete expense record
         - [ ] - incomes chart
         - [ ] - expense chart
-        - [ ] - show expense record list
+
         - [ ] - add income record
         - [ ] - show income record list
-        - [ ] - edit expense record
         - [ ] - edit income record
-        - [ ] - delete expense record
         - [ ] - delete income record
     - [ ] - Accounts
         - [ ] - feed pie chart by fetching all accounts records
@@ -142,6 +146,8 @@ test
         - [ ] - logout user
         - [ ] - change default user app settings
     
+    - [ ] - validate the fetched data accuracy
+        - test manually
     - [ ] - Optimize RTK - (https://redux.js.org/tutorials/essentials/part-6-performance-normalization)
     - [ ] - Optimize necessary components
         - Research and find out how to benchmark and test react apps and optimize performance

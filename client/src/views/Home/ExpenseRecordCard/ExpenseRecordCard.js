@@ -9,7 +9,7 @@ import styles from './expenseRecordCard.module.scss';
 
 // import moment from 'moment';
 
-import { useGetExpenseQuery, useAddExpenseMutation, expenseApi, useUploadExpenseImagesMutation } from '../../../store/expense/expense.slice';
+import {useAddExpenseMutation, expenseApi, useUploadExpenseImagesMutation } from '../../../store/expense/expense.slice';
 
 export const ExpenseRecordCard = ({ dateSortByState }) => { 
 
@@ -20,15 +20,6 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
         isLoading,
         isSuccess
     } = expenseApi.endpoints.getExpense.useQueryState(dateSortByState);
-    // console.log('state 🌎', dateSortByState);
-    // const {
-    //     data,
-    //     isLoading: queryLoading,
-    //     isFetching,
-    //     isSuccess,
-    //     isError,
-    //     error
-    // } = useGetExpenseQuery('thismonth');
 
     const [addExpense, {
         isLoading: addMutationLoading 
@@ -437,10 +428,11 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
                     ? 
                     data.data.map((item, index) => (
                         <RecordListItem
-                            key={index} 
-                            title={item.title} 
-                            percentage={item.percentage} 
-                            amount={item.amount} 
+                            key={index}
+                            itemData={item} 
+                            // title={item.title} 
+                            // percentage={item.percentage} 
+                            // amount={item.amount} 
                         />
                     ))
                     : <h2>Loading...</h2>
@@ -460,15 +452,118 @@ const RecordListWrapper = ({ children }) => {
     );
 }
 
-const RecordListItem = ({ title, percentage, amount }) => {
+const RecordListItem = ({ itemData }) => {
+
+    console.log(itemData, 'data');
+
+    const [addModalState, setAddModalState] = useState(false);
+    const [form] = Form.useForm();
+    const { TextArea } = Input;
+
+    const handleClose = () => {
+        setAddModalState(false);
+    }
+
     return (
         <div className={styles.recordListItem}>
-            <div className={styles.icon}>
+            <div onClick={() => setAddModalState(true)} className={styles.icon}>
                 <FontAwesomeIcon icon={faBarsStaggered} />
             </div>
-                <p className={styles.name}>{title}</p>
-                <p>{percentage}</p>
-                <p className={styles.amount}>{amount}</p>
+
+            {/* add new expense modal */}
+            <Modal
+                title="Expense Item"
+                centered
+                open={addModalState}
+                onCancel={() => handleClose()}
+                className="form-modal"
+                footer={[
+                //   <Button 
+                //     key={1}
+                //     className="themed-button"
+                //     // onClick={() => handleSubmit()}
+                //    >
+                //     Edit
+                //   </Button>
+                ]}
+            >
+                <Form form={form} layout="vertical">
+                    <InlineField>
+                        <Form.Item label="Title">
+                            <Input 
+                                name="title"
+                                value={itemData.title}
+                            />
+                        </Form.Item>
+                        <Form.Item label="Amount">
+                            <Input 
+                                type='number'
+                                name="amount"
+                                value={itemData.amount}
+                            />
+                        </Form.Item>
+                    </InlineField>
+
+                    <InlineField>
+                        <Form.Item label="Account">
+                            <Input 
+                                name="account"
+                                value={itemData.account}
+                            />
+                        </Form.Item>
+                        <Form.Item label="category">
+                            <Input 
+                                name="category"
+                                value={itemData.category}
+                            />
+                        </Form.Item>
+                    </InlineField>
+
+                    <Form.Item label="date">
+                        <Input 
+                            name="date"
+                            value={itemData.transactionDate} 
+                        />
+                    </Form.Item>
+
+                    <Form.Item label="Comment">
+                        <TextArea 
+                            name="comment"  
+                            rows={4}
+                            value={itemData.comment}
+                        />
+                    </Form.Item>
+
+                    <Form.Item label="Add Photos">
+                        {/* <div className={styles.verticalImageSlider}>
+                            <input 
+                                name="expense-images"
+                                type="file"
+                                className={styles.uploadButton}
+                                ref={inputUpload}
+                                onChange={(e) => handleImageUpload(e.target.files[0])}
+                                hidden
+                            />
+                            {
+                                imageFile.length > 0 && imageFile.map(fileItem => <img src={fileItem.blob} alt="uploaded slide item" />)
+                            }
+
+                            {
+                                imageFile.length >= 3 || <img 
+                                                            onClick={triggerImageUpload} 
+                                                            src={imagePlaceholder} 
+                                                            alt="placeholder" 
+                                                            className={styles.imageUploadPlaceholder}
+                                                        />
+                            }
+                        </div> */}
+                    </Form.Item>
+                </Form>
+            </Modal>
+
+                <p className={styles.name}>{itemData.title}</p>
+                <p>{itemData.percentage}</p>
+                <p className={styles.amount}>{itemData.amount}</p>
             <div className={styles.closeWrapper}>
                 <FontAwesomeIcon icon={faXmark} />
             </div>
