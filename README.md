@@ -90,7 +90,7 @@ test
             - [x] - optimize requests
                 - [x] - initial query by date = thismonth/lastmonth
                 - [x] - button trigger query
-                - [x] - add useQueryState for read data wihtout fethcing
+                - [x] - add useQueryState for read data without fetching
                 - [x] - add caching and invalidation when making changes
             - [x] - handle loading
             - [ ] - handle errors
@@ -121,9 +121,9 @@ test
             - [x] - clean up the validation
             - [ ] - add loading spinner
             - [ ] - move popup modal to separate component if necessary
-        - [/] - create Modal component that supports Add/Edit/View record data
-        - [/] - view expense record
-            - [ ] - design card UI for the record view
+        - [x] - create Modal component that supports Add/Edit/View record data
+        - [x] - view expense record
+            - [x] - design card UI for the record view
                 - get inspiration and develop a good view
         - [ ] - edit expense record
         - [ ] - delete expense record

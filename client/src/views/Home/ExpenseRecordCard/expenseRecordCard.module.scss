@@ -30,6 +30,21 @@
     }
 }
 
+.viewModal {
+    min-width: 508.8px;
+
+    label {
+        color: #00000073 !important; 
+    }
+}
+
+@media (max-width: 531px) {
+    .viewModal {
+        min-width: 0px;
+        max-width: 508.8px;
+    }
+}
+
 // .recordListItemLeft {
     // display: flex;
     // align-items: center;

@@ -476,87 +476,71 @@ const RecordListItem = ({ itemData }) => {
                 centered
                 open={addModalState}
                 onCancel={() => handleClose()}
-                className="form-modal"
+                className={styles.viewModal}
                 footer={[
-                //   <Button 
-                //     key={1}
-                //     className="themed-button"
-                //     // onClick={() => handleSubmit()}
-                //    >
-                //     Edit
-                //   </Button>
+                  <Button 
+                    key={1}
+                    className="themed-button"
+                    // onClick={() => handleSubmit()}
+                   >
+                    Edit
+                  </Button>,
+                  <Button 
+                    key={1}
+                    className="themed-button"
+                    // onClick={() => handleSubmit()}
+                   >
+                    Delete
+                  </Button>
                 ]}
             >
                 <Form form={form} layout="vertical">
                     <InlineField>
                         <Form.Item label="Title">
-                            <Input 
-                                name="title"
-                                value={itemData.title}
-                            />
+                            <p>{itemData.title}</p>
                         </Form.Item>
                         <Form.Item label="Amount">
-                            <Input 
-                                type='number'
-                                name="amount"
-                                value={itemData.amount}
-                            />
+                            <p>{itemData.amount}</p>
                         </Form.Item>
                     </InlineField>
 
                     <InlineField>
                         <Form.Item label="Account">
-                            <Input 
-                                name="account"
-                                value={itemData.account}
-                            />
+                            <p>{itemData.title}</p>
                         </Form.Item>
-                        <Form.Item label="category">
-                            <Input 
+                        <Form.Item label="Category">
+                            <p>{itemData.category}</p>
+                            {/* <Input 
                                 name="category"
                                 value={itemData.category}
-                            />
+                            /> */}
                         </Form.Item>
                     </InlineField>
 
-                    <Form.Item label="date">
-                        <Input 
+                    <Form.Item label="Date">
+                        {/* <Input 
                             name="date"
                             value={itemData.transactionDate} 
-                        />
+                        /> */}
+                        <p>{itemData.transactionDate}</p>
                     </Form.Item>
 
                     <Form.Item label="Comment">
-                        <TextArea 
+                        <p>{itemData.comment}</p>
+                        {/* <TextArea 
                             name="comment"  
                             rows={4}
                             value={itemData.comment}
-                        />
+                        /> */}
                     </Form.Item>
 
                     <Form.Item label="Add Photos">
-                        {/* <div className={styles.verticalImageSlider}>
-                            <input 
-                                name="expense-images"
-                                type="file"
-                                className={styles.uploadButton}
-                                ref={inputUpload}
-                                onChange={(e) => handleImageUpload(e.target.files[0])}
-                                hidden
-                            />
+                        <div className={styles.verticalImageSlider}>
                             {
-                                imageFile.length > 0 && imageFile.map(fileItem => <img src={fileItem.blob} alt="uploaded slide item" />)
+                                itemData.photos.length > 0 
+                                && itemData.photos.map((imageItem, index) => <img src={imageItem} key={index} alt="expense" />)
                             }
-
-                            {
-                                imageFile.length >= 3 || <img 
-                                                            onClick={triggerImageUpload} 
-                                                            src={imagePlaceholder} 
-                                                            alt="placeholder" 
-                                                            className={styles.imageUploadPlaceholder}
-                                                        />
-                            }
-                        </div> */}
+                        </div>
                     </Form.Item>
                 </Form>
             </Modal>
