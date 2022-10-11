@@ -56,6 +56,31 @@
     cursor: pointer;
 }
 
+// image preview component
+.imagePreview {
+    max-height: 100px;
+    .iconPanel {
+        position: relative;
+        top: -50%;
+        background: rgba(0, 0, 0, 0.628);
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: auto;
+        padding: 1rem;
+
+        svg {
+            color: rgba(255, 255, 255, 0.703);
+            font-size: 1rem;
+
+            &:hover {
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
 // vertical image upload slider
 .verticalImageSlider {
     overflow-x: auto;

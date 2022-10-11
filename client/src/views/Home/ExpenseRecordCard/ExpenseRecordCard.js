@@ -4,7 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faBarsStaggered, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faBarsStaggered, faTrash, faMagnifyingGlassPlus } from '@fortawesome/free-solid-svg-icons';
 import { InlineField } from '../../../components/Form/InlineField';
 import { validateMax, validateMin, validateRequired } from '../../../utils/formValidation';
 import styles from './expenseRecordCard.module.scss';
@@ -15,10 +15,6 @@ import {
     useUploadExpenseImagesMutation,
     useGetExpenseByIdQuery
 } from '../../../store/expense/expense.slice';
-
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-// const App: React.FC = () => <Spin indicator={antIcon} />;
-
 
 export const ExpenseRecordCard = ({ dateSortByState }) => { 
 
@@ -764,11 +760,11 @@ const EditCustomModal = ({
             />
             {   
                 // displaying existing images
-                inputState.photos && inputState.photos.length > 0 && inputState.photos.map(imageItem => <img src={imageItem} alt="uploaded slide item" />)
+                inputState.photos && inputState.photos.length > 0 && inputState.photos.map(imageItem => <ImagePreview imageSrc={imageItem} />)
             }
             {
                 // displaying uploaded images
-                imageFile.length > 0 && imageFile.map(fileItem => <img src={fileItem.blob} alt="uploaded slide item" />)
+                imageFile.length > 0 && imageFile.map(fileItem => <ImagePreview imageSrc={fileItem.blob} />)
             }
 
             {
@@ -786,7 +782,43 @@ const EditCustomModal = ({
 
         </Modal>
     );
-} 
+}
+
+// const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+// const App: React.FC = () => <Spin indicator={antIcon} />;
+
+const ImagePreview = ({ imageSrc }) => {
+
+    const [isHover, setIsHover] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleMouseEnter = () => setIsHover(true);
+
+    const handleMouseLeave = () =>  setIsHover(false);
+    
+    // const handleMouseHover = () => {
+    //     setIsHover(isHover => !isHover);
+    // }
+
+    return (
+        <div 
+            onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => handleMouseLeave()}  
+            className={styles.imagePreview}
+        >
+            <img src={imageSrc} alt="uploaded slide item" />
+            {isHover &&
+                <div className={styles.iconPanel}>
+                    <FontAwesomeIcon className={styles.delete} icon={faTrash} />
+                    <FontAwesomeIcon className={styles.zoom} icon={faMagnifyingGlassPlus} />
+                </div>
+            }
+        </div>
+    );
+}
+
+{/*  */}
 
 const RecordListWrapper = ({ children }) => {
     return (
