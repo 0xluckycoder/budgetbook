@@ -10,7 +10,7 @@ import { ExpenseCard } from "../ExpenseCard/ExpenseCard";
 import { ExpenseRecordCard } from "../ExpenseRecordCard/ExpenseRecordCard";
 import { IncomeRecordCard } from "../IncomeRecordCard/IncomeRecordCard";
 
-import { useGetExpenseQuery } from "../../../store/expense/expense.slice";
+import { useGetExpensesQuery } from "../../../store/expense/expense.slice";
 
 import { SORT_DATE_BY } from "../../../utils/constants";
 
@@ -20,7 +20,7 @@ const HomePage = () => {
 
     const { 
         data: returned 
-    } = useGetExpenseQuery(state.value);
+    } = useGetExpensesQuery(state.value);
     // console.log('fetched', returned);
 
     const values = [

@@ -120,12 +120,20 @@ test
             - [x] - construct the expense record add request with uploaded images
             - [x] - clean up the validation
             - [ ] - add loading spinner
-            - [ ] - move popup modal to separate component if necessary
+            - [x] - move popup modal to separate component if necessary
+                - [ ] - think about ways to make it reusable
         - [x] - create Modal component that supports Add/Edit/View record data
         - [x] - view expense record
             - [x] - design card UI for the record view
                 - get inspiration and develop a good view
-        - [ ] - edit expense record
+        - [/] - edit expense record
+            - [x] - persist data between mutations
+            - [/] - make images editable
+                - [x] - loop and show existing images using url as source
+                - [x] - show blob uploaded images
+                - [/] - add remove option to images
+            - [ ] - construct the patch request to update
+            - [ ] - fetch by id
         - [ ] - delete expense record
         - [ ] - incomes chart
         - [ ] - expense chart
