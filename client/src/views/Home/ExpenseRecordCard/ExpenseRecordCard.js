@@ -8,13 +8,14 @@ import { faXmark, faBarsStaggered, faTrash, faMagnifyingGlassPlus } from '@forta
 import { InlineField } from '../../../components/Form/InlineField';
 import { validateMax, validateMin, validateRequired } from '../../../utils/formValidation';
 import styles from './expenseRecordCard.module.scss';
+import moment from 'moment';
 
 import { 
     useAddExpenseMutation, 
     expenseApi, 
     useUploadExpenseImagesMutation,
-    useGetExpenseByIdQuery,
-    useEditExpenseMutation
+    useEditExpenseMutation,
+    useDeleteExpenseMutation
 } from '../../../store/expense/expense.slice';
 
 export const ExpenseRecordCard = ({ dateSortByState }) => { 
@@ -63,7 +64,81 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     );
 }
 
-const AddCustomModal = ({ addModalState, setAddModalState }) => {
+const RecordListWrapper = ({ children }) => {
+    return (
+        <div className={styles.listScrollArea}>
+            <div className={styles.recordListWrapper}>
+                {children}
+            </div>
+        </div>
+    );
+}
+
+const RecordListItem = ({ itemData, dateSortByState }) => {    
+    // view modal state
+    const [viewModalState, setViewModalState] = useState(false);
+    // edit modal state
+    const [editModalState, setEditModalState] = useState(false);
+
+    const handleClose = () => {
+        setViewModalState(false);
+    }
+
+    const handleEditButton = () => {
+        handleClose();
+        setEditModalState(true);
+    }
+
+    const [deleteExpense, {
+        data: deleteResponse,        
+        isLoading: deleteExpenseMutationLoading,
+    }] = useDeleteExpenseMutation();
+
+    const handleDelete = async (id) => {
+        try {
+            await deleteExpense(id).unwrap();
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    return (
+        <div className={styles.recordListItem}>
+            <div onClick={() => setViewModalState(true)} className={styles.icon}>
+                <FontAwesomeIcon icon={faBarsStaggered} />
+            </div>
+
+            {/* view expense record */}
+            <ViewCustomModal
+                viewModalState={viewModalState}
+                setViewModalState={setViewModalState}
+                itemData={itemData}
+                handleEditButton={handleEditButton}
+                handleClose={handleClose}
+            />
+
+            {/* edit expense */}
+            <EditCustomModal
+                editModalState={editModalState}
+                setEditModalState={setEditModalState}
+                itemData={itemData}
+                dateSortByState={dateSortByState}
+            />
+
+                <p className={styles.name}>{itemData.title}</p>
+                <p>{itemData.percentage}</p>
+                <p className={styles.amount}>{itemData.amount}</p>
+            <div onClick={() => handleDelete(itemData._id)} className={styles.closeWrapper}>
+                <FontAwesomeIcon icon={faXmark} />
+            </div>
+        </div>
+    );
+}
+
+const AddCustomModal = ({ 
+    addModalState, 
+    setAddModalState 
+}) => {
 
     const [addExpense, {
         isLoading: addMutationLoading 
@@ -421,10 +496,6 @@ const EditCustomModal = ({
     dateSortByState
 }) => {
 
-    const [addExpense, {
-        isLoading: addMutationLoading 
-    }] = useAddExpenseMutation();
-
     const [uploadExpenseImages, {
         isLoading: imageMutationLoading,
         data: imageResponse
@@ -606,16 +677,10 @@ const EditCustomModal = ({
                     const returned = await uploadExpenseImages(formData);
                     const returnedImages = returned.data.data;
                     await editExpense({...inputState, photos: [...inputState.photos, ...returnedImages] });
-                    // console.log({...inputState, photos: [...inputState.photos, ...returnedImages] });
-                    // await addExpense({...inputState, photos: [...inputState.photos, ...returnedImages] }).unwrap();
                     return;
                 }
 
                 await editExpense({...inputState});
-                // const [imageFile, setImageFile] = useState([]);
-                // const [inputState, setInputState] = useState({});
-
-                // await addExpense({...inputState }).unwrap();
 
                 setEditModalState(false);
                 setInputState({});
@@ -747,6 +812,7 @@ const EditCustomModal = ({
             <Form.Item label="Transaction Date" {...(error.transactionDate ? error.transactionDate : {})}>
             <Space direction="vertical">
             <DatePicker 
+                defaultValue={inputState.transactionDate && moment(inputState.transactionDate, 'YYYY-MM-DD')}
                 onChange={(date, dateString) => setInputState({...inputState, transactionDate: dateString})}
                 onBlur={() => validate(inputState.transactionDate, 'transactionDate')}
             />
@@ -778,7 +844,8 @@ const EditCustomModal = ({
                 inputState.photos && inputState.photos.length > 0 && inputState.photos.map(imageItem => <ImagePreview 
                                                                                                             imageState={inputState} 
                                                                                                             setImageState={setInputState} 
-                                                                                                            imageSrc={imageItem} 
+                                                                                                            imageSrc={imageItem}
+                                                                                                            inputState={inputState} 
                                                                                                         />)
             }
             {
@@ -786,7 +853,8 @@ const EditCustomModal = ({
                 imageFile.length > 0 && imageFile.map(fileItem => <ImagePreview 
                                                                     imageState={imageFile} 
                                                                     setImageState={setImageFile} 
-                                                                    imageSrc={fileItem.blob} 
+                                                                    imageSrc={fileItem.blob}
+                                                                    inputState={inputState} 
                                                                 />)
             }
 
@@ -807,10 +875,81 @@ const EditCustomModal = ({
     );
 }
 
-// const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-// const App: React.FC = () => <Spin indicator={antIcon} />;
+const ViewCustomModal = ({
+    viewModalState,
+    setViewModalState,
+    handleEditButton,
+    itemData,
+    handleClose
+}) => {
 
-const ImagePreview = ({ imageSrc, setImageState, imageState }) => {
+    const [form] = Form.useForm();
+
+    return (
+        <Modal
+        title="Expense Item"
+        centered
+        open={viewModalState}
+        onCancel={() => handleClose()}
+        className={styles.viewModal}
+        footer={[
+          <Button 
+            key={1}
+            className="themed-button"
+            onClick={() => handleEditButton()}
+           >
+            Edit
+          </Button>,
+          <Button 
+            key={2}
+            className="themed-button"
+            // onClick={() => handleSubmit()}
+           >
+            Delete
+          </Button>
+        ]}
+    >
+    <Form form={form} layout="vertical">
+        <InlineField>
+            <Form.Item label="Title">
+                <p>{itemData.title}</p>
+            </Form.Item>
+            <Form.Item label="Amount">
+                <p>{itemData.amount}</p>
+            </Form.Item>
+        </InlineField>
+
+        <InlineField>
+            <Form.Item label="Account">
+                <p>{itemData.account}</p>
+            </Form.Item>
+            <Form.Item label="Category">
+                <p>{itemData.category}</p>
+            </Form.Item>
+        </InlineField>
+
+        <Form.Item label="Date">
+            <p>{itemData.transactionDate}</p>
+        </Form.Item>
+
+        <Form.Item label="Comment">
+            <p>{itemData.comment}</p>
+        </Form.Item>
+
+        <Form.Item label="Add Photos">
+            <div className={styles.verticalImageSlider}>
+                {
+                    itemData.photos.length > 0 
+                    && itemData.photos.map((imageItem, index) => <img src={imageItem} key={index} alt="expense" />)
+                }
+            </div>
+        </Form.Item>
+    </Form>
+    </Modal>
+    );
+}
+
+const ImagePreview = ({ imageSrc, setImageState, imageState, inputState }) => {
 
     const [isHover, setIsHover] = useState(false);
     const handleMouseEnter = () => setIsHover(true);
@@ -823,7 +962,8 @@ const ImagePreview = ({ imageSrc, setImageState, imageState }) => {
         if (imageState.photos) {
             // if url
             const filteredUrls = imageState.photos.filter(url => url !== imageSrc);
-            setImageState({ photos: filteredUrls });
+            // setImageState({ photos: filteredUrls });
+            setImageState({...inputState, photos: filteredUrls});
         } else {
             // if blob
             const filteredBlobs = imageState.filter(file => file.blob !== imageSrc);
@@ -885,131 +1025,6 @@ const ImagePreview = ({ imageSrc, setImageState, imageState }) => {
                     />
                 </div>
             }
-        </div>
-    );
-}
-
-const RecordListWrapper = ({ children }) => {
-    return (
-        <div className={styles.listScrollArea}>
-            <div className={styles.recordListWrapper}>
-                {children}
-            </div>
-        </div>
-    );
-}
-
-const RecordListItem = ({ itemData, dateSortByState }) => {
-
-    // const {
-    //     data,
-    //     isError,
-    //     isFetching,
-    //     isLoading,
-    //     isSuccess
-    // } = useGetExpenseByIdQuery(itemData._id, {
-    //     skip: false
-    // });
-    // display data from query instead of itemData
-    // console.log(itemData, 'data');
-    
-    // view modal state
-    const [viewModalState, setViewModalState] = useState(false);
-    // edit modal state
-    const [editModalState, setEditModalState] = useState(false);
-    const [form] = Form.useForm();
-
-    const handleClose = () => {
-        setViewModalState(false);
-    }
-
-    const handleEditButton = () => {
-        handleClose();
-        setEditModalState(true);
-    }
-
-    return (
-        <div className={styles.recordListItem}>
-            <div onClick={() => setViewModalState(true)} className={styles.icon}>
-                <FontAwesomeIcon icon={faBarsStaggered} />
-            </div>
-
-            {/* view expense record */}
-            <Modal
-                title="Expense Item"
-                centered
-                open={viewModalState}
-                onCancel={() => handleClose()}
-                className={styles.viewModal}
-                footer={[
-                  <Button 
-                    key={1}
-                    className="themed-button"
-                    onClick={() => handleEditButton()}
-                   >
-                    Edit
-                  </Button>,
-                  <Button 
-                    key={2}
-                    className="themed-button"
-                    // onClick={() => handleSubmit()}
-                   >
-                    Delete
-                  </Button>
-                ]}
-            >
-            <Form form={form} layout="vertical">
-                <InlineField>
-                    <Form.Item label="Title">
-                        <p>{itemData.title}</p>
-                    </Form.Item>
-                    <Form.Item label="Amount">
-                        <p>{itemData.amount}</p>
-                    </Form.Item>
-                </InlineField>
-
-                <InlineField>
-                    <Form.Item label="Account">
-                        <p>{itemData.title}</p>
-                    </Form.Item>
-                    <Form.Item label="Category">
-                        <p>{itemData.category}</p>
-                    </Form.Item>
-                </InlineField>
-
-                <Form.Item label="Date">
-                    <p>{itemData.transactionDate}</p>
-                </Form.Item>
-
-                <Form.Item label="Comment">
-                    <p>{itemData.comment}</p>
-                </Form.Item>
-
-                <Form.Item label="Add Photos">
-                    <div className={styles.verticalImageSlider}>
-                        {
-                            itemData.photos.length > 0 
-                            && itemData.photos.map((imageItem, index) => <img src={imageItem} key={index} alt="expense" />)
-                        }
-                    </div>
-                </Form.Item>
-            </Form>
-            </Modal>
-
-            {/* edit expense */}
-            <EditCustomModal
-                editModalState={editModalState}
-                setEditModalState={setEditModalState}
-                itemData={itemData}
-                dateSortByState={dateSortByState}
-            />
-
-                <p className={styles.name}>{itemData.title}</p>
-                <p>{itemData.percentage}</p>
-                <p className={styles.amount}>{itemData.amount}</p>
-            <div className={styles.closeWrapper}>
-                <FontAwesomeIcon icon={faXmark} />
-            </div>
         </div>
     );
 }

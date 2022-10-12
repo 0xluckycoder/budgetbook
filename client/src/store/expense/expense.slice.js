@@ -36,6 +36,13 @@ export const expenseApi = createApi({
                 body: patch
             }),
             invalidatesTags: ['Expense']
+        }),
+        deleteExpense: build.mutation({
+            query: (id) => ({
+                url: `/expense/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['Expense']
         })
     })
 });
@@ -53,5 +60,6 @@ export const {
     useLazyGetExpenseByIdQuery,
     useAddExpenseMutation,
     useUploadExpenseImagesMutation,
-    useEditExpenseMutation
+    useEditExpenseMutation,
+    useDeleteExpenseMutation
 } = expenseApi;

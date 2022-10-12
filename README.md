@@ -125,7 +125,7 @@ test
         - [x] - view expense record
             - [x] - design card UI for the record view
                 - get inspiration and develop a good view
-        - [/] - edit expense record
+        - [x] - edit expense record
             - [x] - persist data between mutations
             - [x] - make images editable
                 - [x] - loop and show existing images using url as source
@@ -134,8 +134,12 @@ test
                 - [x] - add zoom option to images
                 - [x] - upload newly updated images and add to photos object
             - [x] - construct the patch request to update
-            - [ ] - fetch by id
-        - [ ] - delete expense record
+            - [x] - invalidate cache
+            - [x] - fix date show and update bug
+        - [x] - delete expense record
+        - [/] - add initial load spinner in list
+        - [ ] - build warning component
+        - [ ] - go through the workflow and clean the code 
         - [ ] - incomes chart
         - [ ] - expense chart
 
