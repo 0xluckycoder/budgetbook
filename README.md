@@ -72,7 +72,6 @@ test
                 - [/] - expense slice
                 - [ ] - income slice
                 - [ ] - accounts slice
-
             - [x] - add local state with query and mutation
             - [ ] - add createApi slice and link with database
             - [ ] - improve performance by adding caching
@@ -128,12 +127,13 @@ test
                 - get inspiration and develop a good view
         - [/] - edit expense record
             - [x] - persist data between mutations
-            - [/] - make images editable
+            - [x] - make images editable
                 - [x] - loop and show existing images using url as source
                 - [x] - show blob uploaded images
                 - [x] - add remove option to images
-                - [/] - add zoom option to images
-            - [ ] - construct the patch request to update
+                - [x] - add zoom option to images
+                - [x] - upload newly updated images and add to photos object
+            - [x] - construct the patch request to update
             - [ ] - fetch by id
         - [ ] - delete expense record
         - [ ] - incomes chart

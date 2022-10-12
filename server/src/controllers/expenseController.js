@@ -104,6 +104,8 @@ const getExpenseById = async (req, res, next) => {
 const updateExpense = async (req, res, next) => {
     try {
         const { id } = req.params;
+        
+        console.log(req.body);
 
         const expenseSchema = yup.object().shape({
             title: yup.string('title must be a string')

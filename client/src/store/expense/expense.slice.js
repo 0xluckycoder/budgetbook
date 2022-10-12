@@ -28,6 +28,14 @@ export const expenseApi = createApi({
                 body: formData,
                 credentials: "include"
             })
+        }),
+        editExpense: build.mutation({
+            query: (patch) => ({
+                url: `/expense/${patch._id}`,
+                method: 'PUT',
+                body: patch
+            }),
+            invalidatesTags: ['Expense']
         })
     })
 });
@@ -44,5 +52,6 @@ export const {
     useGetExpenseByIdQuery,
     useLazyGetExpenseByIdQuery,
     useAddExpenseMutation,
-    useUploadExpenseImagesMutation
+    useUploadExpenseImagesMutation,
+    useEditExpenseMutation
 } = expenseApi;

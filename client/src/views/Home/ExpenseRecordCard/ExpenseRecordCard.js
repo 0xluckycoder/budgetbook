@@ -13,7 +13,8 @@ import {
     useAddExpenseMutation, 
     expenseApi, 
     useUploadExpenseImagesMutation,
-    useGetExpenseByIdQuery
+    useGetExpenseByIdQuery,
+    useEditExpenseMutation
 } from '../../../store/expense/expense.slice';
 
 export const ExpenseRecordCard = ({ dateSortByState }) => { 
@@ -429,6 +430,11 @@ const EditCustomModal = ({
         data: imageResponse
     }] = useUploadExpenseImagesMutation();
 
+    const [editExpense, {
+        isLoading: editExpenseMutationLoading,
+        data: editResponse
+    }] = useEditExpenseMutation();
+
     const { TextArea } = Input;
 
     const [form] = Form.useForm();
@@ -592,15 +598,24 @@ const EditCustomModal = ({
                 inputState.account &&
                 inputState.category &&
                 inputState.transactionDate
-            ) {
+            ) {                
                 const formData = constructFormData(imageFile);
-                if (formData) {
+                if (formData && imageFile !== {}) {
+                    console.log('rann');
+                    // console.log(inputState._id);
                     const returned = await uploadExpenseImages(formData);
-                    console.log(returned.data.data);
-                    await addExpense({...inputState, photos: returned.data.data }).unwrap();
+                    const returnedImages = returned.data.data;
+                    await editExpense({...inputState, photos: [...inputState.photos, ...returnedImages] });
+                    // console.log({...inputState, photos: [...inputState.photos, ...returnedImages] });
+                    // await addExpense({...inputState, photos: [...inputState.photos, ...returnedImages] }).unwrap();
                     return;
                 }
-                await addExpense({...inputState }).unwrap();
+
+                await editExpense({...inputState});
+                // const [imageFile, setImageFile] = useState([]);
+                // const [inputState, setInputState] = useState({});
+
+                // await addExpense({...inputState }).unwrap();
 
                 setEditModalState(false);
                 setInputState({});
@@ -740,11 +755,11 @@ const EditCustomModal = ({
 
             <Form.Item label="Comment" {...(error.comment ? error.comment : {})}>
             <TextArea 
-            name="comment" 
-            value={inputState.comment} 
-            onChange={handleInputChange} 
-            rows={4}
-            onBlur={(e) => validate(e.target.value, 'comment')}
+                name="comment" 
+                value={inputState.comment} 
+                onChange={handleInputChange} 
+                rows={4}
+                onBlur={(e) => validate(e.target.value, 'comment')}
             />
             </Form.Item>
 
@@ -873,7 +888,6 @@ const ImagePreview = ({ imageSrc, setImageState, imageState }) => {
         </div>
     );
 }
-
 
 const RecordListWrapper = ({ children }) => {
     return (
