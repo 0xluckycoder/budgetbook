@@ -131,7 +131,7 @@ test
             - [/] - make images editable
                 - [x] - loop and show existing images using url as source
                 - [x] - show blob uploaded images
-                - [/] - add remove option to images
+                - [x] - add remove option to images
                 - [/] - add zoom option to images
             - [ ] - construct the patch request to update
             - [ ] - fetch by id

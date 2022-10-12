@@ -81,6 +81,16 @@
     }
 }
 
+// zoomed image modal component
+.zoomedImage {
+    display: flex;
+    justify-content: center;
+    
+    img {
+        width: 300px;
+    }
+}
+
 // vertical image upload slider
 .verticalImageSlider {
     overflow-x: auto;

@@ -675,7 +675,7 @@ const EditCustomModal = ({
                 className="themed-button"
                 onClick={() => handleSubmit()}
                 >
-                Save
+                Update
                 </Button>
             ]}
         >
@@ -760,11 +760,19 @@ const EditCustomModal = ({
             />
             {   
                 // displaying existing images
-                inputState.photos && inputState.photos.length > 0 && inputState.photos.map(imageItem => <ImagePreview imageSrc={imageItem} />)
+                inputState.photos && inputState.photos.length > 0 && inputState.photos.map(imageItem => <ImagePreview 
+                                                                                                            imageState={inputState} 
+                                                                                                            setImageState={setInputState} 
+                                                                                                            imageSrc={imageItem} 
+                                                                                                        />)
             }
             {
                 // displaying uploaded images
-                imageFile.length > 0 && imageFile.map(fileItem => <ImagePreview imageSrc={fileItem.blob} />)
+                imageFile.length > 0 && imageFile.map(fileItem => <ImagePreview 
+                                                                    imageState={imageFile} 
+                                                                    setImageState={setImageFile} 
+                                                                    imageSrc={fileItem.blob} 
+                                                                />)
             }
 
             {
@@ -787,38 +795,85 @@ const EditCustomModal = ({
 // const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 // const App: React.FC = () => <Spin indicator={antIcon} />;
 
-const ImagePreview = ({ imageSrc }) => {
+const ImagePreview = ({ imageSrc, setImageState, imageState }) => {
 
     const [isHover, setIsHover] = useState(false);
-
-    const [isOpen, setIsOpen] = useState(false);
-
     const handleMouseEnter = () => setIsHover(true);
-
     const handleMouseLeave = () =>  setIsHover(false);
+    const handleTrigger = () => setIsHover(isHover => !isHover);
+    const [zoomModal, setZoomModal] = useState(false);
     
-    // const handleMouseHover = () => {
-    //     setIsHover(isHover => !isHover);
-    // }
+    const handleDelete = () => {
+        // identify whether its a url value or blob value
+        if (imageState.photos) {
+            // if url
+            const filteredUrls = imageState.photos.filter(url => url !== imageSrc);
+            setImageState({ photos: filteredUrls });
+        } else {
+            // if blob
+            const filteredBlobs = imageState.filter(file => file.blob !== imageSrc);
+            setImageState(filteredBlobs);
+        }
+    }
+
+
 
     return (
         <div 
             onMouseEnter={() => handleMouseEnter()}
-            onMouseLeave={() => handleMouseLeave()}  
+            onMouseLeave={() => handleMouseLeave()}
+            onClick={() => handleTrigger()}  
             className={styles.imagePreview}
         >
+
+            {/* 
+            title="Edit Expense"
+            centered
+            open={editModalState}
+            onCancel={() => handleClose()}
+            className="form-modal"
+            footer={[
+                <Button 
+                key={1}
+                className="themed-button"
+                onClick={() => handleSubmit()}
+                >
+                Update
+                </Button>
+            ]}            
+            */}
+
+            <Modal
+                title="Image"
+                centered
+                open={zoomModal}
+                onCancel={() => setZoomModal(false)}
+                footer={[]}
+                // width={1000
+            >
+                <div className={styles.zoomedImage}>
+                    <img src={imageSrc} alt="zoom" />
+                </div>
+            </Modal>
             <img src={imageSrc} alt="uploaded slide item" />
             {isHover &&
                 <div className={styles.iconPanel}>
-                    <FontAwesomeIcon className={styles.delete} icon={faTrash} />
-                    <FontAwesomeIcon className={styles.zoom} icon={faMagnifyingGlassPlus} />
+                    <FontAwesomeIcon 
+                        onClick={() => handleDelete()} 
+                        className={styles.delete} 
+                        icon={faTrash} 
+                    />
+                    <FontAwesomeIcon 
+                        onClick={() => setZoomModal(true)} 
+                        className={styles.zoom} 
+                        icon={faMagnifyingGlassPlus} 
+                    />
                 </div>
             }
         </div>
     );
 }
 
-{/*  */}
 
 const RecordListWrapper = ({ children }) => {
     return (
@@ -841,11 +896,9 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     // } = useGetExpenseByIdQuery(itemData._id, {
     //     skip: false
     // });
-
-
-
     // display data from query instead of itemData
     // console.log(itemData, 'data');
+    
     // view modal state
     const [viewModalState, setViewModalState] = useState(false);
     // edit modal state
