@@ -4,6 +4,12 @@ import { InlineField } from '../../../components/Form/InlineField';
 import styles from './viewCustomModal.module.scss';
 import { ImagePreview } from '../ImagePreview/ImagePreview';
 
+import { DialogueCard } from '../../DialogueCard/DialogueCard';
+
+import { 
+    useDeleteExpenseMutation,
+} from '../../../store/expense/expense.slice';
+
 export const ViewCustomModal = ({
     viewModalState,
     setViewModalState,
@@ -13,73 +19,106 @@ export const ViewCustomModal = ({
 }) => {
 
     const [form] = Form.useForm();
+    const [dialogueCardState, setDialogueCardState] = useState(false);
+
+    // delete mutation
+    const [deleteExpense, {
+        data: deleteResponse,        
+        isLoading: deleteExpenseMutationLoading,
+    }] = useDeleteExpenseMutation();
+
+    // send delete request
+    const handleDelete = async (id) => {
+        try {
+            await deleteExpense(id).unwrap();
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    // handle dialogue card confirm
+    const handleConfirm = () => {
+        handleDelete(itemData._id);
+        setDialogueCardState(dialogueCardState => !dialogueCardState);
+        handleClose();
+    };
+
 
     return (
         <Modal
-        title="Expense Item"
-        centered
-        open={viewModalState}
-        onCancel={() => handleClose()}
-        className={styles.viewModal}
-        footer={[
-          <Button 
-            key={1}
-            className="themed-button"
-            onClick={() => handleEditButton()}
-           >
-            Edit
-          </Button>,
-          <Button 
-            key={2}
-            className="themed-button"
-            // onClick={() => handleSubmit()}
-           >
-            Delete
-          </Button>
-        ]}
-    >
-    <Form form={form} layout="vertical">
-        <InlineField>
-            <Form.Item label="Title">
-                <p>{itemData.title}</p>
-            </Form.Item>
-            <Form.Item label="Amount">
-                <p>{itemData.amount}</p>
-            </Form.Item>
-        </InlineField>
+            title="Expense Item"
+            centered
+            open={viewModalState}
+            onCancel={() => handleClose()}
+            className={styles.viewModal}
+            footer={[
+            <Button 
+                key={1}
+                className="themed-button"
+                onClick={() => handleEditButton()}
+            >
+                Edit
+            </Button>,
+            <Button 
+                key={2}
+                className="themed-button"
+                onClick={() => setDialogueCardState(true)}
+            >
+                Delete
+            </Button>
+            ]}
+        >
 
-        <InlineField>
-            <Form.Item label="Account">
-                <p>{itemData.account}</p>
+        {/* Warning Dialogue Card */}
+        <DialogueCard 
+            message={"Are you sure you want to delete this expense item ?"}
+            dialogueCardState={dialogueCardState}
+            setDialogueCardState={setDialogueCardState}
+            handleConfirm={handleConfirm}
+        />
+
+        <Form form={form} layout="vertical">
+            <InlineField>
+                <Form.Item label="Title">
+                    <p>{itemData.title}</p>
+                </Form.Item>
+                <Form.Item label="Amount">
+                    <p>{itemData.amount}</p>
+                </Form.Item>
+            </InlineField>
+
+            <InlineField>
+                <Form.Item label="Account">
+                    <p>{itemData.account}</p>
+                </Form.Item>
+                <Form.Item label="Category">
+                    <p>{itemData.category}</p>
+                </Form.Item>
+            </InlineField>
+
+            <Form.Item label="Date">
+                <p>{itemData.transactionDate}</p>
             </Form.Item>
-            <Form.Item label="Category">
-                <p>{itemData.category}</p>
+
+            <Form.Item label="Comment">
+                <p>{itemData.comment}</p>
             </Form.Item>
-        </InlineField>
 
-        <Form.Item label="Date">
-            <p>{itemData.transactionDate}</p>
-        </Form.Item>
-
-        <Form.Item label="Comment">
-            <p>{itemData.comment}</p>
-        </Form.Item>
-
-        <Form.Item label="Add Photos">
-            <div className={styles.verticalImageSlider}>
-                {
-                    itemData.photos.length > 0 
-                    && itemData.photos.map((imageItem, index) => <ImagePreview 
-                                                                    imageSrc={imageItem}
-                                                                    setImageState={null}
-                                                                    imageState={null}
-                                                                    inputState={null}
-                                                                    hideDelete={true}
-                                                                />)
-                }
-            </div>
-        </Form.Item>
-    </Form>
-    </Modal>
+            <Form.Item label="Add Photos">
+                <div className={styles.verticalImageSlider}>
+                    {
+                        itemData.photos.length > 0 
+                        && itemData.photos.map((imageItem, index) => <ImagePreview 
+                                                                        imageSrc={imageItem}
+                                                                        setImageState={null}
+                                                                        imageState={null}
+                                                                        inputState={null}
+                                                                        hideDelete={true}
+                                                                    />)
+                    }
+                </div>
+            </Form.Item>
+        </Form>
+        </Modal>
     );
 }

@@ -13,14 +13,16 @@ export const CustomLineChart = ({ data }) => {
         >
           <Tooltip />
           <Line 
-            type="monotone" 
-            dataKey="scales" 
-            stroke="#6F6AF8" 
-            dot={false}
-            width={3}
-            strokeWidth={2}
+              type="monotone" 
+              dataKey="amount" 
+              stroke="#6F6AF8" 
+              dot={false}
+              width={3}
+              strokeWidth={2}
              />
+            <XAxis dataKey={"transactionDate"} display={"none"} />
         </LineChart>
       </ResponsiveContainer>
+
     );
 }

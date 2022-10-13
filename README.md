@@ -120,7 +120,7 @@ test
             - [x] - clean up the validation
             - [ ] - add loading spinner
             - [x] - move popup modal to separate component if necessary
-                - [ ] - think about ways to make it reusable
+                - think about ways to make it reusable
         - [x] - create Modal component that supports Add/Edit/View record data
         - [x] - view expense record
             - [x] - design card UI for the record view
@@ -140,15 +140,14 @@ test
         - [x] - add initial load spinner in expense list
         - [x] - add image zoom effect on modals
         - [/] - move components for individual files with styles & clean up the code
-            - [ ] - review how others react code is written
+            - [/] - review how others react code is written
             - [ ] - clean up the code
             - [ ] - make expense-image endpoint global for everything
-        - [ ] - Q/A and test & check whether all functionalities working as expected or not
-        - [ ] - build warning component
-        - [ ] - go through the workflow and clean the code 
-        - [ ] - incomes chart
-        - [ ] - expense chart
+        - [x] - build warning component
+        - [ ] - sort items top to show the latest items
+        - [x] - expense chart
 
+        - [ ] - incomes chart
         - [ ] - add income record
         - [ ] - show income record list
         - [ ] - edit income record

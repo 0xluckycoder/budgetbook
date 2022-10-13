@@ -15,6 +15,7 @@ import {
 import { AddCustomModal } from '../../../components/Modals/AddCustomModal/AddCustomModal';
 import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/ViewCustomModal';
 import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
+import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
 const LoadingSpinner = () => {
     return (
@@ -99,6 +100,8 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     const [viewModalState, setViewModalState] = useState(false);
     // edit modal state
     const [editModalState, setEditModalState] = useState(false);
+    // dialogue card state
+    const [dialogueCardState, setDialogueCardState] = useState(false);
 
     const handleClose = () => {
         setViewModalState(false);
@@ -137,6 +140,12 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
         }
     }
 
+    // handle dialogue card confirm
+    const handleConfirm = () => {
+        handleDelete(itemData._id);
+        setDialogueCardState(false);
+    };
+
     return (
         <div className={styles.recordListItem}>
             <div onClick={() => setViewModalState(true)} className={styles.icon}>
@@ -152,6 +161,14 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
                 handleClose={handleClose}
             />
 
+            {/* Warning Dialogue Card */}
+            <DialogueCard 
+                message={"Are you sure you want to delete this expense item ?"}
+                dialogueCardState={dialogueCardState}
+                setDialogueCardState={setDialogueCardState}
+                handleConfirm={handleConfirm}
+            />
+
             {/* edit expense */}
             <EditCustomModal
                 editModalState={editModalState}
@@ -160,13 +177,15 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
                 dateSortByState={dateSortByState}
                 handleEditRecord={handleEditRecord}
             />
-
+            {/*   */}
                 <p className={styles.name}>{itemData.title}</p>
                 <p>{itemData.percentage}</p>
                 <p className={styles.amount}>{itemData.amount}</p>
-            <div onClick={() => handleDelete(itemData._id)} className={styles.closeWrapper}>
+            <div onClick={() => setDialogueCardState(true)} className={styles.closeWrapper}>
                 <FontAwesomeIcon icon={faXmark} />
             </div>
         </div>
     );
 }
+
+
