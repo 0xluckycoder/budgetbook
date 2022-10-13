@@ -1,0 +1,14 @@
+.verticalImageSlider {
+    overflow-x: auto;
+    max-width: 460.8px;
+    display: flex;
+    gap: 1rem;
+    img {
+        width: auto;
+        max-height: 100px;
+    }
+}
+
+.imageUploadPlaceholder {
+    cursor: pointer;
+}

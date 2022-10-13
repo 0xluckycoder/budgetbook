@@ -12,6 +12,15 @@
     }
 }
 
+// loader
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+}
+
 .recordListItem {
     display: flex;
     align-items: center;
@@ -30,21 +39,6 @@
     }
 }
 
-.viewModal {
-    min-width: 508.8px;
-
-    label {
-        color: #00000073 !important; 
-    }
-}
-
-@media (max-width: 531px) {
-    .viewModal {
-        min-width: 0px;
-        max-width: 508.8px;
-    }
-}
-
 // .recordListItemLeft {
     // display: flex;
     // align-items: center;
@@ -54,41 +48,6 @@
 
 .imageUploadPlaceholder {
     cursor: pointer;
-}
-
-// image preview component
-.imagePreview {
-    max-height: 100px;
-    .iconPanel {
-        position: relative;
-        top: -50%;
-        background: rgba(0, 0, 0, 0.628);
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin: auto;
-        padding: 1rem;
-
-        svg {
-            color: rgba(255, 255, 255, 0.703);
-            font-size: 1rem;
-
-            &:hover {
-                color: #fff;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
-// zoomed image modal component
-.zoomedImage {
-    display: flex;
-    justify-content: center;
-    
-    img {
-        width: 300px;
-    }
 }
 
 // vertical image upload slider
@@ -121,5 +80,6 @@
         display: grid;
         row-gap: 1rem;
         overflow-y: auto;
+        height: 100%;
     }
 }

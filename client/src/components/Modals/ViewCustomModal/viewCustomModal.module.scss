@@ -1,0 +1,26 @@
+.verticalImageSlider {
+    overflow-x: auto;
+    max-width: 460.8px;
+    display: flex;
+    gap: 1rem;
+    img {
+        width: auto;
+        max-height: 100px;
+    }
+}
+
+
+.viewModal {
+    min-width: 508.8px;
+
+    label {
+        color: #00000073 !important; 
+    }
+}
+
+@media (max-width: 531px) {
+    .viewModal {
+        min-width: 0px;
+        max-width: 508.8px;
+    }
+}

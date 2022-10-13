@@ -137,7 +137,13 @@ test
             - [x] - invalidate cache
             - [x] - fix date show and update bug
         - [x] - delete expense record
-        - [/] - add initial load spinner in list
+        - [x] - add initial load spinner in expense list
+        - [x] - add image zoom effect on modals
+        - [/] - move components for individual files with styles & clean up the code
+            - [ ] - review how others react code is written
+            - [ ] - clean up the code
+            - [ ] - make expense-image endpoint global for everything
+        - [ ] - Q/A and test & check whether all functionalities working as expected or not
         - [ ] - build warning component
         - [ ] - go through the workflow and clean the code 
         - [ ] - incomes chart
