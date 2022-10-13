@@ -144,8 +144,10 @@ test
             - [ ] - clean up the code
             - [ ] - make expense-image endpoint global for everything
         - [x] - build warning component
-        - [ ] - sort items top to show the latest items
         - [x] - expense chart
+
+        - [ ] - sort items top to show the latest items
+            - do this in redux state (check RTK guide)
 
         - [ ] - incomes chart
         - [ ] - add income record
