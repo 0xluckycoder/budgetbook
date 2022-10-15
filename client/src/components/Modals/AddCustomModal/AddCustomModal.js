@@ -80,7 +80,7 @@ export const AddCustomModal = ({
                 setError(error => ({...error, [field]: null}));
             }
 
-            const validatedMin = validateMin(3, value);
+            const validatedMin = validateMin(1, value);
             if (validatedMin.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "add more characters" }});
                 return;
@@ -88,7 +88,7 @@ export const AddCustomModal = ({
                 setError({...error, [field]: null});
             }
 
-            const validatedMax = validateMax(5, value);
+            const validatedMax = validateMax(15, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -118,15 +118,7 @@ export const AddCustomModal = ({
         } 
         
         if (field === 'comment') {
-            const validatedMin = validateMin(3, value);
-            if (validatedMin.error)  {
-                setError({...error, [field]: { validateStatus: "error", help: "add more characters" }});
-                return;
-            } else {
-                setError({...error, [field]: null});
-            }
-
-            const validatedMax = validateMax(5, value);
+            const validatedMax = validateMax(50, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;

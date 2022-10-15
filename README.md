@@ -147,13 +147,16 @@ test
         - [x] - expense chart
 
         - [ ] - sort items top to show the latest items
-            - do this in redux state (check RTK guide)
+            - only sort list of records not the chart
+        - [ ] - handle large text uploads
+            - use substitute function and read more option 
 
-        - [ ] - incomes chart
+        - [ ] - create separate slice for incomes
         - [ ] - add income record
         - [ ] - show income record list
         - [ ] - edit income record
         - [ ] - delete income record
+        - [ ] - incomes chart
     - [ ] - Accounts
         - [ ] - feed pie chart by fetching all accounts records
         - [ ] - list of accounts

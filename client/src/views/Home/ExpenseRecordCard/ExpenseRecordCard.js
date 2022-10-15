@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker, Spin } from 'antd';
+import { Button } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
@@ -12,18 +12,13 @@ import {
     useDeleteExpenseMutation
 } from '../../../store/expense/expense.slice';
 
+import { LoadingSpinner } from '../../../components/LoadingSpinner/LoadingSpinner';
+
 import { AddCustomModal } from '../../../components/Modals/AddCustomModal/AddCustomModal';
 import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/ViewCustomModal';
 import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
-const LoadingSpinner = () => {
-    return (
-        <div className={styles.spinner}>
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 40 }} spin />} />
-        </div>
-    );
-}
 
 export const ExpenseRecordCard = ({ dateSortByState }) => { 
 
