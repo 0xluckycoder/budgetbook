@@ -59,43 +59,6 @@ test
 - [ ] - link functionality with endpoints
     
 
-    - [ ] - general
-    
-        - Managing State
-	        - [x] - Learn redux toolkit
-            - [x] - read again and understand async data fetching and features
-            - [ ] - load sample data on database
-                - [x] - load income records
-                - [ ] - load expense records
-                - [ ] - load accounts records
-            - [/] - setup a store on frontend
-                - [/] - expense slice
-                - [ ] - income slice
-                - [ ] - accounts slice
-            - [x] - add local state with query and mutation
-            - [ ] - add createApi slice and link with database
-            - [ ] - improve performance by adding caching
-                - [ ] - experiment and learn how automatic caching works
-            - [ ] - enable userId required:true option in expenseEntry and incomeEntry
-
-        - Add authentication
-
-         - [x] - setup state with RTK
-            - [x] - add create api slice 
-            - [x] - add query
-            - [x] - add mutation
-            - [x] - automatic refetching
-            - [x] - understand how refetching and mutation process works 
-            - [x] - optimize requests
-                - [x] - initial query by date = thismonth/lastmonth
-                - [x] - button trigger query
-                - [x] - add useQueryState for read data without fetching
-                - [x] - add caching and invalidation when making changes
-            - [x] - handle loading
-            - [ ] - handle errors
-
-		- query
-		- managing multiples states 
             - [ ] - User auth state must presist every reload
         - [ ] - protect private routes
     - [ ] - recap redux concepts
@@ -150,16 +113,17 @@ test
         - [/] - add image zoom & remove capability to add expense record modal
 
         - [ ] - handle large text uploads
+        - [ ] - add description to server side routes
             - use substitute function and read more option 
         - [ ] - sort items top to show the latest items
             - only sort list of records not the chart
 
-        - [/] - create separate slice for incomes
-        - [ ] - add income record
-        - [ ] - show income record list
-        - [ ] - edit income record
-        - [ ] - delete income record
-        - [ ] - incomes chart
+        - [x] - create separate slice for incomes
+        - [x] - add income record
+        - [x] - show income record list
+        - [x] - edit income record
+        - [x] - delete income record
+        - [/] - incomes chart
     - [ ] - Accounts
         - [ ] - feed pie chart by fetching all accounts records
         - [ ] - list of accounts

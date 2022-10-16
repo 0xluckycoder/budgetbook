@@ -56,8 +56,8 @@ export const expenseApi = createApi({
 
 export const {
     useGetExpensesQuery,
-    useGetExpenseByIdQuery,
-    useLazyGetExpenseByIdQuery,
+    // useGetExpenseByIdQuery,
+    // useLazyGetExpenseByIdQuery,
     useAddExpenseMutation,
     useUploadExpenseImagesMutation,
     useEditExpenseMutation,

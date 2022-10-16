@@ -10,7 +10,6 @@
             padding-bottom: 10px;  
         }
     }
-
 }
 
 .recordListItem {
@@ -20,13 +19,14 @@
     justify-content: space-between;
     padding: 5px 1rem;
     height: 39.5px;
-}
 
-.recordListItemLeft {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 150px;
+    .name {
+        width: 100px;
+    }
+
+    .amount {
+        width: 100px;
+    }
 
     .icon {
         background-color: rgba(111, 106, 248, 0.2);
@@ -35,6 +35,32 @@
         font-size: 1rem;
         border-radius: 5px;
         cursor: pointer;
+    }
+
+    .closeWrapper {
+    }
+}
+
+// .recordListItemLeft {
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    // width: 150px;
+// }
+
+.imageUploadPlaceholder {
+    cursor: pointer;
+}
+
+// vertical image upload slider
+.verticalImageSlider {
+    overflow-x: auto;
+    max-width: 460.8px;
+    display: flex;
+    gap: 1rem;
+    img {
+        width: auto;
+        max-height: 100px;
     }
 }
 
@@ -56,5 +82,6 @@
         display: grid;
         row-gap: 1rem;
         overflow-y: auto;
+        height: 100%;
     }
 }

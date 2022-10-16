@@ -48,7 +48,7 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     return (
         <div className={styles.recordCardWrapper}>
             <div className={styles.cardHeading}>
-                <p>Expense Record</p>
+                <p>Expense Records</p>
             </div>
 
             <Button className="themed-button" type="primary" onClick={() => setAddModalState(true)}>
@@ -145,28 +145,28 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
         <>
         {/* view expense record */}
         <ViewCustomModal
-        viewModalState={viewModalState}
-        setViewModalState={setViewModalState}
-        itemData={itemData}
-        handleEditButton={handleEditButton}
-        handleClose={handleClose}
+            viewModalState={viewModalState}
+            setViewModalState={setViewModalState}
+            itemData={itemData}
+            handleEditButton={handleEditButton}
+            handleClose={handleClose}
         />
 
         {/* Warning Dialogue Card */}
         <DialogueCard 
-        message={"Are you sure you want to delete this expense item ?"}
-        dialogueCardState={dialogueCardState}
-        setDialogueCardState={setDialogueCardState}
-        handleConfirm={handleConfirm}
+            message={"Are you sure you want to delete this expense item ?"}
+            dialogueCardState={dialogueCardState}
+            setDialogueCardState={setDialogueCardState}
+            handleConfirm={handleConfirm}
         />
 
         {/* edit expense */}
         <EditCustomModal
-        editModalState={editModalState}
-        setEditModalState={setEditModalState}
-        itemData={itemData}
-        dateSortByState={dateSortByState}
-        handleEditRecord={handleEditRecord}
+            editModalState={editModalState}
+            setEditModalState={setEditModalState}
+            itemData={itemData}
+            dateSortByState={dateSortByState}
+            handleEditRecord={handleEditRecord}
         />
 
         <div className={styles.recordListItem}>

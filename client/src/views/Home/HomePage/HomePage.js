@@ -11,6 +11,7 @@ import { ExpenseRecordCard } from "../ExpenseRecordCard/ExpenseRecordCard";
 import { IncomeRecordCard } from "../IncomeRecordCard/IncomeRecordCard";
 
 import { useGetExpensesQuery } from "../../../store/expense/expense.slice";
+import { useGetIncomesQuery } from "../../../store/income/income.slice";
 
 import { SORT_DATE_BY } from "../../../utils/constants";
 
@@ -21,7 +22,10 @@ const HomePage = () => {
     const { 
         data: returned 
     } = useGetExpensesQuery(state.value);
-    // console.log('fetched', returned);
+
+    const {
+        data: returnedIncome
+    } = useGetIncomesQuery(state.value);
 
     const values = [
         {

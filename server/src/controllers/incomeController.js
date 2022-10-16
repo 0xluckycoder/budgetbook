@@ -34,6 +34,7 @@ const createIncome = async (req, res, next) => {
             data: createIncomeResponse
         });
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -79,6 +80,7 @@ const getIncomes = async (req, res, next) => {
             data: getIncomesResponse
         });
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -93,6 +95,7 @@ const getIncomeById = async (req, res, next) => {
             data: getIncomeResponse
         });
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -126,6 +129,7 @@ const updateIncome = async (req, res, next) => {
         })
 
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -139,6 +143,7 @@ const deleteIncome = async (req, res, next) => {
             data: deleteIncomeResponse
         });
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -149,5 +154,6 @@ module.exports = {
     getIncomes,
     getIncomeById,
     updateIncome,
-    deleteIncome
+    deleteIncome,
+    uploadImage
 }

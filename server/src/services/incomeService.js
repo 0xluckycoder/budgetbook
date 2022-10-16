@@ -1,17 +1,17 @@
 const income = require('../database/income');
 
-const sharp = require('sharp');
-const path = require('path');
-const fs = require('fs');
-const { 
-    S3Client, 
-    PutObjectCommand
-} = require('@aws-sdk/client-s3');
-const { v4: uuidv4 } = require('uuid');
+// const sharp = require('sharp');
+// const path = require('path');
+// const fs = require('fs');
+// const { 
+//     S3Client, 
+//     PutObjectCommand
+// } = require('@aws-sdk/client-s3');
+// const { v4: uuidv4 } = require('uuid');
 
 const createIncome = async (incomeData) => {
     try {
-        const createExpense = await income.createExpense(incomeData);
+        const createExpense = await income.createIncome(incomeData);
         return createExpense;
     } catch(error) {
         throw error;

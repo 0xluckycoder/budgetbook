@@ -1,136 +1,79 @@
-import React, { useState } from 'react';
-import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-
-import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
-
+import React, { useState, useRef, useEffect } from 'react';
+import { Button } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
-
-import { InlineField } from '../../../components/Form/InlineField';
-
 import styles from './incomeRecordCard.module.scss';
 
-export const IncomeRecordCard = () => {
-    const { TextArea } = Input;
+import { 
+    incomeApi,
+    useAddIncomeMutation,
+    useEditIncomeMutation,
+    useDeleteIncomeMutation
+} from '../../../store/income/income.slice';
+
+import { LoadingSpinner } from '../../../components/LoadingSpinner/LoadingSpinner';
+
+import { AddCustomModal } from '../../../components/Modals/AddCustomModal/AddCustomModal';
+import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/ViewCustomModal';
+import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
+import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
+
+export const IncomeRecordCard = ({ dateSortByState }) => {
+
+    const {
+        data,
+        isError,
+        isFetching,
+        isLoading,
+        isSuccess
+    } = incomeApi.endpoints.getIncomes.useQueryState(dateSortByState);
 
     const [addModalState, setAddModalState] = useState(false);
-    const [form] = Form.useForm();
-    const [accountDropdownState, setAccountDropdownState] = useState('Select Account');
-    const [categoryDropdownState, setCategoryDropdownState] = useState('Select Category');
 
-    const accountMenuData = [
-        {
-            label: <p onClick={() => setAccountDropdownState('Bank')}>Bank</p>,
-            key: '0'
-        },
-        {
-            label: <p onClick={() => setAccountDropdownState('Personal')}>Personal</p>,
-            key: '1'
-        },
-        {
-            label: <p onClick={() => setAccountDropdownState('Investment')}>Personal</p>,
-            key: '2',
+    const [addIncome, {
+        isLoading: addMutationLoading
+    }] = useAddIncomeMutation();
+
+    // send add request
+    const handleAddRecord = async (inputState) => {
+        try {
+            await addIncome(inputState).unwrap();
+        } catch(error) {
+            console.log(error);
         }
-    ];
-
-    const categoryMenuData = [
-        {
-            key: '1',
-            label: <p onClick={() => setCategoryDropdownState('Category 1')}>Food</p>
-        },
-        {
-            key: '2',
-            label: <p onClick={() => setCategoryDropdownState('Category 2')}>Personal</p>
-        },
-        {
-            key: '2',
-            label: <p onClick={() => setCategoryDropdownState('Category 3')}>Personal</p>
-        }
-    ];
-
-    const accountMenu = <Menu items={accountMenuData} />
-
-    const categoryMenu = <Menu items={categoryMenuData} />
+    }
 
     return (
         <div className={styles.recordCardWrapper}>
             <div className={styles.cardHeading}>
-                <p>Income Record</p>
+                <p>Incomes Records</p>
             </div>
 
             <Button className="themed-button" type="primary" onClick={() => setAddModalState(true)}>
                 Add
             </Button>
 
-            {/* add expense modal */}
-            <Modal
-                title="New Expense"
-                centered
-                open={addModalState}
-                onCancel={() => setAddModalState(false)}
-                className="form-modal"
-                footer={[
-                  <Button className="themed-button" onClick={() => setAddModalState(false)}>
-                    Save
-                  </Button>
-                ]}
-            >
-                <Form form={form} layout="vertical">
-                    <InlineField>
-                        <Form.Item label="Name">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Amount">
-                            <Input />
-                        </Form.Item>
-                    </InlineField>
+            {/* add new expense modal */}
+            <AddCustomModal 
+                addModalState={addModalState}
+                setAddModalState={setAddModalState}
+                handleAddRecord={handleAddRecord}
+            />
 
-                    <InlineField>
-                        <Form.Item label="Account">
-                            <Dropdown overlay={accountMenu} trigger={['click']}>
-                                <Space className='themed-dropdown'>
-                                    <p className='themed-dropdown'>{accountDropdownState}</p>
-                                    <DownOutlined />
-                                </Space>
-                            </Dropdown>
-                        </Form.Item>
-                        <Form.Item label="Category">
-                            <Dropdown overlay={categoryMenu} trigger={['click']}>
-                                <Space className='themed-dropdown'>
-                                    <p>{categoryDropdownState}</p>
-                                    <DownOutlined />
-                                </Space>
-                            </Dropdown>
-                        </Form.Item>
-                    </InlineField>
-
-                    <Form.Item label="Transaction Date">
-                        <Space direction="vertical">
-                            <DatePicker onChange={() => console.log('hello')}/>
-                        </Space>
-                    </Form.Item>
-
-                    <Form.Item label="Comment">
-                        <TextArea rows={4} />
-                    </Form.Item>
-
-                    <Form.Item label="Add Photos">
-                        <div>
-                            <img src={imagePlaceholder} alt="placeholder" />
-                        </div>
-                    </Form.Item>
-                </Form>
-            </Modal>
-            
             <RecordListWrapper>
-                <RecordListItem />
-                <RecordListItem />
-                <RecordListItem />
-                <RecordListItem />
-                <RecordListItem />
-                <RecordListItem />
-                <RecordListItem />
+                {
+                    data !== undefined 
+                    ? 
+                    data.data.map((item, index) => (
+                        <RecordListItem
+                            key={index}
+                            itemData={item}
+                            dateSortByState={dateSortByState}
+                        />
+                    ))
+                    : <LoadingSpinner />
+                }
             </RecordListWrapper>
         </div>
     );
@@ -146,37 +89,95 @@ const RecordListWrapper = ({ children }) => {
     );
 }
 
-const RecordListItem = () => {
-    return (
-        <div className={styles.recordListItem}>
-            <RecordListItemLeft name="Food" percentage="30%" />
-            <RecordListItemAmount>200</RecordListItemAmount>
-            <RecordListItemRight />
-        </div>
-    );
-}
+const RecordListItem = ({ itemData, dateSortByState }) => {    
+    // view modal state
+    const [viewModalState, setViewModalState] = useState(false);
+    // edit modal state
+    const [editModalState, setEditModalState] = useState(false);
+    // dialogue card state
+    const [dialogueCardState, setDialogueCardState] = useState(false);
 
-const RecordListItemLeft = ({ name, percentage }) => {
+    const handleClose = () => {
+        setViewModalState(false);
+    }
+
+    const handleEditButton = () => {
+        handleClose();
+        setEditModalState(true);
+    }
+
+    const [deleteIncome, {
+        data: deleteResponse,
+        isLoading: deleteIncomeMutationLoading
+    }] = useDeleteIncomeMutation();
+
+    const [editIncome, {
+        data: editLoading,
+        isLoading: editIncomeMutationLoading
+    }] = useEditIncomeMutation();
+
+    // send delete request
+    const handleDelete = async (id) => {
+        try {
+            await deleteIncome(id).unwrap();
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    // send edit request
+    const handleEditRecord = async (editData) => {
+        try {
+            await editIncome(editData);
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    // handle dialogue card confirm
+    const handleConfirm = () => {
+        handleDelete(itemData._id);
+        setDialogueCardState(false);
+    };
+
     return (
-        <div className={styles.recordListItemLeft}>
-            <div className={styles.icon}>
+        <>
+        {/* view expense record */}
+        <ViewCustomModal
+            viewModalState={viewModalState}
+            setViewModalState={setViewModalState}
+            itemData={itemData}
+            handleEditButton={handleEditButton}
+            handleClose={handleClose}
+        />
+
+        {/* Warning Dialogue Card */}
+        <DialogueCard 
+            message={"Are you sure you want to delete this expense item ?"}
+            dialogueCardState={dialogueCardState}
+            setDialogueCardState={setDialogueCardState}
+            handleConfirm={handleConfirm}
+        />
+
+        {/* edit expense */}
+        <EditCustomModal
+            editModalState={editModalState}
+            setEditModalState={setEditModalState}
+            itemData={itemData}
+            dateSortByState={dateSortByState}
+            handleEditRecord={handleEditRecord}
+        />
+
+        <div className={styles.recordListItem}>
+            <div onClick={() => setViewModalState(true)} className={styles.icon}>
                 <FontAwesomeIcon icon={faBarsStaggered} />
             </div>
-            <p className={styles.name}>{name}</p>
-            <p>{percentage}</p>
+                <p className={styles.name}>{itemData.title}</p>
+                <p className={styles.amount}>{itemData.amount}</p>
+            <div onClick={() => setDialogueCardState(true)} className={styles.closeWrapper}>
+                <FontAwesomeIcon icon={faXmark} />
+            </div>
         </div>
-    );
-}
-
-const RecordListItemAmount = ({ children }) => {
-    return <p className={styles.amount}>{children}</p>
-}
-
-
-const RecordListItemRight = () => {
-    return (
-        <div className={styles.closeWrapper}>
-            <FontAwesomeIcon icon={faXmark} />
-        </div>
+        </>
     );
 }
