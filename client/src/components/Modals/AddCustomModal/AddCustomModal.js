@@ -4,6 +4,7 @@ import { DownOutlined } from '@ant-design/icons';
 import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
 import { InlineField } from '../../../components/Form/InlineField';
 import { validateMax, validateMin, validateRequired } from '../../../utils/formValidation';
+import { ImagePreview } from '../ImagePreview/ImagePreview';
 import styles from './addCustomModal.module.scss';
 
 import { 
@@ -337,7 +338,13 @@ export const AddCustomModal = ({
                             hidden
                         />
                         {
-                            imageFile.length > 0 && imageFile.map(fileItem => <img src={fileItem.blob} alt="uploaded slide item" />)
+                            imageFile.length > 0 && imageFile.map(fileItem => <ImagePreview 
+                                                                                hideDelete={false}
+                                                                                imageState={imageFile} 
+                                                                                setImageState={setImageFile} 
+                                                                                imageSrc={fileItem.blob}
+                                                                                inputState={inputState} 
+                                                                            />)
                         }
 
                         {

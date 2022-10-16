@@ -146,12 +146,15 @@ test
         - [x] - build warning component
         - [x] - expense chart
 
-        - [ ] - sort items top to show the latest items
-            - only sort list of records not the chart
+        - [x] - fix record list alignment issue
+        - [/] - add image zoom & remove capability to add expense record modal
+
         - [ ] - handle large text uploads
             - use substitute function and read more option 
+        - [ ] - sort items top to show the latest items
+            - only sort list of records not the chart
 
-        - [ ] - create separate slice for incomes
+        - [/] - create separate slice for incomes
         - [ ] - add income record
         - [ ] - show income record list
         - [ ] - edit income record

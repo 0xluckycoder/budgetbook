@@ -1,6 +1,7 @@
 const yup = require('yup');
 const expenseService = require('../services/expenseService');
 const customError = require('../utils/customError');
+const uploader = require('../utils/uploader');
 
 const createExpense = async (req, res, next) => {
     try {
@@ -55,12 +56,9 @@ const uploadImage = async (req, res, next) => {
 
         // loop through and upload
         for (const image of files) {
-            const uploadImageResponse = await expenseService.uploadImage(image);
+            const uploadImageResponse = await uploader(image);
             imageUrls.push(uploadImageResponse);
-            // console.log('ran 🌴');
         }
-
-        // console.log(imageUrls);        
         
         res.status(200).json({
             success: true,

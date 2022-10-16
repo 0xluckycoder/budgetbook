@@ -27,11 +27,41 @@ const createIncome = async (req, res, next) => {
         const validated = await incomeSchema.validate(req.body);
         const createIncomeResponse = await incomeService.createIncome(validated);
 
+        console.log('🔥', createIncomeResponse);
+
         res.status(200).json({
             success: true,
             data: createIncomeResponse
         });
     } catch(error) {
+        next(error);
+    }
+}
+
+const uploadImage = async (req, res, next) => {
+    try {
+        const { files } = req;
+
+        console.log(files);
+
+        if (files.length === 0) throw customError('invalid file size', 'ValidationFailed');
+
+        // upload and get collect urls
+        const imageUrls = [];
+
+        // loop through and upload
+        for (const image of files) {
+            const uploadImageResponse = await uploader(image);
+            imageUrls.push(uploadImageResponse);
+        }
+        
+        res.status(200).json({
+            success: true,
+            data: imageUrls
+        });
+
+    } catch (error) {
+        console.log(error);
         next(error);
     }
 }
