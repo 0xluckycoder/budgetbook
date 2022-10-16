@@ -66,7 +66,7 @@ const HomePage = () => {
                         <AccountCard />
                     </Col>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <IncomeCard />
+                        <IncomeCard dateSortByState={state.value} />
                     </Col>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
                         <ExpenseCard dateSortByState={state.value} />

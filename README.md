@@ -117,6 +117,9 @@ test
             - use substitute function and read more option 
         - [ ] - sort items top to show the latest items
             - only sort list of records not the chart
+        - [ ] - fix .length undefined error issue when adding records
+        - [ ] - try to fix the chart problem
+        - [/] - fix comment required issue  
 
         - [x] - create separate slice for incomes
         - [x] - add income record

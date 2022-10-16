@@ -2,7 +2,7 @@ import React from "react";
 import styles from './expenseCard.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { CustomLineChart } from "./CustomLineChart";
+import { CustomLineChart } from "../../../components/CustomLineChart/CustomLineChart";
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
 import { useGetExpensesQuery, expenseApi } from "../../../store/expense/expense.slice";
 

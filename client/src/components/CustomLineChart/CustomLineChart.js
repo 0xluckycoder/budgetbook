@@ -1,6 +1,5 @@
 import React from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
 
 export const CustomLineChart = ({ data, isContentLoading }) => {
 
