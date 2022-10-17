@@ -19,6 +19,15 @@ const getAccountById = async (id) => {
     }
 }
 
+const getAccountsByUserId = async (id) => {
+    try {
+        const getAccountsByUserId = await AccountEntry.find({ userId: id });
+        return getAccountsByUserId;
+    } catch(error) {
+        throw error;
+    }
+}
+
 const updateAccount = async (accountData, id) => {
     try {
         const accountEntry = await AccountEntry.updateOne({ _id: id }, { ...accountData });
@@ -42,5 +51,6 @@ module.exports = {
     createAccount,
     getAccountById,
     updateAccount,
-    deleteAccount
+    deleteAccount,
+    getAccountsByUserId
 }

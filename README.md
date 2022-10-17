@@ -110,29 +110,34 @@ test
         - [x] - expense chart
 
         - [x] - fix record list alignment issue
-        - [/] - add image zoom & remove capability to add expense record modal
+        - [x] - add image zoom & remove capability to add expense record modal
 
         - [ ] - handle large text uploads
         - [ ] - add description to server side routes
             - use substitute function and read more option 
         - [ ] - sort items top to show the latest items
             - only sort list of records not the chart
-        - [ ] - fix .length undefined error issue when adding records
+        - [x] - fix .length undefined error issue when adding records
         - [ ] - try to fix the chart problem
-        - [/] - fix comment required issue  
+        - [x] - fix comment required issue  
 
         - [x] - create separate slice for incomes
         - [x] - add income record
         - [x] - show income record list
         - [x] - edit income record
         - [x] - delete income record
-        - [/] - incomes chart
-    - [ ] - Accounts
-        - [ ] - feed pie chart by fetching all accounts records
-        - [ ] - list of accounts
+        - [x] - incomes chart
+        - [ ] - match the frontend validation min max fields with backend validation min max
+
+    - [/] - Accounts
+        - when first signing up user will get asked to create a account
+        - [x] - create a slice for accounts
+        - [/] - create backend route to fetch accounts by user's id
+        - [ ] - add new account
         - [ ] - view account
         - [ ] - edit account
-        - [ ] - add new account
+        - [ ] - list of accounts
+        - [ ] - feed pie chart by fetching all accounts records
     - [ ] - Settings
         - [ ] - show user name and email
         - [ ] - edit user info
@@ -185,6 +190,7 @@ test
     - [x] - Controller
     - [x] - Service
     - [x] - Model
+    - [/] - /api/account/user/:id - get all the accounts related to user id
     - [x] - /api/account - create account
     - [x] - /api/account/:id - get account by id
     - [x] - /api/account/:id - update income record

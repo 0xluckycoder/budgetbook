@@ -25,6 +25,22 @@ const createAccount = async (req, res, next) => {
             data: createdAccountResponse
         });
     } catch(error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+const getAccountsByUserId = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const getAccountByUserIdResponse = await accountService.getAccountsByUserId(id);
+
+        res.status(200).json({
+            success: true,
+            data: getAccountByUserIdResponse
+        });
+    } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -39,6 +55,7 @@ const getAccountById = async (req, res, next) => {
             data: getAccountResponse
         });
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -67,6 +84,7 @@ const updateAccount = async (req, res, next) => {
         });
 
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -80,6 +98,7 @@ const deleteAccount = async (req, res, next) => {
             data: deleteAccountResponse
         });
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }
@@ -87,6 +106,7 @@ const deleteAccount = async (req, res, next) => {
 module.exports = {
     createAccount,
     getAccountById,
+    getAccountsByUserId,
     updateAccount,
     deleteAccount
 }

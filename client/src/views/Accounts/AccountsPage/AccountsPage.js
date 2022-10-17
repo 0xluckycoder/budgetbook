@@ -6,9 +6,27 @@ import { AddAccountModal } from "../AddAccountModal/AddAccountModal";
 import { AccountCardSelect } from "../AccountCardSelect/AccountCardSelect";
 import styles from './accountPage.module.scss'
 
+import { 
+    financeAccountApi,
+    useGetAccountsQuery
+} from "../../../store/financeAccount/financeAccount.slice";
+
 const AccountPage = () => {
 
+    // const {
+    //     data,
+    //     isError,
+    //     isFetching,
+    //     isLoading,
+    //     isSuccess
+    // } = financeAccountApi.endpoints.getAc
+
     const [addAccountState, setAddAccountState] = useState(false);
+    const {
+        data: accountData
+    } = useGetAccountsQuery();
+
+    console.log('account data', accountData);
 
     return (
         <AppLayout>
