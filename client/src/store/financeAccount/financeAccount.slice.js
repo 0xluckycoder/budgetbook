@@ -5,8 +5,12 @@ export const financeAccountApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5500/api/v1' }),
     tagTypes: ['Account'],
     endpoints: (build) => ({
-        getAccounts: build.query({
-            query: () => `/account`,
+        // getAccounts: build.query({
+        //     query: () => `/account`,
+        //     providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
+        // }),
+        getAccountByUserId: build.query({
+            query: (userId) => `/account/user/${userId}`,
             providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
         }),
         getAccountById: build.query({
@@ -39,7 +43,8 @@ export const financeAccountApi = createApi({
 })
 
 export const {
-    useGetAccountsQuery,
+    // useGetAccountsQuery,
+    useGetAccountByUserIdQuery,
     useGetAccountByIdQuery,
     useAddAccountMutation,
     useEditAccountMutation,

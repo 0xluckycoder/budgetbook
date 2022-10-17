@@ -132,11 +132,13 @@ test
     - [/] - Accounts
         - when first signing up user will get asked to create a account
         - [x] - create a slice for accounts
-        - [/] - create backend route to fetch accounts by user's id
-        - [ ] - add new account
+        - [x] - create backend route to fetch accounts by user's id
+        - [x] - create test account just for testing
+        - [x] - add new account
+        - [ ] - restrict user from adding only 3 records
         - [ ] - view account
         - [ ] - edit account
-        - [ ] - list of accounts
+        - [x] - list of accounts
         - [ ] - feed pie chart by fetching all accounts records
     - [ ] - Settings
         - [ ] - show user name and email
@@ -186,7 +188,7 @@ test
     - [x] - /api/income/:id - update income record
     - [x] - /api/income/:id - delete income record
 
-- [x] - Account
+- [x] - Financial Account
     - [x] - Controller
     - [x] - Service
     - [x] - Model
@@ -208,6 +210,13 @@ test
     - [x] - /api/income/?time=lastmonth
     - [x] - /api/income/?time=thisyear
     - [x] - /api/income/?time=lastyear
+
+- [ ] - User Account
+    - [ ] - Controller
+    - [ ] - Service
+    - [ ] - Modal
+    - [ ] - /api/auth/signup
+    - [ ] - /api/auth/signin  
 
 - [ ] - Feed frontend with example data
     - [ ] - add example data set to mongodb

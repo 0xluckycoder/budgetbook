@@ -4,29 +4,37 @@ import { Col, Row, Button } from 'antd';
 import { AccountTotalCard } from "../AccountTotalCard/AccountTotalCard";
 import { AddAccountModal } from "../AddAccountModal/AddAccountModal";
 import { AccountCardSelect } from "../AccountCardSelect/AccountCardSelect";
-import styles from './accountPage.module.scss'
+import styles from './accountPage.module.scss';
+import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
 
 import { 
     financeAccountApi,
-    useGetAccountsQuery
+    useGetAccountByUserIdQuery,
+    useAddAccountMutation
 } from "../../../store/financeAccount/financeAccount.slice";
 
 const AccountPage = () => {
 
-    // const {
-    //     data,
-    //     isError,
-    //     isFetching,
-    //     isLoading,
-    //     isSuccess
-    // } = financeAccountApi.endpoints.getAc
-
     const [addAccountState, setAddAccountState] = useState(false);
-    const {
-        data: accountData
-    } = useGetAccountsQuery();
 
-    console.log('account data', accountData);
+    const {
+        data: accountData,
+        isLoading,
+        isFetching
+    } = useGetAccountByUserIdQuery('111');
+
+    const [addAccount] = useAddAccountMutation();
+
+    // send account add request
+    const handleAddAccount = async (data) => {
+        try {
+            await addAccount(data).unwrap();
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    let isContentLoading = isLoading && isFetching ? true : false;
 
     return (
         <AppLayout>
@@ -49,18 +57,20 @@ const AccountPage = () => {
                     onClick={() => setAddAccountState(true)}
                 >Add Account</Button>
 
-                <AddAccountModal addAccountState={addAccountState} setAddAccountState={setAddAccountState} />
+                <AddAccountModal handleAddAccount={handleAddAccount} addAccountState={addAccountState} setAddAccountState={setAddAccountState} />
 
                 <Row gutter={20}>
-                    <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <AccountCardSelect accountName={"Personal"} amount={10000} />
-                    </Col>
-                    <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <AccountCardSelect accountName={"Bank"} amount={30000} />
-                    </Col>
-                    <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <AccountCardSelect accountName={"Investment"} amount={20000} />
-                    </Col>
+                {
+                    isContentLoading 
+                    ?
+                    <LoadingSpinner />
+                    :
+                    accountData.data.map((account, index) => (
+                        <Col key={index} lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
+                            <AccountCardSelect accountName={account.name} amount={account.value} />
+                        </Col>
+                    ))
+                }
                 </Row>
             </div>
         </AppLayout>
