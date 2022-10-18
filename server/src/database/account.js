@@ -2,6 +2,8 @@ const AccountEntry = require('../models/AccountEntry');
 
 const createAccount = async (account) => {
     try {
+        // prevent user from adding more than 3 records
+
         const accountEntry = new AccountEntry(account);
         const createdAccountEntry = await accountEntry.save();
         return createdAccountEntry;

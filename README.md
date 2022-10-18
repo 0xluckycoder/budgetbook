@@ -129,17 +129,25 @@ test
         - [x] - incomes chart
         - [ ] - match the frontend validation min max fields with backend validation min max
 
-    - [/] - Accounts
+    - [-] - Accounts
         - when first signing up user will get asked to create a account
         - [x] - create a slice for accounts
         - [x] - create backend route to fetch accounts by user's id
         - [x] - create test account just for testing
         - [x] - add new account
-        - [ ] - restrict user from adding only 3 records
+        - [/] - user shouldn't be able to add more than 3 records.
+            - [/] - server validation (implement this after the authentication is completed)
+            - [ ] - frontend validation
+        - [ ] - deleting account should also delete all the transactions related to it
         - [ ] - view account
         - [ ] - edit account
         - [x] - list of accounts
         - [ ] - feed pie chart by fetching all accounts records
+    - [/] - Authentication
+        - [x] - go through the cognito
+        - [/] - explore the previous ecommerce code
+        - [ ] - create & configure cognito account
+        - [ ] - go through the best practices 
     - [ ] - Settings
         - [ ] - show user name and email
         - [ ] - edit user info
