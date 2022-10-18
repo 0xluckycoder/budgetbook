@@ -145,9 +145,18 @@ test
         - [ ] - feed pie chart by fetching all accounts records
     - [/] - Authentication
         - [x] - go through the cognito
-        - [/ ] - explore the previous ecommerce code
-        - [ ] - create & configure cognito account
-        - [ ] - go through the best practices 
+        - [x] - explore the previous ecommerce code
+        - [x] - create & configure cognito account
+        - [x] - go through the best practices
+        - [/] - develop auth endpoints
+            - [/] - Auth
+                - [x] - /api/auth/signup
+                    - [x] - create empty attribute account for user as well
+                    - [x] - automatically confirm the user for now
+                - [/] - /api/auth/signin
+                - [ ] - /verifyAuth  
+                - [ ] - /confirmEmail/:token
+        - [ ] - handle authentication in frontend
     - [ ] - Settings
         - [ ] - show user name and email
         - [ ] - edit user info
@@ -163,6 +172,13 @@ test
         - https://youtu.be/4FhJkX18fS8 - react pro dos and donts
 
     - [ ] - Start to implement authentication
+
+
+Reload Site?
+changes you made may not be saved
+prevent this page from creating additional dialogs
+button 1 - reload
+button 2 - cancel
 
 #### Backend API
 
@@ -219,12 +235,14 @@ test
     - [x] - /api/income/?time=thisyear
     - [x] - /api/income/?time=lastyear
 
-- [ ] - User Account
-    - [ ] - Controller
-    - [ ] - Service
-    - [ ] - Modal
-    - [ ] - /api/auth/signup
-    - [ ] - /api/auth/signin  
+- [x] - User Account
+    - [/] - Controller
+    - [/] - Service
+    - [/] - Modal
+    - [x] - /api/auth/signup
+    - [ ] - /api/auth/signin
+    - [ ] - /confirmEmail/:token
+    - [ ] - /verifyAuth  
 
 - [ ] - Feed frontend with example data
     - [ ] - add example data set to mongodb
@@ -264,6 +282,13 @@ test
     - value - initial value
     - currencyType
     - description
+
+- User Entry
+    - authorizeSubId
+    - language
+    - currency
+    - defaultAccount
+    - defaultSortPeriod
 
 #### Resources
 - File System

@@ -13,6 +13,7 @@ const middlewares = require('./middlewares');
 const expenseRoutes = require('./v1/api/expenseRoutes');
 const incomeRoutes = require('./v1/api/incomeRoutes');
 const accountRoutes = require('./v1/api/accountRoutes');
+const authRoutes = require('./v1/api/authRoutes');
 
 const app = express();
 
@@ -66,7 +67,8 @@ console.log(moment().day(0).format('YYYY-MM-DD'))
 
 app.use('/api/v1/expense', expenseRoutes);
 app.use('/api/v1/income', incomeRoutes);
-app.use('/api/v1/account', accountRoutes)
+app.use('/api/v1/account', accountRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 // app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
