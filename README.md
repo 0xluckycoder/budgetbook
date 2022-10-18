@@ -145,7 +145,7 @@ test
         - [ ] - feed pie chart by fetching all accounts records
     - [/] - Authentication
         - [x] - go through the cognito
-        - [/] - explore the previous ecommerce code
+        - [/ ] - explore the previous ecommerce code
         - [ ] - create & configure cognito account
         - [ ] - go through the best practices 
     - [ ] - Settings
