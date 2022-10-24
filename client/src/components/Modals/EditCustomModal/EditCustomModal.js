@@ -162,7 +162,7 @@ export const EditCustomModal = ({
 
     const handleSubmit = async () => {
         try {
-            // validate every field before submit
+            // validate necessary fields before submit
             validate(inputState.title, 'title');
             validate(inputState.amount, 'amount');
             validate(inputState.account, 'account');

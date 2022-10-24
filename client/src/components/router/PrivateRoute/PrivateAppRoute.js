@@ -3,11 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from '../../../views/Home/HomePage/HomePage';
 import AccountPage from '../../../views/Accounts/AccountsPage/AccountsPage';
 import SettingsPage from '../../../views/Settings/SettingsPage/SettingsPage';
+import SignInPage from '../../../views/Auth/AuthPage/SignInPage/SignInPage';
 
 export const PrivateAppRoute = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="auth">
+                    <Route path="login" element={<SignInPage />} />
+                </Route>
                 <Route path="app">
                     <Route path="home" element={<HomePage />} />
                     <Route path="accounts" element={<AccountPage />} />

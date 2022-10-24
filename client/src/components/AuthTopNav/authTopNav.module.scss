@@ -1,0 +1,19 @@
+.wrapper {
+    background: #F8F8F8;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0px;
+    align-items: center;
+    z-index: 3;
+    padding: 15.6px 48px;
+
+    .logo {
+        color: #6F6AF8;
+        margin: 0px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        font-weight: bold;
+        line-height: normal;
+    }
+}

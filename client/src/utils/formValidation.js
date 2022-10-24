@@ -41,8 +41,21 @@ const validateRequired = (value) => {
     }
 }
 
+const validateEmail = (value) => {
+    if (! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        return {
+            error: true
+        }
+    } else {
+        return {
+            error: false
+        }
+    }
+}
+
 export {
     validateMin,
     validateMax,
-    validateRequired
+    validateRequired,
+    validateEmail
 }

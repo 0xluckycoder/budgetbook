@@ -1,0 +1,54 @@
+.cardWrapper {
+    padding-top: 60px;
+
+
+    .card {
+        position: absolute;
+        top: calc(50% - 364px/2);
+        left: calc(50% - 350px/2);
+        min-width: 350px;
+        border: 1px solid #D9D9D9;
+        margin: auto;
+        padding: 37px 50px;
+        background: #fff;
+
+        .alert {
+            margin-top: 1.25rem;
+        }
+
+        .header {
+            text-align: center;
+            h1 {
+                font-weight: bold;
+            }
+            
+            p {
+                padding-top: 0.625rem;
+            }
+        }
+
+        .form {
+            padding-top: 1.25rem;
+        }
+
+        .forgotPassword {
+            color: #6F6AF8;
+            padding-top: 0.625rem;
+            text-align: center;
+        }
+
+        .link {
+            color: #6F6AF8;
+        }
+
+        .longButton {
+            margin-top: 0.625rem;
+            width: 100%;
+        }
+
+        .signUp {
+            text-align: center;
+            padding-top: 0.625rem;
+        }
+    }
+}

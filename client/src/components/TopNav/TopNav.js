@@ -13,7 +13,7 @@ export const TopNav = ({ userName, hamburger }) => {
                 <p className={styles.logo}>BudgetBook</p>
             </div>
             <div className={styles.profileCard}>
-                <img src={Profile} />
+                <img alt="profile" src={Profile} />
                 <p className={styles.userName}>{userName}</p>
             </div>
         </div>

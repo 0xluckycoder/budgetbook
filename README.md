@@ -144,19 +144,57 @@ test
         - [x] - list of accounts
         - [ ] - feed pie chart by fetching all accounts records
     - [/] - Authentication
+        - [-] - add continue with google and github federation authentication
+        - [-] - add recaptcha security
         - [x] - go through the cognito
         - [x] - explore the previous ecommerce code
         - [x] - create & configure cognito account
         - [x] - go through the best practices
         - [/] - develop auth endpoints
-            - [/] - Auth
+            - [x] - Auth
                 - [x] - /api/auth/signup
                     - [x] - create empty attribute account for user as well
                     - [x] - automatically confirm the user for now
-                - [/] - /api/auth/signin
-                - [ ] - /verifyAuth  
-                - [ ] - /confirmEmail/:token
+                - [x] - /api/auth/signin
+                - [x] - /verifyAuth  
+                - [-] - /confirmEmail/:token
+        - [x] - design authentication pages UI along with account setup steps
+        - [/] - develop frontend pages
+            - [x] - configure authentication slice
+            - [x] - setup the auth state with RTK
+            - [/] - SignIn
+                - [/] - show error messages
+            - [ ] - SignUp
+            - [ ] - User info step 
+            - [ ] - Finance Account Step
+            - [ ] - Compete Step
+
+        - Authentication work flow
+            - client sends a login request with credentials
+            - if credentials are correct server will return tokens with user details
+                - first name
+                - last name
+                - user profile url
+                - email address
+                - subId
+            - client will store retrieved data in state
+            - these data will be store in state globally to ease of access
+
+        - [ ] - update server return object
+
+        - Loading user preferred default settings
+            - fetch user attribute object with config first
+            - then based on user object config load data appropriately
+
+
+
+        - [ ] - learn to debug code
+        - [ ] - learn different test types and Q/A
+
         - [ ] - handle authentication in frontend
+
+        - [ ] - fix the chart tooltip bug
+
     - [ ] - Settings
         - [ ] - show user name and email
         - [ ] - edit user info
@@ -186,7 +224,7 @@ button 2 - cancel
     - request
     - router
     - controller
-        - handling stuff that realted to HTTP (reqeusts and responses)
+        - handling stuff that related to HTTP (reqeusts and responses)
     - service layer
         - business logic goes in service layer
     - data access layer
@@ -236,13 +274,13 @@ button 2 - cancel
     - [x] - /api/income/?time=lastyear
 
 - [x] - User Account
-    - [/] - Controller
-    - [/] - Service
-    - [/] - Modal
+    - [x] - Controller
+    - [x] - Service
+    - [x] - Modal
     - [x] - /api/auth/signup
-    - [ ] - /api/auth/signin
-    - [ ] - /confirmEmail/:token
-    - [ ] - /verifyAuth  
+    - [x] - /api/auth/signin
+    - [-] - /confirmEmail/:token
+    - [x] - /verifyAuth  
 
 - [ ] - Feed frontend with example data
     - [ ] - add example data set to mongodb

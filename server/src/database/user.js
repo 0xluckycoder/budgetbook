@@ -10,6 +10,16 @@ const createUser = async (user) => {
     }
 }
 
+const getUserBySubId = async (subId) => {
+    try {
+        const getUserBySubId = await UserEntry.findOne({ authorizeSubId: subId });
+        return getUserBySubId;
+    } catch(error) {
+        throw error;
+    }
+}
+
 module.exports = {
-    createUser
+    createUser,
+    getUserBySubId
 };
