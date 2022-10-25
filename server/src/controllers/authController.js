@@ -65,6 +65,18 @@ const signIn = async (req, res, next) => {
         res.cookie('RefreshToken', tokens.refreshToken, cookiesConfig);
         res.cookie('IdToken', tokens.idToken, cookiesConfig);
 
+        // mock data for testing
+        // throw new Error('error occurred');
+        // const data = {
+        //     firstName: 'john',
+        //     lastName: 'doe',
+        //     profilePic: 'pictureUrl',
+        //     email: 'info@email.com',
+        //     subId: '111111111'
+        // }
+
+        console.log(tokens);
+
         // singin response
         res.status(200).json({
             success: true,

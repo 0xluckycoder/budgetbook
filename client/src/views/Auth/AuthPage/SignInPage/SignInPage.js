@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
 import styles from '../authPage.module.scss';
 import { validateEmail, validateRequired } from '../../../../utils/formValidation';
-
+import { LoadingSpinner } from '../../../../components/LoadingSpinner/LoadingSpinner';
 import { useSignInMutation } from '../../../../store/user/user.slice';
 
 const SignInPage = () => {
 
-    const [signIn, 
-        isLoading,
-        data: signInResponse
+    const [signIn,
+        {
+            isLoading,
+            data,
+            error: signInError
+        }
     ] = useSignInMutation();
+
+    // console.log(signInError);
 
     const navigate = useNavigate();
 
@@ -22,7 +27,18 @@ const SignInPage = () => {
         email: null,
         password: null
     });
-    const [signInResponseError, setSignInResponseError] = useState(null);
+    const [signInResponseError, setSignInResponseError] = useState({
+        message: null
+    });
+
+    // set error state
+    useEffect(() => {
+        if (signInError) {
+            setSignInResponseError({
+                message: signInError.data.message
+            });
+        }
+    }, [signInError]);
 
     const handleInputChange = (e) => {
         setInputState({...inputState, [e.target.name]: e.target.value});
@@ -72,11 +88,11 @@ const SignInPage = () => {
             ) {
                 // alert('submitted');
                 const response = await signIn(inputState);
-                console.log(response);
-                if (response.error) {
-                    console.log('error occurred');
-                    setSignInResponseError(response.error)
-                };
+                console.log('🌳', response);
+                // if (response.error) {
+                //     console.log('error occurred');
+                //     setSignInResponseError(response.error)
+                // };
             }
         } catch(error) {
             console.log(error);
@@ -87,36 +103,45 @@ const SignInPage = () => {
         <AuthLayout>
             <div className={styles.cardWrapper}>
                 <div className={styles.card}>
-                    <div className={styles.header}>
-                        <h1>Welcome back.</h1>
-                        <p>Please enter your credentials.</p>
-                    </div>
-                    {signInResponseError && <Alert className={styles.alert} message={signInResponseError.data.message} type="error" />}
-                    <Form className={styles.form} form={form} layout="vertical">
-                        <Form.Item label="Email" {...(error.email ? error.email : {})}>
-                            <Input 
-                                name="email"
-                                type="email"
-                                onChange={handleInputChange} 
-                                onBlur={(e) => validate(e.target.value, 'email')}
-                            />
-                        </Form.Item>
-                        <Form.Item label="Password" {...(error.password ? error.password : {})}>
-                            <Input 
-                                type="password" 
-                                name="password" 
-                                onChange={handleInputChange}
-                                onBlur={(e) => validate(e.target.value, 'password')}
-                            />
-                        </Form.Item>
-                    </Form>
-                    <p className={styles.forgotPassword}>Forgot Password</p>
-                    <Button 
-                        onClick={handleSubmit} 
-                        className={`themed-button ${styles.longButton}`}
-                    >Sign In</Button>
-                    <p className={styles.signUp}>Don't have an account ? <span className={styles.link}>Sign up</span></p>
-                </div>
+                    {
+                    isLoading ? 
+                    <LoadingSpinner /> 
+                    :
+                    <>
+                        <div className={styles.header}>
+                            <h1>Welcome back.</h1>
+                            <p>Please enter your credentials.</p>
+                        </div>
+                        {
+                            signInResponseError.message && <Alert className={styles.alert} message={signInResponseError.message} type="error" />
+                        }
+                        <Form className={styles.form} form={form} layout="vertical">
+                            <Form.Item label="Email" {...(error.email ? error.email : {})}>
+                                <Input 
+                                    name="email"
+                                    type="email"
+                                    onChange={handleInputChange} 
+                                    onBlur={(e) => validate(e.target.value, 'email')}
+                                />
+                            </Form.Item>
+                            <Form.Item label="Password" {...(error.password ? error.password : {})}>
+                                <Input 
+                                    type="password" 
+                                    name="password" 
+                                    onChange={handleInputChange}
+                                    onBlur={(e) => validate(e.target.value, 'password')}
+                                />
+                            </Form.Item>
+                        </Form>
+                        <p className={styles.forgotPassword}>Forgot Password</p>
+                        <Button 
+                            onClick={handleSubmit} 
+                            className={`themed-button ${styles.longButton}`}
+                        >Sign In</Button>
+                        <p className={styles.signUp}>Don't have an account ? <span className={styles.link}>Sign up</span></p>
+                    </>
+                    }
+                </div>                
             </div>
         </AuthLayout>
     );

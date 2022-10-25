@@ -7,13 +7,20 @@ export const userAuthApi = createApi({
     endpoints: (build) => ({
         verifyAuth: build.query({
             query: () => `/auth/verifyAuth`,
+            transformResponse: (res) => {
+                return res.userData;
+            }
         }),
         signIn: build.mutation({
             query: (signInData) => ({
                 url: '/auth/signin',
                 method: 'POST',
-                body: signInData
+                body: signInData,
+                credentials: "include"
             }),
+            transformResponse: (res) => {
+                return res.userData;
+            }
         }),
         signUp: build.mutation({
             query: (signUpData) => ({
@@ -21,7 +28,7 @@ export const userAuthApi = createApi({
                 method: 'POST',
                 body: signUpData
             }),
-        })
+        }),
     }),
 });
 
@@ -30,3 +37,9 @@ export const {
     useSignInMutation,
     useSignUpMutation,
 } = userAuthApi;
+
+/*
+
+if auth error occurred manually clear the state data
+
+*/ 

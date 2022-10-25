@@ -162,9 +162,15 @@ test
         - [/] - develop frontend pages
             - [x] - configure authentication slice
             - [x] - setup the auth state with RTK
-            - [/] - SignIn
-                - [/] - show error messages
-            - [ ] - SignUp
+            - [x] - SignIn
+                - [x] - show error messages
+                - [x] - show the loading spinner 
+                - [ ] - update slice to have a initial state
+                    - read the RTK and understand how to deal with initial states
+                    - read examples
+                    - temporarily change the api to test
+                - [ ] - clear response errors between auth pages
+            - [/] - SignUp
             - [ ] - User info step 
             - [ ] - Finance Account Step
             - [ ] - Compete Step
