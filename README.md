@@ -171,12 +171,14 @@ test
                     - temporarily change the api to test
                 - [ ] - clear response errors between auth pages
             - [/] - SignUp
-                - [/] - 1st step
-                - [ ] - navigation components
+                - [x] - 1st step
+                - [/] - navigation components
                     - [ ] - validation
-                    - [ ] - password must be more than 8 characters
-                - [ ] - 2nd step
+                    - [x] - password must be more than 8 characters
+                    - [x] - password match
+                - [/] - 2nd step
                 - [ ] - 3rd step
+                - [ ] - 4th step
 
             - [ ] - optimize sass after styling
             - [ ] - User info step 

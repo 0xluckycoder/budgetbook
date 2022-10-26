@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Alert } from "antd";
 import styles from './stepOne.module.scss';
-import { validateMax, validateMin, validateRequired } from "../../../../utils/formValidation";
+
 export const StepOne = ({ 
     width, 
     height, 
     inputState,
     handleInputChange,
     validate,
-    error
+    error,
+    handleNextNavigation
 }) => {
 
     const [form] = Form.useForm();
@@ -24,6 +25,11 @@ export const StepOne = ({
                 setConfirmPasswordError(null);
             }
         }
+    }
+
+    const submitStep = () => {
+        confirmPasswordValidation(inputState.password, inputState.confirmPassword)
+        handleNextNavigation();
     }
 
     return (
@@ -71,7 +77,7 @@ export const StepOne = ({
             </Form>
             <Button 
                 className={`themed-button ${styles.longButton}`}
-                onClick={() => confirmPasswordValidation(inputState.password, inputState.confirmPassword)}
+                onClick={() => submitStep()}
             >
                 Sign up
             </Button>

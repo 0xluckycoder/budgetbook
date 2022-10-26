@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
 import styles from './signUp.module.scss';
 
+import { Button } from 'antd';
+
 import { StepOne } from '../StepOne/StepOne';
 import { StepTwo } from '../StepTwo/StepTwo';
 import { StepThree } from '../StepThree/StepThree';
@@ -15,9 +17,9 @@ import {
 
 const SignUpPage = () => {
 
+    const [step, setStep] = useState(1);
     const [imageFile, setImageFile] = useState([]);
     const [inputState, setInputState] = useState({});
-    const [step, setStep] = useState(1);
     const [error, setError] = useState({
         email: null,
         password: null,
@@ -84,18 +86,55 @@ const SignUpPage = () => {
         }
     }
 
+    const handleNextNavigation = () => setStep(step => step + 1);
+
+    const handleBackNavigation = () => setStep(step => step - 1);
+
     return (
         <AuthLayout>
             <div className={styles.cardWrapper}>
-                <StepOne 
+                {step === 1 && <StepOne 
+                                    width={350} 
+                                    height={478}
+                                    error={error}
+                                    inputState={inputState}
+                                    handleInputChange={handleInputChange}
+                                    validate={validate} 
+                                    handleNextNavigation={handleNextNavigation}
+                                    handleBackNavigation={handleBackNavigation}
+                                />}
+                {step === 2 && <StepTwo 
+                                    width={563}
+                                    height={518}
+                                    error={error}
+                                    inputState={inputState}
+                                    setInputState={setInputState}
+                                    handleInputChange={handleInputChange}
+                                    validate={validate}
+                                />}
+                {/* <StepOne 
                     width={350} 
                     height={478}
                     error={error}
                     inputState={inputState}
                     handleInputChange={handleInputChange}
                     validate={validate} 
-                />
+                /> */}
+                {/* <StepTwo 
+                    width={563}
+                    height={518}
+                    error={error}
+                    inputState={inputState}
+                    setInputState={setInputState}
+                    handleInputChange={handleInputChange}
+                    validate={validate}
+                /> */}
             </div>
+            {/* <div className={styles.bottomMenu}>
+                <h1>dot</h1>
+                <Button className='themed-button'>Next</Button>
+                <Button className='themed-button'>Back</Button>
+            </div> */}
         </AuthLayout>
     );
 }

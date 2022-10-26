@@ -1,0 +1,15 @@
+.bottomMenu {
+
+    .dotWrapper {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .buttonWrapper {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+}
