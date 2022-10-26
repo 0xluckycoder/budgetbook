@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
-import styles from '../authPage.module.scss';
-import { validateEmail, validateRequired } from '../../../../utils/formValidation';
 import { LoadingSpinner } from '../../../../components/LoadingSpinner/LoadingSpinner';
+
+import { validateEmail, validateRequired } from '../../../../utils/formValidation';
 import { useSignInMutation } from '../../../../store/user/user.slice';
+
+import styles from './signInPage.module.scss';
 
 const SignInPage = () => {
 

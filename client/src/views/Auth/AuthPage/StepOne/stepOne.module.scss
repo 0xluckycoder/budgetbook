@@ -1,0 +1,39 @@
+@import '../../../../app.scss';
+
+.card {
+    @extend %globalAuthCard;
+
+    .header {
+        text-align: center;
+        h1 {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        p {
+            padding-top: 0.625rem;
+        }
+    }
+
+    .alert {
+        margin-top: 1.25rem;
+    }
+
+    .form {
+        padding-top: 1.25rem;
+    }
+
+    .longButton {
+        margin-top: 0.625rem;
+        width: 100%;
+    }
+
+    .signIn {
+        text-align: center;
+        padding-top: 0.625rem;
+    }
+
+    .link {
+        color: #6F6AF8;
+    }
+}

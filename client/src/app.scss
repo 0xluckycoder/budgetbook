@@ -58,6 +58,15 @@ p {
     width: auto !important;
 }
 
+// global auth styles
+%globalAuthCard {
+    position: absolute;
+    border: 1px solid #D9D9D9;
+    margin: auto;
+    padding: 37px 50px;
+    background: #fff;
+}
+
 @media (max-width: 768px) {
     .app-layout {
         margin-left: 0px;

@@ -1,17 +1,15 @@
+@import '../../../../app.scss';
+
 .cardWrapper {
     padding-top: 60px;
-
-
+    display: flex;
+    justify-content: center;
+    // height: 100%;
     .card {
-        position: absolute;
-        top: calc(50% - 364px/2);
-        left: calc(50% - 350px/2);
+        top: calc(50% - 424px/2 + 60px/2);
         min-width: 350px;
         min-height: 424px;
-        border: 1px solid #D9D9D9;
-        margin: auto;
-        padding: 37px 50px;
-        background: #fff;
+        @extend %globalAuthCard;
 
         .alert {
             margin-top: 1.25rem;
@@ -19,7 +17,9 @@
 
         .header {
             text-align: center;
+
             h1 {
+                font-size: 24px;
                 font-weight: bold;
             }
             

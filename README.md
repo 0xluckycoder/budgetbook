@@ -165,15 +165,25 @@ test
             - [x] - SignIn
                 - [x] - show error messages
                 - [x] - show the loading spinner 
-                - [ ] - update slice to have a initial state
+                - [x] - update slice to have a initial state
                     - read the RTK and understand how to deal with initial states
                     - read examples
                     - temporarily change the api to test
                 - [ ] - clear response errors between auth pages
             - [/] - SignUp
+                - [/] - 1st step
+                - [ ] - navigation components
+                    - [ ] - validation
+                    - [ ] - password must be more than 8 characters
+                - [ ] - 2nd step
+                - [ ] - 3rd step
+
+            - [ ] - optimize sass after styling
             - [ ] - User info step 
             - [ ] - Finance Account Step
             - [ ] - Compete Step
+
+            - [ ] - fix auth error alert error
 
         - Authentication work flow
             - client sends a login request with credentials
@@ -191,8 +201,6 @@ test
         - Loading user preferred default settings
             - fetch user attribute object with config first
             - then based on user object config load data appropriately
-
-
 
         - [ ] - learn to debug code
         - [ ] - learn different test types and Q/A
