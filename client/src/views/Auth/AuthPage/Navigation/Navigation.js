@@ -27,22 +27,19 @@ export const Navigation = ({
                 >
                     Back
                 </Button>
-
-
-                {/*  */}
                 {isValidated ?
-                <Button 
-                    onClick={() => handleNextNavigation()} 
-                    className={`themed-button ${styles.next}`}
-                >
-                    Next
-                </Button>
-                :
-                <Button 
-                    className={`themed-button ${styles.disabledButton}`}
-                >
-                    Next
-                </Button>
+                    <Button 
+                        onClick={() => handleNextNavigation()} 
+                        className={`themed-button ${styles.next}`}
+                    >
+                        Next
+                    </Button>
+                    :
+                    <Button 
+                        className={`themed-button ${styles.disabledButton}`}
+                    >
+                        Next
+                    </Button>
                 }
             </div>
         </div>

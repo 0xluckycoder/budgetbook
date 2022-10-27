@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './stepTwo.module.scss';
 import { DownOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Dropdown, Space, Menu } from "antd";
@@ -58,14 +58,29 @@ export const StepTwo = ({
     const languageDropdownText = inputState.language === undefined ? 'Select Language' : inputState.language;
     const countryDropdownText = inputState.country === undefined ? 'Select Country' : inputState.country;
 
-    // validate fields on blur
+    // trigger this function on blur
     const validateStep = () => {
-        // if no errors continue to next field
-        setIsValidated(true);
+        if (
+                error.firstName === null &&
+                error.lastName === null &&
+                error.language === null &&
+                error.country === null &&
+                inputState.firstName &&
+                inputState.lastName &&
+                inputState.language &&
+                inputState.country
+            ) {
+                setIsValidated(true);
+        } else {
+            setIsValidated(false);
+        }
     }
 
-    return (
+    useEffect(() => {
+        validateStep();
+    }, [error, inputState]);
 
+    return (
         <div style={{
             top: `calc(50% - ${height}px/2 + 60px/2)`,
             maxWidth: width,
