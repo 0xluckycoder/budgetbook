@@ -177,16 +177,15 @@ test
                     - [x] - password must be more than 8 characters
                     - [x] - password match
                 - [/] - 2nd step
-                    - [/] - upload profile picture
-                    - [ ] - update code to upload single profile image
-                    - [ ] - update slice to send form data request for image upload endpoint
-                    - [ ] - handle image upload errors
-                    - [ ] - validate before go to next step
+                    - [/] - validate before go to next step
                 - [ ] - 3rd step 
                 - [ ] - 4th step
+                
+            - [x] - disable public image upload
 
-            - [/] - disable public image upload
-        
+            - [ ] - currency conversion for bigger ammounts
+                - 2500000 to 2.5M
+            - [ ] - match the min max validation with server
             - [ ] - optimize every view field with substr to show minimum number of characters
             - [ ] - optimize sass after styling
             - [ ] - User info step 

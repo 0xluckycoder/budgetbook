@@ -40,7 +40,6 @@ const SignUpPage = () => {
 
     const validate = (value, field) => {
         if (field === 'email') {
-
             const validatedRequired = validateRequired(value);
             if (validatedRequired.error) {
                 setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
@@ -110,7 +109,17 @@ const SignUpPage = () => {
             }
         }
 
-        if (field === 'language' || field === 'country') {
+        if (field === 'language' || field === 'country' || field === 'currency') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
+                return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+        }
+
+        if (field === 'accountName') {
             const validatedRequired = validateRequired(value);
             if (validatedRequired.error) {
                 setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
@@ -119,6 +128,49 @@ const SignUpPage = () => {
                 setError(error => ({...error, [field]: null}));
             }
 
+            const validatedMin = validateMin(2, value);
+            if (validatedMin.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "add more characters" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+
+            const validatedMax = validateMax(15, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+        }
+
+        if (field === 'initialAmount') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
+                return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+
+            const validatedMax = validateMax(20, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+        }
+
+        if (field === 'description') {
+            const validatedMax = validateMax(200, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
         }
     }
 
@@ -148,7 +200,17 @@ const SignUpPage = () => {
                                     handleNextNavigation={handleNextNavigation}
                                     handleBackNavigation={handleBackNavigation}
                                 />}
-                {step === 3 && <h1>3rd step</h1>}
+                {step === 3 && <StepThree 
+                                    width={536}
+                                    height={563}
+                                    error={error}
+                                    inputState={inputState}
+                                    setInputState={setInputState}
+                                    handleInputChange={handleInputChange}
+                                    validate={validate}
+                                    handleNextNavigation={handleNextNavigation}
+                                    handleBackNavigation={handleBackNavigation}
+                                />}
             </div>
         </AuthLayout>
     );

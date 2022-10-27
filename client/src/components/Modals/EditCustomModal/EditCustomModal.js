@@ -348,13 +348,13 @@ export const EditCustomModal = ({
             </Form.Item>
 
             <Form.Item label="Comment" {...(error.comment ? error.comment : {})}>
-            <TextArea 
-                name="comment" 
-                value={inputState.comment} 
-                onChange={handleInputChange} 
-                rows={4}
-                onBlur={(e) => validate(e.target.value, 'comment')}
-            />
+                <TextArea 
+                    name="comment" 
+                    value={inputState.comment} 
+                    onChange={handleInputChange} 
+                    rows={4}
+                    onBlur={(e) => validate(e.target.value, 'comment')}
+                />
             </Form.Item>
 
             <Form.Item label="Add Photos">
