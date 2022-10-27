@@ -8,4 +8,5 @@ router.post('/signin', authController.signIn);
 // router.post('/confirmEmail/:token',);
 router.get('/verifyAuth', authController.verifyAuth);
 
+
 module.exports = router;

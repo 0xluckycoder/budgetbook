@@ -18,13 +18,12 @@ import {
 const SignUpPage = () => {
 
     const [step, setStep] = useState(1);
-    const [imageFile, setImageFile] = useState([]);
+    // const [imageFile, setImageFile] = useState([]);
     const [inputState, setInputState] = useState({});
     const [error, setError] = useState({
         email: null,
         password: null,
         confirmPassword: null,
-        profilePic: null,
         firstName: null,
         lastName: null,
         language: null,
@@ -84,10 +83,46 @@ const SignUpPage = () => {
                 setError({...error, [field]: null});
             }
         }
+
+        if (field === 'firstName' || field === 'lastName') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
+                return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+
+            const validatedMin = validateMin(2, value);
+            if (validatedMin.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "add more characters" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+
+            const validatedMax = validateMax(255, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+        }
+
+        if (field === 'language' || field === 'country') {
+            const validatedRequired = validateRequired(value);
+            if (validatedRequired.error) {
+                setError(error => ({...error, [field]: { validateStatus: "error", help: "This field is required" }}));
+                return;
+            } else {
+                setError(error => ({...error, [field]: null}));
+            }
+
+        }
     }
 
     const handleNextNavigation = () => setStep(step => step + 1);
-
     const handleBackNavigation = () => setStep(step => step - 1);
 
     return (
@@ -101,40 +136,20 @@ const SignUpPage = () => {
                                     handleInputChange={handleInputChange}
                                     validate={validate} 
                                     handleNextNavigation={handleNextNavigation}
-                                    handleBackNavigation={handleBackNavigation}
                                 />}
                 {step === 2 && <StepTwo 
                                     width={563}
-                                    height={518}
+                                    height={384}
                                     error={error}
                                     inputState={inputState}
                                     setInputState={setInputState}
                                     handleInputChange={handleInputChange}
                                     validate={validate}
+                                    handleNextNavigation={handleNextNavigation}
+                                    handleBackNavigation={handleBackNavigation}
                                 />}
-                {/* <StepOne 
-                    width={350} 
-                    height={478}
-                    error={error}
-                    inputState={inputState}
-                    handleInputChange={handleInputChange}
-                    validate={validate} 
-                /> */}
-                {/* <StepTwo 
-                    width={563}
-                    height={518}
-                    error={error}
-                    inputState={inputState}
-                    setInputState={setInputState}
-                    handleInputChange={handleInputChange}
-                    validate={validate}
-                /> */}
+                {step === 3 && <h1>3rd step</h1>}
             </div>
-            {/* <div className={styles.bottomMenu}>
-                <h1>dot</h1>
-                <Button className='themed-button'>Next</Button>
-                <Button className='themed-button'>Back</Button>
-            </div> */}
         </AuthLayout>
     );
 }

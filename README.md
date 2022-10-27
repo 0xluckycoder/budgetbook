@@ -177,9 +177,17 @@ test
                     - [x] - password must be more than 8 characters
                     - [x] - password match
                 - [/] - 2nd step
-                - [ ] - 3rd step
+                    - [/] - upload profile picture
+                    - [ ] - update code to upload single profile image
+                    - [ ] - update slice to send form data request for image upload endpoint
+                    - [ ] - handle image upload errors
+                    - [ ] - validate before go to next step
+                - [ ] - 3rd step 
                 - [ ] - 4th step
 
+            - [/] - disable public image upload
+        
+            - [ ] - optimize every view field with substr to show minimum number of characters
             - [ ] - optimize sass after styling
             - [ ] - User info step 
             - [ ] - Finance Account Step

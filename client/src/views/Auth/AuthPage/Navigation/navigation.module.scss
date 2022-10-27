@@ -12,4 +12,12 @@
         justify-content: center;
         gap: 1rem;
     }
+
+    .disabledButton {
+        background: #b6b6b6 !important;
+        color: #fff !important;
+        box-shadow: none !important;
+        border: none !important;
+        transition: 0;
+    }
 }

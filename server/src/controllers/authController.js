@@ -89,6 +89,14 @@ const signIn = async (req, res, next) => {
     }
 }
 
+// const uploadImage = async (req, res, next) => {
+//     try {
+//     } catch(error) {
+//         console.log(error);
+//         next(error);
+//     }
+// }
+
 const verifyAuth = async (req, res, next) => {
 
     const { AccessToken, RefreshToken, IdToken } = req.cookies;

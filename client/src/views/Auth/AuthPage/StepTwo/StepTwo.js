@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from './stepTwo.module.scss';
 import { DownOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Dropdown, Space, Menu } from "antd";
@@ -13,8 +13,12 @@ export const StepTwo = ({
     setInputState,
     handleInputChange,
     validate,
-    error
+    error,
+    handleBackNavigation,
+    handleNextNavigation
 }) => {
+
+    const [isValidated, setIsValidated] = useState(false);
 
     const [form] = Form.useForm();
 
@@ -48,14 +52,20 @@ export const StepTwo = ({
         }
     ];
 
-
     const languageMenu = <Menu onBlur={() => validate(inputState.language, 'language')} items={languageMenuData} />;
     const countryMenu = <Menu onBlur={() => validate(inputState.country, 'country')} items={countryMenuData} />;
 
     const languageDropdownText = inputState.language === undefined ? 'Select Language' : inputState.language;
     const countryDropdownText = inputState.country === undefined ? 'Select Country' : inputState.country;
 
+    // validate fields on blur
+    const validateStep = () => {
+        // if no errors continue to next field
+        setIsValidated(true);
+    }
+
     return (
+
         <div style={{
             top: `calc(50% - ${height}px/2 + 60px/2)`,
             maxWidth: width,
@@ -68,7 +78,7 @@ export const StepTwo = ({
 
             <Form className={styles.form} form={form} layout="vertical">
 
-                <Form.Item>
+                {/* <Form.Item>
                     <div className={styles.profileImage}>
                         <img src={profilePlaceholder} alt="profile pic" />
                     </div>
@@ -77,7 +87,7 @@ export const StepTwo = ({
                     >
                         Upload
                     </Button>
-                </Form.Item>
+                </Form.Item> */}
 
                 <InlineField>
                     <Form.Item label="First Name" {...(error.firstName ? error.firstName : {})}>
@@ -102,11 +112,11 @@ export const StepTwo = ({
                 </InlineField>
 
                 <InlineField>
-                    <Form.Item label="Category" {...(error.category ? error.category : {})}>
+                    <Form.Item label="Language" {...(error.language ? error.language : {})}>
                         <Dropdown
                             overlay={languageMenu} 
                             trigger={['click']}
-                            value={inputState.category && inputState.category} 
+                            value={inputState.language && inputState.language} 
                         >
                             <Space className='themed-dropdown'>
                                 <p>{languageDropdownText}</p>
@@ -129,10 +139,15 @@ export const StepTwo = ({
                     </Form.Item>
                 </InlineField>
 
-                <Navigation step={1} />
+                <Navigation 
+                    step={1} 
+                    handleBackNavigation={handleBackNavigation}
+                    handleNextNavigation={handleNextNavigation}
+                    isValidated={isValidated}
+                    // submitStep={submitStep}
+                />
 
             </Form>
-
         </div>
     );
 }
