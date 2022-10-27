@@ -177,6 +177,10 @@ const SignUpPage = () => {
     const handleNextNavigation = () => setStep(step => step + 1);
     const handleBackNavigation = () => setStep(step => step - 1);
 
+    const handleSubmit = () => {
+        
+    }
+
     return (
         <AuthLayout>
             <div className={styles.cardWrapper}>
@@ -209,6 +213,13 @@ const SignUpPage = () => {
                                     handleInputChange={handleInputChange}
                                     validate={validate}
                                     handleNextNavigation={handleNextNavigation}
+                                    handleBackNavigation={handleBackNavigation}
+                                />}
+                {step === 4 && <StepFour
+                                    width={350}
+                                    height={408}
+                                    validate={validate}
+                                    handleSubmit={handleSubmit}
                                     handleBackNavigation={handleBackNavigation}
                                 />}
             </div>

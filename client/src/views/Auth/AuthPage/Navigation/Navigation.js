@@ -10,7 +10,8 @@ export const Navigation = ({
     step,
     handleBackNavigation,
     handleNextNavigation,
-    isValidated
+    isValidated,
+    handleSubmit
 }) => {
 
     return (
@@ -35,11 +36,26 @@ export const Navigation = ({
                         Next
                     </Button>
                     :
-                    <Button 
+                    step === 3 ?
+                        <Button 
+                            onClick={() => handleSubmit()}
+                            className={`themed-button`}
+                        >
+                            Finish
+                        </Button>
+                    :
+                        <Button 
+                        onClick={() => handleNextNavigation()} 
                         className={`themed-button ${styles.disabledButton}`}
-                    >
-                        Next
-                    </Button>
+                        >
+                            Next
+                        </Button>
+
+                    // <Button 
+                    //     className={`themed-button ${styles.disabledButton}`}
+                    // >
+                    //     Next
+                    // </Button>
                 }
             </div>
         </div>

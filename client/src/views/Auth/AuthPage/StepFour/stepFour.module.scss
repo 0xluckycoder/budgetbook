@@ -1,0 +1,35 @@
+@import '../../../../app.scss';
+
+.card {
+    @extend %globalAuthCard;
+
+    .header {
+        text-align: center;
+        h1 {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        p {
+            padding-top: 0.625rem;
+            color: rgba(0, 0, 0, 0.45);
+            font-weight: 500;
+        }
+    }
+
+    .iconWrapper {
+        display: flex;
+        justify-content: center;
+        padding: 3rem 0;
+    }
+
+    .form {
+        padding-top: 1.25rem;
+    }
+}
+
+@media(max-width: 520px) {
+    .card {
+        width: 350px;
+    }
+}

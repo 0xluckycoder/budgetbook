@@ -21,15 +21,19 @@ export const StepOne = ({
         if (passwordValue && confirmPasswordValue) {
             if (passwordValue !== confirmPasswordValue) {
                 setConfirmPasswordError('Passwords does not match');
+                return false;
             } else {
                 setConfirmPasswordError(null);
+                return true;
             }
         }
     }
 
     const submitStep = () => {
-        confirmPasswordValidation(inputState.password, inputState.confirmPassword)
-        handleNextNavigation();
+        const passwordsMatch = confirmPasswordValidation(inputState.password, inputState.confirmPassword);
+        if (passwordsMatch && error.email === null && inputState.email) {
+            handleNextNavigation();
+        }
     }
 
     return (

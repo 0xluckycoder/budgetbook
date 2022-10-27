@@ -25,3 +25,9 @@
         padding-top: 1.25rem;
     }
 }
+
+@media(max-width: 520px) {
+    .card {
+        width: 350px;
+    }
+}

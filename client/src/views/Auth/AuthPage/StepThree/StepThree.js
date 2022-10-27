@@ -65,7 +65,7 @@ export const StepThree = ({
     return (
         <div style={{
             top: `calc(50% - ${height}px/2 + 60px/2)`,
-            minWidth: width,
+            maxWidth: width,
             minHeight: height
         }} className={styles.card}>
             <div className={styles.header}>

@@ -170,16 +170,19 @@ test
                     - read examples
                     - temporarily change the api to test
                 - [ ] - clear response errors between auth pages
+
             - [/] - SignUp
                 - [x] - 1st step
-                - [/] - navigation components
-                    - [ ] - validation
+                    - [x] - validate the password match
+                    - [x] - validate field before next step 
+                - [x] - navigation components
+                    - [x] - validation
                     - [x] - password must be more than 8 characters
                     - [x] - password match
-                - [/] - 2nd step
-                    - [/] - validate before go to next step
-                - [ ] - 3rd step 
-                - [ ] - 4th step
+                - [x] - 2nd step
+                    - [x] - validate before go to next step
+                - [x] - 3rd step 
+                - [x] - 4th step
                 
             - [x] - disable public image upload
 
@@ -547,6 +550,6 @@ button 2 - cancel
     - [x] - Regular payments / planned payments / recurring payments
 - [ ] - Goals
 - [ ] - Statistics
-- [ ] - Settings
-    - [ ] - user profile edit portal
+- [x] - Settings
+    - [/] - user profile edit portal
 
