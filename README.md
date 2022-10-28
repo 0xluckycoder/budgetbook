@@ -183,11 +183,18 @@ test
                     - [x] - validate before go to next step
                 - [x] - 3rd step 
                 - [x] - 4th step
+
+            - [/] - show the loading properly
+            - [ ] - signUp the user
+            - [ ] - add user attributes
+            - [ ] - create an account for related user
+            - [ ] - handle server errors
                 
             - [x] - disable public image upload
 
             - [ ] - currency conversion for bigger ammounts
                 - 2500000 to 2.5M
+                - use "new Intl.NumberFormat()" method
             - [ ] - match the min max validation with server
             - [ ] - optimize every view field with substr to show minimum number of characters
             - [ ] - optimize sass after styling

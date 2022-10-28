@@ -30,6 +30,11 @@ export const StepOne = ({
     }
 
     const submitStep = () => {
+        // validate fields
+        validate(inputState.email, 'email');
+        validate(inputState.password, 'password');
+        validate(inputState.confirmPassword, 'confirmPassword')
+        
         const passwordsMatch = confirmPasswordValidation(inputState.password, inputState.confirmPassword);
         if (passwordsMatch && error.email === null && inputState.email) {
             handleNextNavigation();

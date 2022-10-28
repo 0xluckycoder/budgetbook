@@ -3,6 +3,10 @@
 .card {
     @extend %globalAuthCard;
 
+    .loader {
+        
+    }
+
     .header {
         text-align: center;
         h1 {

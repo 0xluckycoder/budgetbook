@@ -178,7 +178,7 @@ const SignUpPage = () => {
     const handleBackNavigation = () => setStep(step => step - 1);
 
     const handleSubmit = () => {
-        
+        alert('submitted');
     }
 
     return (

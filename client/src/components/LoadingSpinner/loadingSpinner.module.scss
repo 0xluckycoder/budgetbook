@@ -1,8 +1,11 @@
 // loader
 .spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // overflow: hidden;
+    position: absolute;
+    top: calc(50% - 41px/2);
+    left: calc(50% - 41px/2);
     height: 100%;
 }

@@ -73,7 +73,7 @@ export const StepThree = ({
                 <p>Create you first finance account to get started</p>
             </div>
             <Form className={styles.form} form={form} layout="vertical">
-            <InlineField>
+                <InlineField>
                     <Form.Item label="Account Name" {...(error.accountName ? error.accountName : {})}>
                         <Input
                             name="accountName"

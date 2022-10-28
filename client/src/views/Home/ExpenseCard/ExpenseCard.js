@@ -26,17 +26,17 @@ export const ExpenseCard = ({ amount, percentage, dateSortByState }) => {
                 <LoadingSpinner />
                 :
                 <>
-                <div className={styles.cardHeading}>
-                    <p>Expenses</p>
-                </div>
-                <div className={styles.cardDetails}>
-                    <p className={styles.amount}>5000</p>
-                    <div className={`${styles.percentage} ${styles.red}`}>
-                        <p>15%</p>
-                        <FontAwesomeIcon className={styles.redCarrot} icon={faCaretDown} />
+                    <div className={styles.cardHeading}>
+                        <p>Expenses</p>
                     </div>
-                </div>
-                <CustomLineChart isContentLoading={isContentLoading} data={data} />
+                    <div className={styles.cardDetails}>
+                        <p className={styles.amount}>5000</p>
+                        <div className={`${styles.percentage} ${styles.red}`}>
+                            <p>15%</p>
+                            <FontAwesomeIcon className={styles.redCarrot} icon={faCaretDown} />
+                        </div>
+                    </div>
+                    <CustomLineChart isContentLoading={isContentLoading} data={data} />
                 </>
             }
         </div>
