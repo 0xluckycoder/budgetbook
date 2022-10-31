@@ -18,7 +18,32 @@ const signUp = async (req, res, next) => {
                     .email('not a valid email address'),
             password: yup.string('password must be a string')
                         .required('password is required')
-                        .max(127, 'password is too long')
+                        .max(127, 'password is too long'),
+            // attributes
+            firstName: yup.string('firstName must be a string')
+                            .required('firstName is required')
+                            .max(127, 'firstName is too long'),
+            lastName: yup.string('lastName must be a string')
+                            .required('lastName is required')
+                            .max(127, 'lastName is too long'),
+            language: yup.string('language must be a string')
+                            .required('language is required')
+                            .max(127, 'language is too long'),
+            country: yup.string('country must be a string')
+                        .required('country is required')
+                        .max(127, 'country is too long'),
+            // user account
+            accountName: yup.string('account name must be a string')
+                            .required('account name is required')
+                            .max(127, 'account name is too long'),
+            initialAmount: yup.string('initial value must be a string')
+                            .required('initial value is required')
+                            .max(127, 'initial value is too long'),
+            currency: yup.string('currency must be a string')
+                            .required('currency is required')
+                            .max(127, 'currency is too long'),
+            description: yup.string('description must be a string')
+                            .max(127, 'description is too long'),
         });
 
         const validated = await userSchema.validate(req.body);

@@ -38,7 +38,7 @@ test
     - [x] - income records card
     - [x] - Portals
         - [x] - New Expense Portal
-        - [ ] - New Income Portal
+        - [x] - New Income Portal
             - [x] - try to display both add and view & income/expense data in same portal
 - [x] - Accounts
     - [x] - accounts total card
@@ -52,11 +52,11 @@ test
     - [ ] - user info edit modal
     - [x] - logout button
     - [x] - app settings card
-- [ ] - link api endpoints with frontend
+- [x] - link api endpoints with frontend
     - plan and code
-- [ ] - redesign user profile
+- [x] - redesign user profile
 
-- [ ] - link functionality with endpoints
+- [x] - link functionality with endpoints
     
 
             - [ ] - User auth state must presist every reload
@@ -184,15 +184,19 @@ test
                 - [x] - 3rd step 
                 - [x] - 4th step
 
-            - [/] - document every API endpoint
+            - [x] - document every API endpoint
+            - [x] - show the loading properly
+            - [x] - signUp the user
+            - [x] - add user attributes
+            - [x] - create a finance account for related user
+            - [/] - redirect to login after success
+            - [/] - handle server errors
 
-            - [/] - show the loading properly
-            - [ ] - signUp the user
-            - [ ] - add user attributes
-            - [ ] - create an account for related user
-            - [ ] - handle server errors
+            - [ ] - match auth frontend validation with backend validation
                 
             - [x] - disable public image upload
+
+            - [-] - endpoint to update user profile attributes
 
             - [ ] - currency conversion for bigger ammounts
                 - 2500000 to 2.5M
@@ -330,12 +334,12 @@ button 2 - cancel
     - ID
     - userId - (FK)
     - title
-    - amount - required
-    - category - required
-    - transactionDate - required
+    - amount
+    - category
+    - transactionDate
     - photos
     - comment
-    - account - required
+    - account
 
 - Income Entry
     - ID
@@ -357,10 +361,13 @@ button 2 - cancel
     - description
 
 - User Entry
-    - authorizeSubId
+    - ID
+    - authorizeSubId - cognito subId
+    - firstName
+    - lastName
     - language
-    - currency
-    - defaultAccount
+    - country
+    - defaultAccount - (FK)
     - defaultSortPeriod
 
 #### Resources

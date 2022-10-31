@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
 import styles from './signUp.module.scss';
+import { useSignUpMutation } from '../../../../store/user/user.slice';
 
 import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 import { StepOne } from '../StepOne/StepOne';
 import { StepTwo } from '../StepTwo/StepTwo';
@@ -16,6 +18,8 @@ import {
 } from '../../../../utils/formValidation';
 
 const SignUpPage = () => {
+
+    const navigate = useNavigate();
 
     const [step, setStep] = useState(1);
     // const [imageFile, setImageFile] = useState([]);
@@ -33,6 +37,11 @@ const SignUpPage = () => {
         currency: null,
         description: null
     });
+
+    const [signUp, {
+        isLoading: signUpLoading,
+        data
+    }] = useSignUpMutation();
 
     const handleInputChange = (e) => {
         setInputState({...inputState, [e.target.name]: e.target.value});
@@ -177,8 +186,14 @@ const SignUpPage = () => {
     const handleNextNavigation = () => setStep(step => step + 1);
     const handleBackNavigation = () => setStep(step => step - 1);
 
-    const handleSubmit = () => {
-        alert('submitted');
+    const handleSubmit = async () => {
+        try {
+            await signUp(inputState).unwrap();
+            navigate('/login');
+        } catch (error) {
+            console.log(error);
+            navigate('/signup');
+        }
     }
 
     return (
@@ -221,6 +236,7 @@ const SignUpPage = () => {
                                     validate={validate}
                                     handleSubmit={handleSubmit}
                                     handleBackNavigation={handleBackNavigation}
+                                    signUpLoading={signUpLoading}
                                 />}
             </div>
         </AuthLayout>

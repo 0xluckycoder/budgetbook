@@ -6,11 +6,21 @@ const userEntrySchema = new Schema({
         type: String,
         required: true
     },
-    language: {
-        type: String
+    firstName: {
+        type: String,
+        required: true
     },
-    currency: {
-        type: String
+    lastName: {
+        type: String,
+        required: true
+    },
+    language: {
+        type: String,
+        required: true
+    },
+    country: {
+        type: String,
+        required: true
     },
     defaultAccount: {
         type: String

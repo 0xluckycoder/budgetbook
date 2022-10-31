@@ -19,7 +19,17 @@ const getUserBySubId = async (subId) => {
     }
 }
 
+const updateUser = async (userData, id) => {
+    try {
+        const userEntry = await UserEntry.updateOne({ _id: id }, {...userData});
+        return userEntry;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     createUser,
-    getUserBySubId
+    getUserBySubId,
+    updateUser
 };

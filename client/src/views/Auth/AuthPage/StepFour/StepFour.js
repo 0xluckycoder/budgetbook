@@ -9,10 +9,9 @@ export const StepFour = ({
     width,
     validate,
     handleSubmit,
-    handleBackNavigation
+    handleBackNavigation,
+    signUpLoading
 }) => {
-
-    const [loading, setLoading] = useState(false);
 
     return (
         <div style={{
@@ -21,7 +20,7 @@ export const StepFour = ({
             minHeight: height
         }} className={styles.card}>
             {
-                loading ?
+                signUpLoading ?
                 <div className={styles.loader}>
                     <LoadingSpinner />
                 </div>
@@ -41,7 +40,6 @@ export const StepFour = ({
                         handleBackNavigation={handleBackNavigation}
                         isValidated={false}
                         handleSubmit={handleSubmit}
-                    // submitStep={submitStep}
                     />   
                 </>
             }

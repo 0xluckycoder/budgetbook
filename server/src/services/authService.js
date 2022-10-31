@@ -10,6 +10,7 @@ const {
 const nodemailer = require('nodemailer');
 // const { verify } = require('jsonwebtoken');
 const userProfile = require('../database/user');
+const account = require('../database/account');
 
 const signUp = async (user) => {
     
@@ -28,9 +29,7 @@ const signUp = async (user) => {
             Username: user.email,
             Password: user.password
         });
-
         const signUpCommandResponse = await client.send(signUpCommand);
-
         const authorizeSubId = signUpCommandResponse.UserSub;
 
         /*
@@ -42,21 +41,37 @@ const signUp = async (user) => {
             Username: authorizeSubId
         });
         const adminConfirmSignUpResponse = await client.send(adminConfirmSignUpCommand);
+        console.log('confirmed ✅', adminConfirmSignUpResponse);
 
-        // console.log(adminConfirmSignUpResponse);
-
-        // create user object in database
+        // create user profile attributes
         const createdUser = await userProfile.createUser({
             authorizeSubId,
-            language: "",
-            currency: "",
-            defaultAccount: "",
-            defaultSortPeriod: ""
+            firstName: user.firstName,
+            lastName: user.lastName,
+            language: user.language,
+            country: user.country,
+            defaultSortPeriod: "thismonth"
         });
+        console.log('user', createdUser);
+
+        // create financial account for user
+        const createdAccount = await account.createAccount({
+            userId: createdUser._id,
+            name: user.accountName,
+            value: user.initialAmount,
+            currencyType: user.currency,
+            description: user.description
+        });
+        console.log('account', createdAccount);
+
+        // update defaultAccount on user profile object
+        const updatedUser = await userProfile.updateUser({
+            defaultAccount: createdAccount._id
+        }, createdUser._id);
+        console.log('updated user', updatedUser);
 
         return {
             createdUser,
-            // signUpCommandResponse
             adminConfirmSignUpResponse
         };
 
