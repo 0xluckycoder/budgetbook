@@ -1,6 +1,11 @@
 const yup = require('yup');
 const incomeService = require('../services/incomeService');
 
+/**
+ * @desc create new income record
+ * @path POST /api/v1/income
+ * @authorization Private
+ * */
 const createIncome = async (req, res, next) => {
     try {
         // validate user input
@@ -70,6 +75,11 @@ const uploadImage = async (req, res, next) => {
 /**
  * /api/v1/expense?date=7days
 */
+/**
+ * @desc get income records by date period
+ * @path GET /api/v1/income?date=7days
+ * @authorization Private
+ * */
 const getIncomes = async (req, res, next) => {
     try {
         const sortType = req.query.date;
@@ -85,6 +95,11 @@ const getIncomes = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc get income record by id
+ * @path GET /api/v1/income/:id
+ * @authorization Private
+ * */
 const getIncomeById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -100,6 +115,11 @@ const getIncomeById = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc update single income record
+ * @path PUT /api/v1/income/:id
+ * @authorization Private
+ * */
 const updateIncome = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -134,6 +154,11 @@ const updateIncome = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc delete single income record
+ * @path DELETE /api/v1/income/:id
+ * @authorization Private
+ * */
 const deleteIncome = async (req, res, next) => {
     try {
         const { id } = req.params;

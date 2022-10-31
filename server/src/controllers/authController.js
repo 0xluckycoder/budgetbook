@@ -1,6 +1,11 @@
 const yup = require('yup');
 const authService = require('../services/authService');
 
+/**
+ * @desc User sign up
+ * @path POST /api/v1/auth/signup
+ * @authorization Public
+ * */
 const signUp = async (req, res, next) => {
     try {
         console.log(req.body);
@@ -30,6 +35,11 @@ const signUp = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc User sign in
+ * @path POST /api/v1/auth/signin
+ * @authorization Private
+ * */
 const signIn = async (req, res, next) => {
     try {
         console.log(req.body);
@@ -97,6 +107,11 @@ const signIn = async (req, res, next) => {
 //     }
 // }
 
+/**
+ * @desc authenticate if cookies exists & Refresh expired tokens
+ * @path POST /api/v1/auth/signin
+ * @authorization Private
+ * */
 const verifyAuth = async (req, res, next) => {
 
     const { AccessToken, RefreshToken, IdToken } = req.cookies;

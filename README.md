@@ -184,6 +184,8 @@ test
                 - [x] - 3rd step 
                 - [x] - 4th step
 
+            - [/] - document every API endpoint
+
             - [/] - show the loading properly
             - [ ] - signUp the user
             - [ ] - add user attributes

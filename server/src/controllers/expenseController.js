@@ -3,6 +3,11 @@ const expenseService = require('../services/expenseService');
 const customError = require('../utils/customError');
 const uploader = require('../utils/uploader');
 
+/**
+ * @desc create expense record
+ * @path POST /api/v1/expense
+ * @authorization Private
+ * */
 const createExpense = async (req, res, next) => {
     try {
 
@@ -71,6 +76,11 @@ const uploadImage = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc get expense records by date period
+ * @path GET /api/v1/expense?date=7days
+ * @authorization Private
+ * */
 const getExpenses = async (req, res, next) => {
     try {
         const sortType = req.query.date;
@@ -85,6 +95,11 @@ const getExpenses = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc get single expense record by id
+ * @path GET /api/v1/expense/:id
+ * @authorization Private
+ * */
 const getExpenseById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -99,6 +114,11 @@ const getExpenseById = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc update single expense record
+ * @path PUT /api/v1/expense/:id
+ * @authorization Private
+ * */
 const updateExpense = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -134,6 +154,11 @@ const updateExpense = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc delete single expense record
+ * @path DELETE /api/v1/expense/:id
+ * @authorization Private
+ * */
 const deleteExpense = async (req, res, next) => {
     try {
         const { id } = req.params;

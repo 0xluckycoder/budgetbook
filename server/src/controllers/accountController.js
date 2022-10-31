@@ -1,6 +1,11 @@
 const yup = require('yup');
 const accountService = require('../services/accountService');
 
+/**
+ * @desc create new account record
+ * @path POST /api/v1/account
+ * @authorization Private
+ * */
 const createAccount = async (req, res, next) => {
     try {
         // validate user input
@@ -30,6 +35,11 @@ const createAccount = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc get all accounts related to user id
+ * @path GET /api/v1/account/:id
+ * @authorization Private
+ * */
 const getAccountsByUserId = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -45,6 +55,11 @@ const getAccountsByUserId = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc get single account record
+ * @path GET /api/v1/account/:id
+ * @authorization Private
+ * */
 const getAccountById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -60,6 +75,11 @@ const getAccountById = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc update single account record
+ * @path PUT /api/v1/account/:id
+ * @authorization Private
+ * */
 const updateAccount = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -89,6 +109,11 @@ const updateAccount = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc delete single account record
+ * @path DELETE /api/v1/account/:id
+ * @authorization Private
+ * */
 const deleteAccount = async (req, res, next) => {
     try {
         const { id } = req.params;
