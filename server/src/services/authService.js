@@ -137,8 +137,8 @@ const signIn = async (user) => {
             subId: subId.Value
         }
 
-        const getUserAttributes = await userProfile.getUserBySubId(subId.Value);
-        console.log(getUserAttributes);
+        // const getUserAttributes = await userProfile.getUserBySubId(subId.Value);
+        // console.log(getUserAttributes);
        
         /*
         {
@@ -173,6 +173,9 @@ const signIn = async (user) => {
 
 const verifyAuth = async (cookies) => {
     try {
+
+        // throw new Error('error');
+
         const client = new CognitoIdentityProvider({
             region: process.env.AWS_COGNITO_REGION,
             credentials : {
@@ -190,8 +193,8 @@ const verifyAuth = async (cookies) => {
         const email = getUserResponse.UserAttributes.find(element => element.Name === "email");
         const subId = getUserResponse.UserAttributes.find(element => element.Name === "sub");
 
-        const getUserAttributes = userProfile.getUserBySubId(subId);
-        console.log(getUserAttributes);
+        // const getUserAttributes = userProfile.getUserBySubId(subId);
+        // console.log(getUserAttributes);
 
         const data = {
             email: email.Value,
@@ -229,6 +232,7 @@ const refreshTokens = async (RefreshToken) => {
         return InitiateAuthCommandResponse;
         
     } catch (error) {
+        console.log('when refreshing cuased error', error);
         throw error;
     }
 }

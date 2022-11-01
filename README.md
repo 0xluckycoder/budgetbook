@@ -171,10 +171,10 @@ test
                     - temporarily change the api to test
                 - [ ] - clear response errors between auth pages
 
-            - [/] - SignUp
+            - [x] - SignUp
                 - [x] - 1st step
                     - [x] - validate the password match
-                    - [x] - validate field before next step 
+                    - [x] - validate field before next step
                 - [x] - navigation components
                     - [x] - validation
                     - [x] - password must be more than 8 characters
@@ -189,14 +189,44 @@ test
             - [x] - signUp the user
             - [x] - add user attributes
             - [x] - create a finance account for related user
-            - [/] - redirect to login after success
-            - [/] - handle server errors
+            - [x] - redirect to login after success
+            - [x] - handle server errors
 
-            - [ ] - match auth frontend validation with backend validation
-                
+            - [x] - match auth frontend validation with backend validation
+                - [x] - signup
+                - [x] - signin
+
             - [x] - disable public image upload
-
             - [-] - endpoint to update user profile attributes
+
+            - [/] - handle authentication
+                - [x] - make the authentication work and persist the user in global state before all
+                    - Verify Authentication Process
+                        - Request to "/verifyAuth" and store cookies in client and also get subId & email
+                        - data: {
+                            subId: "xxx-xxx",
+                            email: "user@email.com"
+                        }
+                - [x] - secure private endpoints & identify current logged in user by using cookies
+                - [ ] - update find queries to fetch by current user
+                    - [ ] - income
+                    - [ ] - expense
+                    - [ ] - account
+                - [ ] - add user id as foreign key to every object being created
+                    - [ ] - income
+                    - [ ] - expense
+                    - [ ] - account
+                - [ ] - logout unauthenticated users
+            <!-- - [/] - when fetching user make sure to fetch the related user profile attribute object -->
+
+            - [/] - fix bugs in main app
+                - [ ] - get expenses
+                - [ ] - get incomes
+                - [ ] - create expense
+                - [ ] - create income
+                - [ ] - update expense
+                - [ ] - update income   
+            - [ ] - make endpoints private
 
             - [ ] - currency conversion for bigger ammounts
                 - 2500000 to 2.5M

@@ -38,12 +38,12 @@ const signUp = async (req, res, next) => {
                             .max(127, 'account name is too long'),
             initialAmount: yup.string('initial value must be a string')
                             .required('initial value is required')
-                            .max(127, 'initial value is too long'),
+                            .max(20, 'initial value is too long'),
             currency: yup.string('currency must be a string')
                             .required('currency is required')
                             .max(127, 'currency is too long'),
             description: yup.string('description must be a string')
-                            .max(127, 'description is too long'),
+                            .max(200, 'description is too long'),
         });
 
         const validated = await userSchema.validate(req.body);
@@ -63,7 +63,7 @@ const signUp = async (req, res, next) => {
 /**
  * @desc User sign in
  * @path POST /api/v1/auth/signin
- * @authorization Private
+ * @authorization Public
  * */
 const signIn = async (req, res, next) => {
     try {
@@ -115,7 +115,7 @@ const signIn = async (req, res, next) => {
         // singin response
         res.status(200).json({
             success: true,
-            userData: data
+            data: data
         });
 
     } catch(error) {
@@ -149,11 +149,12 @@ const verifyAuth = async (req, res, next) => {
             throw tokenUnavailableError;
         }
 
+        // get user data from cognito
         const verifyAuthResponse = await authService.verifyAuth(req.cookies);
 
         return res.status(200).json({
             success: true,
-            userData: verifyAuthResponse
+            data: verifyAuthResponse
         });
 
     } catch (error) {
@@ -176,8 +177,14 @@ const verifyAuth = async (req, res, next) => {
                 res.cookie('AccessToken', refreshedTokens.AuthenticationResult.AccessToken, cookiesConfig);
                 res.cookie('IdToken', refreshedTokens.AuthenticationResult.IdToken, cookiesConfig);
 
+                // get the user data from cognito using refreshed token
+                const verifyAuthResponse = await authService.verifyAuth({
+                    AccessToken: refreshedTokens.AuthenticationResult.AccessToken
+                });
+
                 return res.json({
-                    success: true
+                    success: true,
+                    data: verifyAuthResponse
                 });
                 
             } catch (error) {

@@ -12,7 +12,8 @@ export const incomeApi = createApi({
             query: (initialIncome) => ({
                 url: '/income',
                 method: 'POST',
-                body: initialIncome
+                body: initialIncome,
+                credentials: "include"
             }),
             invalidatesTags: ['Income']
         }),
@@ -28,19 +29,35 @@ export const incomeApi = createApi({
             query: (patch) => ({
                 url: `/income/${patch._id}`,
                 method: 'PUT',
-                body: patch
+                body: patch,
+                credentials: "include"
             }),
             invalidatesTags: ['Income']
         }),
         deleteIncome: build.mutation({
             query: (id) => ({
                 url: `/income/${id}`,
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: "include"
             }),
             invalidatesTags: ['Income']
         })
     }),
 });
+
+/*
+        signIn: build.mutation({
+            query: (signInData) => ({
+                url: '/auth/signin',
+                method: 'POST',
+                body: signInData,
+                credentials: "include"
+            }),
+            transformResponse: (res) => {
+                return res.userData;
+            }
+        }),
+*/ 
 
 export const {
     useGetIncomesQuery,

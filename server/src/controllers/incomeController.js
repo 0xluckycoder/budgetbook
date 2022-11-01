@@ -30,7 +30,10 @@ const createIncome = async (req, res, next) => {
         });
 
         const validated = await incomeSchema.validate(req.body);
-        const createIncomeResponse = await incomeService.createIncome(validated);
+        const createIncomeResponse = await incomeService.createIncome({
+            userId: req.userId,
+            ...validated
+        });
 
         console.log('🔥', createIncomeResponse);
 

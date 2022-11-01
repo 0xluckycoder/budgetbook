@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
 import { LoadingSpinner } from '../../../../components/LoadingSpinner/LoadingSpinner';
 
-import { validateEmail, validateRequired } from '../../../../utils/formValidation';
+import { validateEmail, validateRequired, validateMax } from '../../../../utils/formValidation';
 import { useSignInMutation } from '../../../../store/user/user.slice';
 
 import styles from './signInPage.module.scss';
@@ -56,6 +56,14 @@ const SignInPage = () => {
                 setError(error => ({...error, [field]: null}));
             }
 
+            const validatedMax = validateMax(127, value);
+            if (validatedMax.error)  {
+                setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
+                return;
+            } else {
+                setError({...error, [field]: null});
+            }
+
             const validatedEmail = validateEmail(value);
             if (validatedEmail.error) {
                 setError(error => ({...error, [field]: { validateStatus: "error", help: "Invalid email format" }}));
@@ -91,10 +99,7 @@ const SignInPage = () => {
                 // alert('submitted');
                 const response = await signIn(inputState);
                 console.log('🌳', response);
-                // if (response.error) {
-                //     console.log('error occurred');
-                //     setSignInResponseError(response.error)
-                // };
+                // navigate('/app/home');
             }
         } catch(error) {
             console.log(error);

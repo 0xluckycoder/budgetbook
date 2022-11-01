@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from './stepFour.module.scss';
+import { Alert } from "antd";
 import { Navigation } from "../Navigation/Navigation";
 import icon from '../../../../assets/Auth/completed-icon.svg';
 import { LoadingSpinner } from "../../../../components/LoadingSpinner/LoadingSpinner";
@@ -10,7 +11,8 @@ export const StepFour = ({
     validate,
     handleSubmit,
     handleBackNavigation,
-    signUpLoading
+    signUpLoading,
+    signUpResponseError
 }) => {
 
     return (
@@ -26,6 +28,9 @@ export const StepFour = ({
                 </div>
                 :
                 <>
+                    {
+                       signUpResponseError.message && <Alert className={styles.alert} message={signUpResponseError.message} type="error" />
+                    }
                     <div className={styles.header}>
                         <h1>Almost there.</h1>
                         <p>Click finish to complete the setup</p>

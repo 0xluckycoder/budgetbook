@@ -37,6 +37,9 @@ const SignUpPage = () => {
         currency: null,
         description: null
     });
+    const [signUpResponseError, setSignUpResponseError] = useState({
+        message: null
+    });
 
     const [signUp, {
         isLoading: signUpLoading,
@@ -57,7 +60,7 @@ const SignUpPage = () => {
                 setError(error => ({...error, [field]: null}));
             }
 
-            const validatedMax = validateMax(255, value);
+            const validatedMax = validateMax(127, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -109,7 +112,7 @@ const SignUpPage = () => {
                 setError({...error, [field]: null});
             }
 
-            const validatedMax = validateMax(255, value);
+            const validatedMax = validateMax(127, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -145,7 +148,7 @@ const SignUpPage = () => {
                 setError({...error, [field]: null});
             }
 
-            const validatedMax = validateMax(15, value);
+            const validatedMax = validateMax(127, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -189,10 +192,13 @@ const SignUpPage = () => {
     const handleSubmit = async () => {
         try {
             await signUp(inputState).unwrap();
-            navigate('/login');
+            navigate('/auth/login');
         } catch (error) {
             console.log(error);
-            navigate('/signup');
+            // refresh the page
+            setSignUpResponseError({
+                message: error.data.message
+            });
         }
     }
 
@@ -237,6 +243,7 @@ const SignUpPage = () => {
                                     handleSubmit={handleSubmit}
                                     handleBackNavigation={handleBackNavigation}
                                     signUpLoading={signUpLoading}
+                                    signUpResponseError={signUpResponseError}
                                 />}
             </div>
         </AuthLayout>

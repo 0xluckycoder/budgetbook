@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const incomeController = require('../../controllers/incomeController');
 const multer = require('multer');
+const {
+    authorizeRequest
+} = require('./../../utils/authorizeRequest');
 
 const router = Router();
 
@@ -18,7 +21,7 @@ const upload = multer({
     limits: 1000000
 });
 
-router.post('/', incomeController.createIncome);
+router.post('/', authorizeRequest, incomeController.createIncome);
 
 router.post('/image', upload.array('income-images'), incomeController.uploadImage);
 

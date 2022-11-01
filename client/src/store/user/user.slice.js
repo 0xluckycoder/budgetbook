@@ -6,9 +6,12 @@ export const userAuthApi = createApi({
     tagTypes: ['Auth'],
     endpoints: (build) => ({
         verifyAuth: build.query({
-            query: () => `/auth/verifyAuth`,
+            query: () => ({
+                url: '/auth/verifyAuth',
+                credentials: "include"
+            }),
             transformResponse: (res) => {
-                return res.userData;
+                return res.data;
             }
         }),
         signIn: build.mutation({
@@ -19,7 +22,7 @@ export const userAuthApi = createApi({
                 credentials: "include"
             }),
             transformResponse: (res) => {
-                return res.userData;
+                return res.data;
             }
         }),
         signUp: build.mutation({
@@ -35,7 +38,7 @@ export const userAuthApi = createApi({
 export const {
     useVerifyAuthQuery,
     useSignInMutation,
-    useSignUpMutation,
+    useSignUpMutation
 } = userAuthApi;
 
 /*
