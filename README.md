@@ -213,12 +213,19 @@ test
                 - [x] - redirect to the app if user is already logged in
                 - [x] - redirect from login to /app/home after submitting their details
 
-                - [/] - also get user user's id from the related attributes object when authorizing the user
+                - [/] - learn and read about RESTful api design practices (https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design)
+                    - keep the id at the end of the endpoint for the api design
+                    - validate with req.user with entered api id to make sure user is fetching belonging data
 
-                - [/] - load the user's default account first (new users first created one)
+                - [ ] - also get user user's id from the related attributes object when authorizing the user
+
+                - [ ] - load the user's default account first (new users first created one)
                     - [ ] - users should have the ability to change their default account
                     - [ ] - if user has deleted their default selected account, app will load the data from next available account
                     - [ ] - user cannot delete every financial account from the app, user at least need to keep one financial account
+
+                - Loading Account workflow
+                    - fetch the current auth user
 
                 - [ ] - get accounts from the user
                     - [ ] - define the relationships properly

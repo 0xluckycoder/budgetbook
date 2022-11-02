@@ -32,8 +32,8 @@ function App() {
         <Routes>
           <Route path="app">
             <Route path="home" element={<Protected><HomePage /></Protected>} />
-            <Route path="accounts" element={<AccountPage />} />
-            <Route path="settings" element={<SettingsPage />} />
+            <Route path="accounts" element={<Protected><AccountPage /></Protected>} />
+            <Route path="settings" element={<Protected><SettingsPage /></Protected>} />
           </Route>
           <Route path="auth">
             <Route path="login" element={<AuthRedirect><SignInPage /></AuthRedirect>} />

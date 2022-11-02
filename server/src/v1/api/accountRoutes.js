@@ -1,6 +1,10 @@
 const { Router } = require('express');
 const accountController = require('../../controllers/accountController');
 
+const {
+    authorizeRequest
+} = require('./../../utils/authorizeRequest');
+
 const router = Router();
 
 // router.get('/:id')
@@ -9,7 +13,7 @@ router.post('/', accountController.createAccount);
 
 router.get('/:id', accountController.getAccountById);
 
-router.get('/user/:id', accountController.getAccountsByUserId);
+router.get('/user/:id', authorizeRequest, accountController.getAccountsByUserId);
 
 router.put('/:id', accountController.updateAccount);
 
