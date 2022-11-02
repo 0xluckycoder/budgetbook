@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { userAuthApi } from "../../store/user/user.slice";
-import { useNavigate, Navigate } from "react-router-dom";
-import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
-export const Protected = ({ children }) => {
+export const AuthRedirect = ({ children }) => {
     const {
         data,
         isLoading,
@@ -12,8 +12,6 @@ export const Protected = ({ children }) => {
     } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
     let isAuthLoading = isLoading && isFetching ? true : false;
-
-    console.log(data);
 
     if (!isUninitialized) {
         if (isAuthLoading) {
@@ -24,10 +22,11 @@ export const Protected = ({ children }) => {
             )
         } else {
             if (!data) {
-                return <Navigate to="/auth/login" replace={true} />
-            } else {
                 return children;
+            } else {
+                return <Navigate to="/app/home" replace={true} />
             }
         }
     }
+
 }

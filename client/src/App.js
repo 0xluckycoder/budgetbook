@@ -9,6 +9,7 @@ import {
 } from './store/user/user.slice';
 
 import { Protected } from './components/router/Protected';
+import { AuthRedirect } from './components/router/AuthRedirect';
 
 import HomePage from './views/Home/HomePage/HomePage';
 import AccountPage from './views/Accounts/AccountsPage/AccountsPage';
@@ -25,14 +26,6 @@ function App() {
     isError,
   } = userAuthApi.endpoints.verifyAuth.useQuery();
 
-  // // in private routes
-  // useEffect(() => {
-  //   if (data.email && data.subId) {
-  //     navigate('/app/home');
-  //   }
-  // }, []);
-  // console.log('user auth', data);
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -43,8 +36,8 @@ function App() {
             <Route path="settings" element={<SettingsPage />} />
           </Route>
           <Route path="auth">
-            <Route path="login" element={<SignInPage />} />
-            <Route path="signup" element={<SignUpPage />} />
+            <Route path="login" element={<AuthRedirect><SignInPage /></AuthRedirect>} />
+            <Route path="signup" element={<AuthRedirect><SignUpPage /></AuthRedirect>} />
           </Route>
         </Routes>
       </BrowserRouter>

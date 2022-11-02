@@ -1,4 +1,5 @@
 const authService = require('../services/authService');
+const userProfile = require('../database/user');
 
 const authorizeRequest = async (req, res, next) => {
     try {
@@ -12,9 +13,14 @@ const authorizeRequest = async (req, res, next) => {
         }
         const verifyAuthResponse = await authService.verifyAuth(req.cookies);
         
-        // assign user data to req object
-        req.user = verifyAuthResponse;
+        // get userSubId
+        const userAttributes = await userProfile.getUserBySubId(verifyAuthResponse.subId);
 
+        // assign user data to req object
+        req.user = {
+            ...verifyAuthResponse,
+            ...userAttributes
+        };
         next();
     } catch(error) {
         /**
@@ -45,8 +51,14 @@ const authorizeRequest = async (req, res, next) => {
                 res.cookie('AccessToken', refreshedTokens.AuthenticationResult.AccessToken, cookiesConfig);
                 res.cookie('IdToken', refreshedTokens.AuthenticationResult.IdToken, cookiesConfig);
 
+                // get userSubId
+                const userAttributes = await userProfile.getUserBySubId(verifyAuthResponse.subId);
+
                 // assign user data to req object
-                req.user = verifyAuthResponse;
+                req.user = {
+                    ...verifyAuthResponse,
+                    ...userAttributes
+                };
                 return next();
             } catch(error) {
                 next(error);

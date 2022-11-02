@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
 import styles from './signUp.module.scss';
-import { useSignUpMutation } from '../../../../store/user/user.slice';
+import { useSignUpMutation, userAuthApi } from '../../../../store/user/user.slice';
 
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -192,7 +192,6 @@ const SignUpPage = () => {
     const handleSubmit = async () => {
         try {
             await signUp(inputState).unwrap();
-            navigate('/auth/login');
         } catch (error) {
             console.log(error);
             // refresh the page

@@ -207,20 +207,40 @@ test
                             subId: "xxx-xxx",
                             email: "user@email.com"
                         }
+
                 - [x] - secure private endpoints & identify current logged in user by using cookies
+                - [x] - show auth loading
+                - [x] - redirect to the app if user is already logged in
+                - [x] - redirect from login to /app/home after submitting their details
+
+                - [/] - also get user user's id from the related attributes object when authorizing the user
+
+                - [/] - load the user's default account first (new users first created one)
+                    - [ ] - users should have the ability to change their default account
+                    - [ ] - if user has deleted their default selected account, app will load the data from next available account
+                    - [ ] - user cannot delete every financial account from the app, user at least need to keep one financial account
+
+                - [ ] - get accounts from the user
+                    - [ ] - define the relationships properly
+                    - [ ] - fetch related incomes and expenses records
+
+                - [ ] - fix delete warning popup issue
+
+                - [ ] - fix add income
+                
                 - [ ] - update find queries to fetch by current user
                     - [ ] - income
                     - [ ] - expense
                     - [ ] - account
+
                 - [ ] - add user id as foreign key to every object being created
                     - [ ] - income
                     - [ ] - expense
                     - [ ] - account
                 - [ ] - logout unauthenticated users
-            <!-- - [/] - when fetching user make sure to fetch the related user profile attribute object -->
 
             - [/] - fix bugs in main app
-                - [ ] - get expenses
+                - [/] - get expenses
                 - [ ] - get incomes
                 - [ ] - create expense
                 - [ ] - create income
@@ -228,6 +248,7 @@ test
                 - [ ] - update income   
             - [ ] - make endpoints private
 
+            - [ ] - fix chart top cut off problem 
             - [ ] - currency conversion for bigger ammounts
                 - 2500000 to 2.5M
                 - use "new Intl.NumberFormat()" method

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, redirect } from 'react-router-dom';
 import { AuthLayout } from '../../../../components/layout/AuthLayout';
 import { LoadingSpinner } from '../../../../components/LoadingSpinner/LoadingSpinner';
 
 import { validateEmail, validateRequired, validateMax } from '../../../../utils/formValidation';
-import { useSignInMutation } from '../../../../store/user/user.slice';
+import { useSignInMutation, userAuthApi } from '../../../../store/user/user.slice';
 
 import styles from './signInPage.module.scss';
 
@@ -15,13 +15,12 @@ const SignInPage = () => {
         {
             isLoading,
             data,
+            isSuccess,
             error: signInError
         }
     ] = useSignInMutation();
 
-    // console.log(signInError);
-
-    const navigate = useNavigate();
+    console.log(data);
 
     const [form] = Form.useForm();
     const [inputState, setInputState] = useState({});
@@ -84,6 +83,8 @@ const SignInPage = () => {
             }
         }
     }
+    
+    const [trigger, result, lastPormiseInfo] = userAuthApi.endpoints.verifyAuth.useLazyQuery();
 
     const handleSubmit = async () => {
         try {
@@ -96,10 +97,14 @@ const SignInPage = () => {
                 inputState.email &&
                 inputState.password
             ) {
-                // alert('submitted');
                 const response = await signIn(inputState);
                 console.log('🌳', response);
-                // navigate('/app/home');
+                if (response.data) {
+                    // if successful trigger userAuthApi and set the auth state
+                    trigger();
+                    // then redirect to app/home with state
+                    redirect("/app/home");
+                }
             }
         } catch(error) {
             console.log(error);
