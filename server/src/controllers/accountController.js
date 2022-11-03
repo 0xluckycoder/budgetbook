@@ -35,25 +35,45 @@ const createAccount = async (req, res, next) => {
     }
 }
 
+
 /**
- * @desc get all accounts related to user id
- * @path GET /api/v1/account/:id
+ * @desc gets all financial accounts by current authenticated user
+ * @path GET /api/v1/accounts
  * @authorization Private
  * */
-const getAccountsByUserId = async (req, res, next) => {
+const getAccountsByCurrentAuthUser = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const getAccountByUserIdResponse = await accountService.getAccountsByUserId(id);
-
+        const { _id } = req.user;
+        const response = await accountService.getAccountsByCurrentAuthUser(_id);
         res.status(200).json({
-            success: true,
-            data: getAccountByUserIdResponse
+            status: true,
+            data: response
         });
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         next(error);
     }
 }
+
+// /**
+//  * @desc get all accounts related to user id
+//  * @path GET /api/v1/account/:id
+//  * @authorization Private
+//  * */
+// const getAccountsByUserId = async (req, res, next) => {
+//     try {
+//         const { id } = req.params;
+//         const getAccountByUserIdResponse = await accountService.getAccountsByUserId(id);
+
+//         res.status(200).json({
+//             success: true,
+//             data: getAccountByUserIdResponse
+//         });
+//     } catch(error) {
+//         console.log(error);
+//         next(error);
+//     }
+// }
 
 /**
  * @desc get single account record
@@ -130,8 +150,9 @@ const deleteAccount = async (req, res, next) => {
 
 module.exports = {
     createAccount,
+    getAccountsByCurrentAuthUser,
     getAccountById,
-    getAccountsByUserId,
+    // getAccountsByUserId,
     updateAccount,
     deleteAccount
 }

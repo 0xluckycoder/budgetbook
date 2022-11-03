@@ -217,12 +217,19 @@ test
                     - keep the id at the end of the endpoint for the api design
                     - validate with req.user with entered api id to make sure user is fetching belonging data
 
+                - [x] - learn how github & spotify APIs are designed
+                - [/] - list down and restructure the endpoints
+                    - [ ] - change verbs to plural nouns not singular
+                    - [ ] - use HATEOAS structure in endpoints
+
                 - [ ] - also get user user's id from the related attributes object when authorizing the user
 
                 - [ ] - load the user's default account first (new users first created one)
                     - [ ] - users should have the ability to change their default account
                     - [ ] - if user has deleted their default selected account, app will load the data from next available account
                     - [ ] - user cannot delete every financial account from the app, user at least need to keep one financial account
+
+                - [ ] - Document the api for open source developers after building API
 
                 - Loading Account workflow
                     - fetch the current auth user
@@ -330,27 +337,18 @@ button 2 - cancel
 - [x] - create new mongoose database
 
 - [x] - Expense
-    - [x] - Controller
-    - [x] - Service
-    - [x] - Model
     - [x] - /api/expense - create expense record
     - [x] - /api/expense/:id - get expense record by id
     - [x] - /api/expense/:id - update expense record
     - [x] - /api/expense/:id - delete expense record
 
 - [x] - Income
-    - [x] - Controller
-    - [x] - Service
-    - [x] - Model
     - [x] - /api/income - create income record
     - [x] - /api/income/:id - get income record by id
     - [x] - /api/income/:id - update income record
     - [x] - /api/income/:id - delete income record
 
 - [x] - Financial Account
-    - [x] - Controller
-    - [x] - Service
-    - [x] - Model
     - [/] - /api/account/user/:id - get all the accounts related to user id
     - [x] - /api/account - create account
     - [x] - /api/account/:id - get account by id
@@ -371,21 +369,29 @@ button 2 - cancel
     - [x] - /api/income/?time=lastyear
 
 - [x] - User Account
-    - [x] - Controller
-    - [x] - Service
-    - [x] - Modal
     - [x] - /api/auth/signup
     - [x] - /api/auth/signin
     - [-] - /confirmEmail/:token
-    - [x] - /verifyAuth  
+    - [x] - /verifyAuth
 
-- [ ] - Feed frontend with example data
-    - [ ] - add example data set to mongodb
-        - [ ] - incomes example data set
-        - [ ] - expense example data set
-        - [ ] - accounts example data set
+##### Related endpoints with HATEOAS
 
-- [ ] - Build the rest of the frontend components
+- [ ] - User Account
+    - [ ] - /api/users/:userId - get single user by id
+
+- [/] - Finance Account
+    - [/] - /api/accounts - get all the accounts
+    - [ ] - /api/accounts - create new account
+    - [ ] - /api/accounts/:accountId - get account belong to authenticated user
+    - [ ] - /api/accounts/:accountId - update account
+    - [ ] - /api/accounts/:accountId - delete account
+
+- [ ] - Expense
+    - [ ] - /api/accounts/:id/expenses - get all the expenses
+    - [ ] - /api/accounts/:id/expenses - create new expense record
+    - [ ] - /api/accounts/:id/expenses/:id - get all the expenses belong to specific account
+    - [ ] - /api/accounts/:id/expenses/:id - delete expense record
+    - [ ] - /api/accounts/:id/expenses/:id - update expense record
 
 #### Data Entries
 - Expense Entry

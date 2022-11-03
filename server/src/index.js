@@ -67,7 +67,7 @@ console.log(moment().day(0).format('YYYY-MM-DD'))
 
 app.use('/api/v1/expense', expenseRoutes);
 app.use('/api/v1/income', incomeRoutes);
-app.use('/api/v1/account', accountRoutes);
+app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/auth', authRoutes);
 
 // app.use(middlewares.notFound);

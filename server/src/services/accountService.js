@@ -18,12 +18,21 @@ const getAccountById = async (id) => {
     }
 }
 
-const getAccountsByUserId = async (id) => {
+// const getAccountsByUserId = async (id) => {
+//     try {
+//         const getAccountsByUserId = await account.getAccountsByUserId(id);
+//         return getAccountsByUserId;
+//     } catch(error) {
+//         throw error;
+//     }
+// }
+
+const getAccountsByCurrentAuthUser = async (id) => {
     try {
-        const getAccountsByUserId = await account.getAccountsByUserId(id);
-        return getAccountsByUserId;
+        const getAccountsByCurrentAuthUser = await account.getAccountsByCurrentAuthUser();
+        return getAccountsByCurrentAuthUser;
     } catch(error) {
-        throw error;
+
     }
 }
 
@@ -48,7 +57,8 @@ const deleteAccount = async (id) => {
 module.exports = {
     createAccount,
     getAccountById,
-    getAccountsByUserId,
+    // getAccountsByUserId,
+    getAccountsByCurrentAuthUser,
     updateAccount,
     deleteAccount
 }
