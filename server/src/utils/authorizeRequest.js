@@ -18,8 +18,14 @@ const authorizeRequest = async (req, res, next) => {
 
         // assign user data to req object
         req.user = {
-            ...verifyAuthResponse,
-            ...userAttributes
+            _id: userAttributes._id,
+            firstName: userAttributes.firstName,
+            lastName: userAttributes.lastName,
+            language: userAttributes.language,
+            country: userAttributes.country,
+            defaultSortPeriod: userAttributes.defaultSortPeriod,
+            email: verifyAuthResponse.email,
+            subId: verifyAuthResponse.subId
         };
         next();
     } catch(error) {
@@ -56,8 +62,14 @@ const authorizeRequest = async (req, res, next) => {
 
                 // assign user data to req object
                 req.user = {
-                    ...verifyAuthResponse,
-                    ...userAttributes
+                    _id: userAttributes._id,
+                    firstName: userAttributes.firstName,
+                    lastName: userAttributes.lastName,
+                    language: userAttributes.language,
+                    country: userAttributes.country,
+                    defaultSortPeriod: userAttributes.defaultSortPeriod,
+                    email: verifyAuthResponse.email,
+                    subId: verifyAuthResponse.subId
                 };
                 return next();
             } catch(error) {

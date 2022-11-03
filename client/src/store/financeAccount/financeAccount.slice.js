@@ -9,32 +9,41 @@ export const financeAccountApi = createApi({
         //     query: () => `/account`,
         //     providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
         // }),
-        getAccountByUserId: build.query({
-            query: (userId) => `/account/user/${userId}`,
+        getAccounts: build.query({
+            query: () => ({
+                url: '/accounts',
+                credentials: "include"
+            }),
             providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
+            
         }),
+        // getAccountByUserId: build.query({
+        //     query: (userId) => `/account/user/${userId}`,
+        //     providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
+        // }),
         getAccountById: build.query({
-            query: (id) => `/account/${id}`,
+            query: (id) => `/accounts/${id}`,
             providesTags: (result, error, arg) => [{ type: 'Expense', id: arg }]
         }),
         addAccount: build.mutation({
             query: (accountData) => ({
-                url: '/account',
+                url: '/accounts',
                 method: 'POST',
-                body: accountData
+                body: accountData,
+                credentials: "include"
             }),
             invalidatesTags: ['Account']
         }),
         editAccount: build.mutation({
             query: (patch) => ({
-                url: `/account/${patch._id}`,
+                url: `/accounts/${patch._id}`,
                 method: 'PUT',
                 body: patch
             })
         }),
         deleteAccount: build.mutation({
             query: (id) => ({
-                url: `/account/${id}`,
+                url: `/accounts/${id}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['Account']
@@ -43,8 +52,7 @@ export const financeAccountApi = createApi({
 })
 
 export const {
-    // useGetAccountsQuery,
-    useGetAccountByUserIdQuery,
+    useGetAccountsQuery,
     useGetAccountByIdQuery,
     useAddAccountMutation,
     useEditAccountMutation,

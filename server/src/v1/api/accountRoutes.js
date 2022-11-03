@@ -9,7 +9,7 @@ const router = Router();
 
 // router.get('/:id')
 
-router.post('/', authorizeRequest, accountController.createAccount);
+router.post('/',authorizeRequest, accountController.createAccount);
 
 router.get('/', authorizeRequest, accountController.getAccountsByCurrentAuthUser);
 

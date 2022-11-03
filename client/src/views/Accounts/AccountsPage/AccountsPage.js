@@ -9,7 +9,7 @@ import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinne
 
 import { 
     financeAccountApi,
-    useGetAccountByUserIdQuery,
+    useGetAccountsQuery,
     useAddAccountMutation
 } from "../../../store/financeAccount/financeAccount.slice";
 
@@ -21,7 +21,7 @@ const AccountPage = () => {
         data: accountData,
         isLoading,
         isFetching
-    } = useGetAccountByUserIdQuery('111');
+    } = useGetAccountsQuery();
 
     const [addAccount] = useAddAccountMutation();
 

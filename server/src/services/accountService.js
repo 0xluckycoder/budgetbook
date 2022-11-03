@@ -29,7 +29,7 @@ const getAccountById = async (id) => {
 
 const getAccountsByCurrentAuthUser = async (id) => {
     try {
-        const getAccountsByCurrentAuthUser = await account.getAccountsByCurrentAuthUser();
+        const getAccountsByCurrentAuthUser = await account.getAccountsByCurrentAuthUser(id);
         return getAccountsByCurrentAuthUser;
     } catch(error) {
 

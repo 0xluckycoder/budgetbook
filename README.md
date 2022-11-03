@@ -376,12 +376,13 @@ button 2 - cancel
 
 ##### Related endpoints with HATEOAS
 
-- [ ] - User Account
-    - [ ] - /api/users/:userId - get single user by id
+- [x] - setup postman environment
+- [x] - store complete user with attributes in authorizer properly
+- [x] - implement get accounts with RTK & test it
 
 - [/] - Finance Account
-    - [/] - /api/accounts - get all the accounts
-    - [ ] - /api/accounts - create new account
+    - [x] - /api/accounts - get all the accounts
+    - [x] - /api/accounts - create new account
     - [ ] - /api/accounts/:accountId - get account belong to authenticated user
     - [ ] - /api/accounts/:accountId - update account
     - [ ] - /api/accounts/:accountId - delete account
@@ -392,6 +393,10 @@ button 2 - cancel
     - [ ] - /api/accounts/:id/expenses/:id - get all the expenses belong to specific account
     - [ ] - /api/accounts/:id/expenses/:id - delete expense record
     - [ ] - /api/accounts/:id/expenses/:id - update expense record
+
+- [ ] - User Account
+    - [ ] - /api/users/:userId - get single user by id
+
 
 #### Data Entries
 - Expense Entry

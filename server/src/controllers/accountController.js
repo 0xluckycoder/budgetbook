@@ -1,4 +1,5 @@
 const yup = require('yup');
+const { validate } = require('../models/AccountEntry');
 const accountService = require('../services/accountService');
 
 /**
@@ -8,6 +9,8 @@ const accountService = require('../services/accountService');
  * */
 const createAccount = async (req, res, next) => {
     try {
+        const { _id } = req.user;
+        
         // validate user input
         const accountSchema = yup.object().shape({
             name: yup.string('name must be a string')
@@ -23,6 +26,7 @@ const createAccount = async (req, res, next) => {
         });
 
         const validated = await accountSchema.validate(req.body);
+        validated.userId = _id;
         const createdAccountResponse = await accountService.createAccount(validated);
 
         res.status(200).json({
