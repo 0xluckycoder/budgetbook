@@ -1,9 +1,8 @@
 const yup = require('yup');
-const { validate } = require('../models/AccountEntry');
 const accountService = require('../services/accountService');
 
 /**
- * @desc create new account record
+ * @desc create new financial account record
  * @path POST /api/v1/account
  * @authorization Private
  * */
@@ -27,6 +26,7 @@ const createAccount = async (req, res, next) => {
 
         const validated = await accountSchema.validate(req.body);
         validated.userId = _id;
+        
         const createdAccountResponse = await accountService.createAccount(validated);
 
         res.status(200).json({
@@ -48,7 +48,9 @@ const createAccount = async (req, res, next) => {
 const getAccountsByCurrentAuthUser = async (req, res, next) => {
     try {
         const { _id } = req.user;
+        
         const response = await accountService.getAccountsByCurrentAuthUser(_id);
+        
         res.status(200).json({
             status: true,
             data: response
@@ -59,41 +61,22 @@ const getAccountsByCurrentAuthUser = async (req, res, next) => {
     }
 }
 
-// /**
-//  * @desc get all accounts related to user id
-//  * @path GET /api/v1/account/:id
-//  * @authorization Private
-//  * */
-// const getAccountsByUserId = async (req, res, next) => {
-//     try {
-//         const { id } = req.params;
-//         const getAccountByUserIdResponse = await accountService.getAccountsByUserId(id);
-
-//         res.status(200).json({
-//             success: true,
-//             data: getAccountByUserIdResponse
-//         });
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-// }
-
 /**
- * @desc get single account record
- * @path GET /api/v1/account/:id
+ * @desc gets single financial account by current authenticated user
+ * @path GET /api/v1/accounts/:id
  * @authorization Private
  * */
-const getAccountById = async (req, res, next) => {
+const getSingleAccountByCurrentAuthUser = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const getAccountResponse = await accountService.getAccountById(id);
-
+        const { id: accountId } = req.params;
+        const { _id: userId } = req.user;
+        const response = await accountService.getSingleAccountByCurrentAuthUser(userId, accountId);
+        
         res.status(200).json({
-            success: true,
-            data: getAccountResponse
+            status: true,
+            data: response
         });
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         next(error);
     }
@@ -106,7 +89,10 @@ const getAccountById = async (req, res, next) => {
  * */
 const updateAccount = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { id: accountId } = req.params;
+        const { _id: userId } = req.user;
+
+        // console.log('t',req.user);
 
         const accountSchema = yup.object().shape({
             name: yup.string('name must be a string')
@@ -118,10 +104,10 @@ const updateAccount = async (req, res, next) => {
             description: yup.string('description must be a string')
                         .max(127, 'description is too long'),
         });
-
         const validated = await accountSchema.validate(req.body);
-        const updatedAccountResponse = await accountService.updateAccount(validated, id);
 
+        const updatedAccountResponse = await accountService.updateAccount(userId, accountId, validated);
+        
         res.status(200).json({
             success: true,
             data: updatedAccountResponse
@@ -134,17 +120,20 @@ const updateAccount = async (req, res, next) => {
 }
 
 /**
- * @desc delete single account record
- * @path DELETE /api/v1/account/:id
+ * @desc deletes single account record
+ * @path DELETE /api/v1/accounts/:id
  * @authorization Private
  * */
 const deleteAccount = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const deleteAccountResponse = await accountService.deleteAccount(id);
+        const { _id: userId } = req.user;
+        const { id: accountId } = req.params;
+        
+        const response = await accountService.deleteAccount(userId, accountId);
+        
         res.status(200).json({
             success: true,
-            data: deleteAccountResponse
+            data: response
         });
     } catch(error) {
         console.log(error);
@@ -155,8 +144,7 @@ const deleteAccount = async (req, res, next) => {
 module.exports = {
     createAccount,
     getAccountsByCurrentAuthUser,
-    getAccountById,
-    // getAccountsByUserId,
+    getSingleAccountByCurrentAuthUser,
     updateAccount,
     deleteAccount
 }

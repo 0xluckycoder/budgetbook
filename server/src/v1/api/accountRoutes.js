@@ -13,11 +13,11 @@ router.post('/',authorizeRequest, accountController.createAccount);
 
 router.get('/', authorizeRequest, accountController.getAccountsByCurrentAuthUser);
 
-router.get('/:id', accountController.getAccountById);
+router.get('/:id', authorizeRequest, accountController.getSingleAccountByCurrentAuthUser);
 
 // router.get('/user/:id', authorizeRequest, accountController.getAccountsByUserId);
 
-router.put('/:id', accountController.updateAccount);
+router.put('/:id', authorizeRequest, accountController.updateAccount);
 
 router.delete('/:id', accountController.deleteAccount);
 

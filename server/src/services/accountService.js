@@ -1,4 +1,6 @@
 const account = require('../database/account');
+const user = require('../database/user');
+const customError = require('../utils/customError');
 
 const createAccount = async (accountData) => {
     try {
@@ -9,44 +11,45 @@ const createAccount = async (accountData) => {
     }
 }
 
-const getAccountById = async (id) => {
+const getAccountsByCurrentAuthUser = async (userId) => {
     try {
-        const getAccountById = await account.getAccountById(id);
-        return getAccountById;
+        const getAccountsByCurrentAuthUser = await account.getAccountsByCurrentAuthUser(userId);
+        return getAccountsByCurrentAuthUser;
+    } catch(error) {
+        throw error;
+    }
+}
+
+const getSingleAccountByCurrentAuthUser = async (userId, accountId) => {
+    try {
+        const getSingleAccountByCurrentAuthUser = await account.getSingleAccountByCurrentAuthUser(accountId);
+        // throw error if requested account not belong to the user
+        if (getSingleAccountByCurrentAuthUser.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+        return getSingleAccountByCurrentAuthUser;
     } catch (error) {
         throw error;
     }
 }
 
-// const getAccountsByUserId = async (id) => {
-//     try {
-//         const getAccountsByUserId = await account.getAccountsByUserId(id);
-//         return getAccountsByUserId;
-//     } catch(error) {
-//         throw error;
-//     }
-// }
-
-const getAccountsByCurrentAuthUser = async (id) => {
+const updateAccount = async (userId, accountId, accountData) => {
     try {
-        const getAccountsByCurrentAuthUser = await account.getAccountsByCurrentAuthUser(id);
-        return getAccountsByCurrentAuthUser;
-    } catch(error) {
-
-    }
-}
-
-const updateAccount = async (accountData, id) => {
-    try {
-        const updateAccount = account.updateAccount(accountData, id);
+        // throw error if requested account not belong to the user
+        const getSingleAccountByCurrentAuthUser = await account.getSingleAccountByCurrentAuthUser(accountId);
+        if (getSingleAccountByCurrentAuthUser.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+        // update the account
+        const updateAccount = account.updateAccount(accountData, accountId);
         return updateAccount;
     } catch(error) {
         throw error;
     }
 }
 
-const deleteAccount = async (id) => {
+const deleteAccount = async (userId, accountId) => {
     try {
+        // throw error if requested account not belong to the user
+        const getSingleAccountByCurrentAuthUser = await account.getSingleAccountByCurrentAuthUser(accountId);
+        if (getSingleAccountByCurrentAuthUser.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+        // delete the account
         const deleteAccount = account.deleteAccount(id);
         return deleteAccount;
     } catch(error) {
@@ -56,9 +59,10 @@ const deleteAccount = async (id) => {
 
 module.exports = {
     createAccount,
-    getAccountById,
+    // getAccountById,
     // getAccountsByUserId,
     getAccountsByCurrentAuthUser,
+    getSingleAccountByCurrentAuthUser,
     updateAccount,
     deleteAccount
 }

@@ -24,7 +24,8 @@ const errorHandler = (error, req, res, next) => {
         InvalidAuthorization: 401, // custom error name,
         CookiesUnavailable: 400, // custom error name
         NotFound: 404, // custom error name
-        ValidationFailed: 400 // custom error name
+        ValidationFailed: 400, // custom error name,
+        Unauthorized: 401
     }
 
     // assign the status code

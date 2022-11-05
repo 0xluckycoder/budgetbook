@@ -21,11 +21,20 @@ const getAccountById = async (id) => {
     }
 }
 
-const getAccountsByCurrentAuthUser = async (id) => {
+const getAccountsByCurrentAuthUser = async (userId) => {
     try {
-        const getAccountsByCurrentAuthUser = await AccountEntry.find({ userId: id });
+        const getAccountsByCurrentAuthUser = await AccountEntry.find({ userId });
         return getAccountsByCurrentAuthUser;
     } catch(error) {
+        throw error;
+    }
+}
+
+const getSingleAccountByCurrentAuthUser = async (id) => {
+    try {
+        const accountEntry = await AccountEntry.findById(id);
+        return accountEntry;
+    } catch (error) {
         throw error;
     }
 }
@@ -61,6 +70,7 @@ const deleteAccount = async (id) => {
 module.exports = {
     createAccount,
     getAccountsByCurrentAuthUser,
+    getSingleAccountByCurrentAuthUser,
     getAccountById,
     updateAccount,
     deleteAccount

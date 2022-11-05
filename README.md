@@ -383,9 +383,12 @@ button 2 - cancel
 - [/] - Finance Account
     - [x] - /api/accounts - get all the accounts
     - [x] - /api/accounts - create new account
-    - [ ] - /api/accounts/:accountId - get account belong to authenticated user
-    - [ ] - /api/accounts/:accountId - update account
-    - [ ] - /api/accounts/:accountId - delete account
+    - [x] - /api/accounts/:accountId - get account belong to authenticated user
+        - [x] - validate userId field with user.id
+    - [x] - /api/accounts/:accountId - update account
+    - [x] - /api/accounts/:accountId - delete account
+
+- [/] - learn debugging nodejs and javascript code
 
 - [ ] - Expense
     - [ ] - /api/accounts/:id/expenses - get all the expenses

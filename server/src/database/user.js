@@ -10,6 +10,15 @@ const createUser = async (user) => {
     }
 }
 
+const getUserById = async (userId) => {
+    try {
+        const userEntry = await UserEntry.findById(userId);
+        return userEntry;
+    } catch(error) {
+        throw error;
+    }
+}
+
 const getUserBySubId = async (subId) => {
     try {
         const getUserBySubId = await UserEntry.findOne({ authorizeSubId: subId });
@@ -30,6 +39,7 @@ const updateUser = async (userData, id) => {
 
 module.exports = {
     createUser,
+    getUserById,
     getUserBySubId,
     updateUser
 };

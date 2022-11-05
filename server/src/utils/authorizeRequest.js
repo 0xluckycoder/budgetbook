@@ -18,7 +18,7 @@ const authorizeRequest = async (req, res, next) => {
 
         // assign user data to req object
         req.user = {
-            _id: userAttributes._id,
+            _id: userAttributes._id.toString(),
             firstName: userAttributes.firstName,
             lastName: userAttributes.lastName,
             language: userAttributes.language,
@@ -62,7 +62,7 @@ const authorizeRequest = async (req, res, next) => {
 
                 // assign user data to req object
                 req.user = {
-                    _id: userAttributes._id,
+                    _id: userAttributes._id.toString(),
                     firstName: userAttributes.firstName,
                     lastName: userAttributes.lastName,
                     language: userAttributes.language,
