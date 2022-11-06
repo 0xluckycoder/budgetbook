@@ -66,7 +66,7 @@ const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD hh:mm');
 console.log(moment().day(0).format('YYYY-MM-DD'))
 
 app.use('/api/v1/expenses', expenseRoutes);
-app.use('/api/v1/income', incomeRoutes);
+app.use('/api/v1/incomes', incomeRoutes);
 app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/auth', authRoutes);
 

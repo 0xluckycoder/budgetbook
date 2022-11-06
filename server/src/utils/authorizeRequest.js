@@ -2,8 +2,8 @@ const authService = require('../services/authService');
 const userProfile = require('../database/user');
 
 const authorizeRequest = async (req, res, next) => {
+    const { AccessToken, RefreshToken, IdToken } = req.cookies;
     try {
-        const { AccessToken, RefreshToken, IdToken } = req.cookies;
 
         // validate cookies
         if (!AccessToken || !RefreshToken || !IdToken) {

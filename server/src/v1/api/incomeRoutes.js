@@ -16,21 +16,22 @@ const storage = multer.diskStorage({
         cb(null, file.originalname)
     }
 });
+
 const upload = multer({ 
     storage: storage,
     limits: 1000000
 });
 
-router.post('/', incomeController.createIncome);
+router.post('/:accountId', authorizeRequest, incomeController.createIncome);
 
 router.post('/image', upload.array('income-images'), incomeController.uploadImage);
 
-router.get('/', incomeController.getIncomes);
+router.get('/accounts/:accountId', authorizeRequest, incomeController.getIncomesByAccountId);
 
-router.get('/:id', incomeController.getIncomeById);
+router.get('/:incomeId', authorizeRequest, incomeController.getIncomeById);
 
-router.put('/:id', incomeController.updateIncome);
+router.put('/:incomeId', authorizeRequest, incomeController.updateIncome);
 
-router.delete('/:id', incomeController.deleteIncome);
+router.delete('/:incomeId', authorizeRequest, incomeController.deleteIncome);
 
 module.exports = router;

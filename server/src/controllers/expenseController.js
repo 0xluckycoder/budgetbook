@@ -151,7 +151,7 @@ const updateExpense = async (req, res, next) => {
         res.status(200).json({
             success: true,
             data: updatedExpenseResponse
-        })
+        });
 
     } catch(error) {
         next(error);

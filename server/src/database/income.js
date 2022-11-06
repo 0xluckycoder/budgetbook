@@ -11,13 +11,15 @@ const createIncome = async (income) => {
     }
 }
 
-const getIncomes = async (sortType) => {
+const getIncomesByAccountId = async (accountId, sortType) => {
     try {
         if (sortType === "7days") {
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": moment().day(-6).format('YYYY-MM-DD'),
                 "$lte": moment().day(0).format('YYYY-MM-DD')
-            }});
+            },
+            accountId
+            });
             return getIncome;
         } else if (sortType === "thismonth") {
             const firstDayOfThisMonth = moment().startOf('month').format('YYYY-MM-DD');
@@ -26,7 +28,9 @@ const getIncomes = async (sortType) => {
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisMonth,
                 "$lte": lastDayOfThisMonth
-            }});
+            },
+            accountId
+            });
             return getIncome;
         } else if (sortType === "lastmonth") {
             const firstDayOfLastMonth = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'); 
@@ -35,7 +39,9 @@ const getIncomes = async (sortType) => {
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfLastMonth,
                 "$lte": lastDayOfFirstMonth
-            }});
+            },
+            accountId
+            });
             return getIncome;
         } else if (sortType === "thisyear") {
             const firstDayOfThisYear = moment().startOf('year').format('YYYY-MM-DD');
@@ -44,7 +50,9 @@ const getIncomes = async (sortType) => {
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisYear,
                 "$lte": lastDayOfThisYear
-            }});
+            },
+            accountId
+            });
             return getIncome;
         } else if (sortType === "lastyear") {
             const firstDayOfLastYear = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
@@ -53,7 +61,9 @@ const getIncomes = async (sortType) => {
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfLastYear,
                 "$lte": lastDayOfLastYear
-            }});
+            },
+            accountId
+            });
             return getIncome;
         }
     } catch(error) {
@@ -70,9 +80,9 @@ const getIncomeById = async (id) => {
     }
 }
 
-const updateIncome = async (incomeData, id) => {
+const updateIncome = async (incomeId, incomeData) => {
     try {
-        const incomeEntry = await IncomeEntry.updateOne({ _id: id }, { ...incomeData });
+        const incomeEntry = await IncomeEntry.updateOne({ _id: incomeId }, { ...incomeData });
         return incomeEntry;
     } catch(error) {
         throw error;
@@ -90,7 +100,7 @@ const deleteIncome = async (id) => {
 
 module.exports = {
     createIncome,
-    getIncomes,
+    getIncomesByAccountId,
     getIncomeById,
     updateIncome,
     deleteIncome

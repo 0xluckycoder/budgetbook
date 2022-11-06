@@ -4,7 +4,11 @@ const { Schema } = mongoose;
 const incomeEntrySchema = new Schema({
     userId: {
         type: String,
-        // required: true
+        required: true
+    },
+    accountId: {
+        type: String,
+        required: true
     },
     title: {
         type: String
@@ -26,10 +30,6 @@ const incomeEntrySchema = new Schema({
     },
     comment: {
         type: String
-    },
-    account: {
-        type: String,
-        required: true
     }
 }, { timestamps: true });
 

@@ -26,7 +26,7 @@ const createExpense = async (expenseData) => {
 
 const getExpensesByAccountId = async (userId, accountId, sortType) => {
     try {
-        // throw error if requested expense's account not belong to the user
+        // throw error if requested expense account not belong to the user
         const requestedAccount = await account.getAccountsByCurrentAuthUser(accountId);
         if (requestedAccount.userId === userId) throw customError('Unauthorized request', 'Unauthorized');
         
@@ -39,9 +39,10 @@ const getExpensesByAccountId = async (userId, accountId, sortType) => {
 
 const getExpenseById = async (userId, expenseId) => {
     try {
-        // throw error if expense record not belong to the user
+        // throw error if expense record does not belong to the current user
         const requestedExpense = await expense.getExpenseById(expenseId);
         if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+        
         return requestedExpense;
     } catch (error) {
         throw error;

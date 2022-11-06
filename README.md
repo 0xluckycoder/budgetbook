@@ -390,13 +390,23 @@ button 2 - cancel
 
 - [x] - learn debugging nodejs and javascript code
 
-- [/] - Expense
+- [x] - Expense
     - [x] - /api/expenses/:accountId - create new expense record
         - [x] - authorize whether requested account belong to user or not
-    - [x] - /api/expenses/:accountId/?date=7days - get all the expenses belong to financial account
+    - [x] - /api/expenses/accounts/:accountId/?date=7days - get all the expenses belong to financial account
     - [x] - /api/expenses/:expenseId - get single expense
     - [x] - /api/expenses/:expenseId - update expense
     - [x] - /api/expenses/:expenseId - delete expense
+
+- [x] - Income
+    - [x] - /api/incomes/:accountId - create new account
+    - [x] - /api/incomes/accounts/:accountId/?date=7days - get all the incomes belong to financial incomes
+    - [x] - /api/incomes/:incomeId - get single income
+    - [x] - /api/incomes/:incomeId - update income
+    - [x] - /api/incomes/:incomeId - delete income
+
+- [ ] - authorize image upload endpoints & test
+
 
 - [ ] - User Account
     - [ ] - /api/users/:userId - get single user by id

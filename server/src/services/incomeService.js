@@ -1,4 +1,6 @@
 const income = require('../database/income');
+const account = require('../database/account');
+const customError = require('../utils/customError');
 
 // const sharp = require('sharp');
 // const path = require('path');
@@ -18,36 +20,51 @@ const createIncome = async (incomeData) => {
     }
 }
 
-const getIncomes = async (sortType) => {
+const getIncomesByAccountId = async (userId, accountId, sortType) => {
     try {
-        const getIncome = await income.getIncomes(sortType);
-        return getIncome;
+        // throw error if requested income account not belong to the user
+        const requestedAccount = await account.getAccountsByCurrentAuthUser(accountId);
+        if (requestedAccount.userId === userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        const incomesByAccountId = await income.getIncomesByAccountId(accountId, sortType);
+        return incomesByAccountId;
     } catch(error) {
         throw error;
     }
 }
 
-const getIncomeById = async (id) => {
+const getIncomeById = async (userId, incomeId) => {
     try {
-        const getIncomeById = await income.getIncomeById(id);
-        return getIncomeById;
+        // throw error if requested income does not belong to the current user
+        const requestedIncome = await income.getIncomeById(incomeId);
+        if (requestedIncome.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        return requestedIncome;
     } catch (error) {
         throw error;
     }
 }
 
-const updateIncome = async (incomeData, id) => {
+const updateIncome = async (userId, incomeId, incomeData) => {
     try {
-        const updateIncome = income.updateIncome(incomeData, id);
+        // throw error if income record does't belong to the user
+        const requestedIncome = await income.getIncomeById(incomeId);
+        if (requestedIncome.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        const updateIncome = income.updateIncome(incomeId, incomeData);
         return updateIncome;
     } catch(error) {
         throw error;
     }
 }
 
-const deleteIncome = async (id) => {
+const deleteIncome = async (userId, incomeId) => {
     try {
-        const deleteIncome = income.deleteIncome(id);
+        // throw error if income record does't belong to the user
+        const requestedIncome = await income.getIncomeById(incomeId);
+        if (requestedIncome.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+        
+        const deleteIncome = income.deleteIncome(incomeId);
         return deleteIncome;
     } catch(error) {
         throw error;
@@ -56,7 +73,7 @@ const deleteIncome = async (id) => {
 
 module.exports = {
     createIncome,
-    getIncomes,
+    getIncomesByAccountId,
     getIncomeById,
     updateIncome,
     deleteIncome

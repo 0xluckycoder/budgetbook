@@ -8,6 +8,10 @@ const incomeService = require('../services/incomeService');
  * */
 const createIncome = async (req, res, next) => {
     try {
+
+        const { accountId } = req.params;
+        const { _id: userId } = req.user;
+
         // validate user input
         const incomeSchema = yup.object().shape({
             title: yup.string('title must be a string')
@@ -23,19 +27,13 @@ const createIncome = async (req, res, next) => {
                         .max(127, 'transactionDate is too long'),
             photos: yup.array().of(yup.string().max(127)).max(3),
             comment: yup.string('comment must be a string')
-                        .max(127, 'comment is too long'),
-            account: yup.string('account must be a string')
-                        .required('account is required')
-                        .max(127, 'account is too long'),
+                        .max(127, 'comment is too long')
         });
 
         const validated = await incomeSchema.validate(req.body);
-        const createIncomeResponse = await incomeService.createIncome({
-            userId: req.userId,
-            ...validated
-        });
-
-        console.log('🔥', createIncomeResponse);
+        validated.userId = userId;
+        validated.accountId = accountId;
+        const createIncomeResponse = await incomeService.createIncome(validated);
 
         res.status(200).json({
             success: true,
@@ -83,10 +81,13 @@ const uploadImage = async (req, res, next) => {
  * @path GET /api/v1/income?date=7days
  * @authorization Private
  * */
-const getIncomes = async (req, res, next) => {
+const getIncomesByAccountId = async (req, res, next) => {
     try {
         const sortType = req.query.date;
-        const getIncomesResponse = await incomeService.getIncomes(sortType);
+        const { _id: userId } = req.user;
+        const { accountId } = req.params;
+
+        const getIncomesResponse = await incomeService.getIncomesByAccountId(userId, accountId, sortType);
 
         res.status(200).json({
             success: true,
@@ -105,8 +106,9 @@ const getIncomes = async (req, res, next) => {
  * */
 const getIncomeById = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const getIncomeResponse = await incomeService.getIncomeById(id);
+        const { incomeId } = req.params;
+        const { _id: userId } = req.user;
+        const getIncomeResponse = await incomeService.getIncomeById(userId, incomeId);
 
         res.status(200).json({
             success: true,
@@ -125,11 +127,12 @@ const getIncomeById = async (req, res, next) => {
  * */
 const updateIncome = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { incomeId } = req.params;
+        const { _id: userId } = req.user;
 
         const incomeSchema = yup.object().shape({
             title: yup.string('title must be a string')
-                        .max(127, 'firstname is too long'),
+                        .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
                         .max(127, 'amount is too long'),
             category: yup.string('category must be a string')
@@ -144,12 +147,12 @@ const updateIncome = async (req, res, next) => {
         });
 
         const validated = await incomeSchema.validate(req.body);
-        const updatedIncomeResponse = await incomeService.updateIncome(validated, id);
+        const updatedIncomeResponse = await incomeService.updateIncome(userId, incomeId, validated);
 
         res.status(200).json({
             success: true,
             data: updatedIncomeResponse
-        })
+        });
 
     } catch(error) {
         console.log(error);
@@ -164,8 +167,11 @@ const updateIncome = async (req, res, next) => {
  * */
 const deleteIncome = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const deleteIncomeResponse = await incomeService.deleteIncome(id);
+        const { incomeId } = req.params;
+        const { _id: userId } = req.user;
+
+        const deleteIncomeResponse = await incomeService.deleteIncome(userId, incomeId);
+        
         res.status(200).json({
             success: true,
             data: deleteIncomeResponse
@@ -179,7 +185,7 @@ const deleteIncome = async (req, res, next) => {
 
 module.exports = {
     createIncome,
-    getIncomes,
+    getIncomesByAccountId,
     getIncomeById,
     updateIncome,
     deleteIncome,
