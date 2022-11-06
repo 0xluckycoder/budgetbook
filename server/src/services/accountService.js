@@ -59,8 +59,6 @@ const deleteAccount = async (userId, accountId) => {
 
 module.exports = {
     createAccount,
-    // getAccountById,
-    // getAccountsByUserId,
     getAccountsByCurrentAuthUser,
     getSingleAccountByCurrentAuthUser,
     updateAccount,

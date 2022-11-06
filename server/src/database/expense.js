@@ -11,13 +11,15 @@ const createExpense = async (expense) => {
     }
 }
 // http://localhost:5500/api/v1/expense?date=7days
-const getExpenses = async (sortType) => {
+const getExpensesByAccountId = async (accountId, sortType) => {
     try {
         if (sortType === "7days") {
             const getExpense = await ExpenseEntry.find({"transactionDate": {
                 "$gte": moment().day(-6).format('YYYY-MM-DD'),
                 "$lte": moment().day(0).format('YYYY-MM-DD')
-            }});
+            },
+            accountId
+            });
             return getExpense;
         } else if (sortType === "thismonth") {
             const firstDayOfThisMonth = moment().startOf('month').format('YYYY-MM-DD');
@@ -26,7 +28,9 @@ const getExpenses = async (sortType) => {
             const getExpense = await ExpenseEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisMonth,
                 "$lte": lastDayOfThisMonth
-            }});
+            },
+            accountId
+            });
             return getExpense;
         } else if (sortType === "lastmonth") {
             const firstDayOfLastMonth = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'); 
@@ -35,7 +39,9 @@ const getExpenses = async (sortType) => {
             const getExpense = await ExpenseEntry.find({"transactionDate": {
                 "$gte": firstDayOfLastMonth,
                 "$lte": lastDayOfFirstMonth
-            }});
+            },
+            accountId
+            });
             return getExpense;
         } else if (sortType === "thisyear") {
             const firstDayOfThisYear = moment().startOf('year').format('YYYY-MM-DD');
@@ -44,7 +50,9 @@ const getExpenses = async (sortType) => {
             const getExpense = await ExpenseEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisYear,
                 "$lte": lastDayOfThisYear
-            }});
+            },
+            accountId
+            });
             return getExpense;
         } else if (sortType === "lastyear") {
             const firstDayOfLastYear = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
@@ -53,7 +61,9 @@ const getExpenses = async (sortType) => {
             const getExpense = await ExpenseEntry.find({"transactionDate": {
                 "$gte": firstDayOfLastYear,
                 "$lte": lastDayOfLastYear
-            }});
+            },
+            accountId
+            });
             return getExpense;
         }
     } catch(error) {
@@ -63,7 +73,8 @@ const getExpenses = async (sortType) => {
 
 const getExpenseById = async (id) => {
     try {
-        const getExpenseById = await ExpenseEntry.findOne({ _id: id });;
+        // console.log('came here', id);
+        const getExpenseById = await ExpenseEntry.findById(id);
         return getExpenseById;
     } catch (error) {
         throw error;
@@ -90,7 +101,7 @@ const deleteExpense = async (id) => {
 
 module.exports = {
     createExpense,
-    getExpenses,
+    getExpensesByAccountId,
     getExpenseById,
     updateExpense,
     deleteExpense

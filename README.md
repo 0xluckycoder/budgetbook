@@ -383,22 +383,25 @@ button 2 - cancel
 - [/] - Finance Account
     - [x] - /api/accounts - get all the accounts
     - [x] - /api/accounts - create new account
-    - [x] - /api/accounts/:accountId - get account belong to authenticated user
+    - [x] - /api/accounts/:accountId/?time=7days - get account belong to authenticated user
         - [x] - validate userId field with user.id
     - [x] - /api/accounts/:accountId - update account
     - [x] - /api/accounts/:accountId - delete account
 
-- [/] - learn debugging nodejs and javascript code
+- [x] - learn debugging nodejs and javascript code
 
-- [ ] - Expense
-    - [ ] - /api/accounts/:id/expenses - get all the expenses
-    - [ ] - /api/accounts/:id/expenses - create new expense record
-    - [ ] - /api/accounts/:id/expenses/:id - get all the expenses belong to specific account
-    - [ ] - /api/accounts/:id/expenses/:id - delete expense record
-    - [ ] - /api/accounts/:id/expenses/:id - update expense record
+- [/] - Expense
+    - [x] - /api/expenses/:accountId - create new expense record
+        - [x] - authorize whether requested account belong to user or not
+    - [x] - /api/expenses/:accountId/?date=7days - get all the expenses belong to financial account
+    - [x] - /api/expenses/:expenseId - get single expense
+    - [x] - /api/expenses/:expenseId - update expense
+    - [x] - /api/expenses/:expenseId - delete expense
 
 - [ ] - User Account
     - [ ] - /api/users/:userId - get single user by id
+
+    - [ ] - /api/expenses/:expenseId/
 
 
 #### Data Entries

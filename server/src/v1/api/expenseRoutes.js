@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const expenseController = require('../../controllers/expenseController');
 const multer = require('multer');
+const {
+    authorizeRequest
+} = require('./../../utils/authorizeRequest');
 
 const router = Router();
 
@@ -14,20 +17,20 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ 
-    storage: storage,
+    storage,
     limits: 1000000
 });
 
-router.post('/', expenseController.createExpense);
+router.post('/:accountId', authorizeRequest, expenseController.createExpense);
 
 router.post('/image', upload.array('expense-images'), expenseController.uploadImage);
 
-router.get('/', expenseController.getExpenses);
+router.get('/accounts/:accountId', authorizeRequest, expenseController.getExpensesByAccountId);
 
-router.get('/:id', expenseController.getExpenseById);
+router.get('/:expenseId', authorizeRequest, expenseController.getExpenseById);
 
-router.put('/:id', expenseController.updateExpense);
+router.put('/:expenseId', authorizeRequest, expenseController.updateExpense);
 
-router.delete('/:id', expenseController.deleteExpense);
+router.delete('/:expenseId', authorizeRequest, expenseController.deleteExpense);
 
 module.exports = router;

@@ -1,5 +1,8 @@
 const expense = require('../database/expense');
+const user = require('../database/user');
+const account = require('../database/account');
 const moment = require('moment');
+const customError = require('../utils/customError');
 
 // const sharp = require('sharp');
 // const path = require('path');
@@ -14,8 +17,6 @@ const moment = require('moment');
 
 const createExpense = async (expenseData) => {
     try {
-        // add transaction date in ISO format
-        // expenseData.transactionDate = moment().day(0).format('YYYY-MM-DD');
         const createExpense = await expense.createExpense(expenseData);
         return createExpense;
     } catch(error) {
@@ -23,49 +24,60 @@ const createExpense = async (expenseData) => {
     }
 }
 
-const getExpenses = async (sortType) => {
+const getExpensesByAccountId = async (userId, accountId, sortType) => {
     try {
-        const getExpense = await expense.getExpenses(sortType);
-        return getExpense;
+        // throw error if requested expense's account not belong to the user
+        const requestedAccount = await account.getAccountsByCurrentAuthUser(accountId);
+        if (requestedAccount.userId === userId) throw customError('Unauthorized request', 'Unauthorized');
+        
+        const expensesByAccountId = await expense.getExpensesByAccountId(accountId, sortType);
+        return expensesByAccountId;
     } catch(error) {
         throw error;
     }
 }
 
-const getExpenseById = async (id) => {
+const getExpenseById = async (userId, expenseId) => {
     try {
-        const getExpenseById = await expense.getExpenseById(id);
-        return getExpenseById;
+        // throw error if expense record not belong to the user
+        const requestedExpense = await expense.getExpenseById(expenseId);
+        if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+        return requestedExpense;
     } catch (error) {
         throw error;
     }
 }
 
-const updateExpense = async (expenseData, id) => {
+const updateExpense = async (userId, expenseId, expenseData) => {
     try {
-        const updateExpense = expense.updateExpense(expenseData, id);
+        // throw error if expense record not belong to the user
+        const requestedExpense = await expense.getExpenseById(expenseId);
+        if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        const updateExpense = expense.updateExpense(expenseData, expenseId);
         return updateExpense;
     } catch(error) {
         throw error;
     }
 }
 
-const deleteExpense = async (id) => {
+const deleteExpense = async (userId, expenseId) => {
     try {
-        const deleteExpense = expense.deleteExpense(id);
+        // throw error if expense record not belong to the user
+        const requestedExpense = await expense.getExpenseById(expenseId);
+        if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');        
+
+        const deleteExpense = expense.deleteExpense(expenseId);
         return deleteExpense;
     } catch(error) {
         throw error;
     }
 }
 
-/*
-rewrite this function in a another folder once this needed to used by every single image upload
-*/ 
 
 module.exports = {
     createExpense,
-    getExpenses,
+    getExpensesByAccountId,
     getExpenseById,
     updateExpense,
     deleteExpense,

@@ -11,7 +11,8 @@ const uploader = require('../utils/uploader');
 const createExpense = async (req, res, next) => {
     try {
 
-        console.log(req.body);
+        const { accountId } = req.params;
+        const { _id: userId } = req.user;
 
         // validate user input
         const expenseSchema = yup.object().shape({
@@ -28,20 +29,17 @@ const createExpense = async (req, res, next) => {
                         .max(127, 'transactionDate is too long'),
             photos: yup.array().of(yup.string().max(127)).max(3),
             comment: yup.string('comment must be a string')
-                        .max(127, 'comment is too long'),
-            account: yup.string('account must be a string')
-                        .required('account is required')
-                        .max(127, 'account is too long'),
+                        .max(127, 'comment is too long')
         });
 
         const validated = await expenseSchema.validate(req.body);
-        const createExpenseResponse = await expenseService.createExpense(validated);
-
-        console.log('🔥', createExpenseResponse);
+        validated.userId = userId;
+        validated.accountId = accountId;
+        const response = await expenseService.createExpense(validated);
 
         res.status(200).json({
             success: true,
-            data: createExpenseResponse
+            data: response
         });
     } catch(error) {
         next(error);
@@ -81,14 +79,18 @@ const uploadImage = async (req, res, next) => {
  * @path GET /api/v1/expense?date=7days
  * @authorization Private
  * */
-const getExpenses = async (req, res, next) => {
+const getExpensesByAccountId = async (req, res, next) => {
     try {
         const sortType = req.query.date;
-        const getExpenseResponse = await expenseService.getExpenses(sortType);
+        const { _id: userId } = req.user;
+        const { accountId } = req.params;
+        // console.log('sort', sortType, 'userId', userId, 'accountId', accountId);
+
+        const response = await expenseService.getExpensesByAccountId(userId, accountId, sortType);
 
         res.status(200).json({
             success: true,
-            data: getExpenseResponse
+            data: response
         });
     } catch (error) {
         next(error);
@@ -102,8 +104,9 @@ const getExpenses = async (req, res, next) => {
  * */
 const getExpenseById = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const getExpenseResponse = await expenseService.getExpenseById(id);
+        const { expenseId } = req.params;
+        const { _id: userId } = req.user;
+        const getExpenseResponse = await expenseService.getExpenseById(userId, expenseId);
 
         res.status(200).json({
             success: true,
@@ -121,7 +124,8 @@ const getExpenseById = async (req, res, next) => {
  * */
 const updateExpense = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { expenseId } = req.params;
+        const { _id: userId } = req.user;
         
         console.log(req.body);
 
@@ -142,7 +146,7 @@ const updateExpense = async (req, res, next) => {
         });
 
         const validated = await expenseSchema.validate(req.body);
-        const updatedExpenseResponse = await expenseService.updateExpense(validated, id);
+        const updatedExpenseResponse = await expenseService.updateExpense(userId, expenseId, validated);
 
         res.status(200).json({
             success: true,
@@ -161,8 +165,9 @@ const updateExpense = async (req, res, next) => {
  * */
 const deleteExpense = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const deleteExpenseResponse = await expenseService.deleteExpense(id);
+        const { expenseId } = req.params;
+        const { _id: userId } = req.user;
+        const deleteExpenseResponse = await expenseService.deleteExpense(userId, expenseId);
         res.status(200).json({
             success: true,
             data: deleteExpenseResponse
@@ -175,7 +180,7 @@ const deleteExpense = async (req, res, next) => {
 module.exports = {
     createExpense,
     uploadImage,
-    getExpenses,
+    getExpensesByAccountId,
     getExpenseById,
     updateExpense,
     deleteExpense
