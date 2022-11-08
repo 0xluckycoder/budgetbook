@@ -62,13 +62,13 @@ const signUp = async (user) => {
             currencyType: user.currency,
             description: user.description
         });
-        console.log('account', createdAccount);
+        console.log('created financial account', createdAccount);
 
         // update defaultAccount on user profile object
         const updatedUser = await userProfile.updateUser({
             defaultAccount: createdAccount._id
         }, createdUser._id);
-        console.log('updated user', updatedUser);
+        console.log('updated user attribute', updatedUser);
 
         return {
             createdUser,
@@ -132,6 +132,7 @@ const signIn = async (user) => {
         // construct the response
         const email = getUserResponse.UserAttributes.find(element => element.Name === "email");
         const subId = getUserResponse.UserAttributes.find(element => element.Name === "sub");
+
         const data = {
             email: email.Value,
             subId: subId.Value
@@ -237,9 +238,19 @@ const refreshTokens = async (RefreshToken) => {
     }
 }
 
+const getUserAttributesBySubId = async (subId) => {
+    try {
+        const userAttributesBySubId = await userProfile.getUserBySubId(subId);
+        return userAttributesBySubId;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
     verifyAuth,
-    refreshTokens
+    refreshTokens,
+    getUserAttributesBySubId
 }

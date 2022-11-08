@@ -132,6 +132,22 @@ const signIn = async (req, res, next) => {
 //     }
 // }
 
+const getUserAttributesBySubId = async (req, res, next) => {
+    try {
+        const { subId } = req.user;
+        const response = await authService.getUserAttributesBySubId(subId);
+
+        res.status(200).json({
+            success: true,
+            data: response
+        });
+
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 /**
  * @desc authenticate if cookies exists & Refresh expired tokens
  * @path POST /api/v1/auth/signin
@@ -223,5 +239,6 @@ const verifyAuth = async (req, res, next) => {
 module.exports = {
     signUp,
     signIn,
-    verifyAuth
+    verifyAuth,
+    getUserAttributesBySubId
 }
