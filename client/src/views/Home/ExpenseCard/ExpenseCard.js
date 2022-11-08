@@ -1,24 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from './expenseCard.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { CustomLineChart } from "../../../components/CustomLineChart/CustomLineChart";
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
 import { useGetExpensesQuery, expenseApi } from "../../../store/expense/expense.slice";
+import { userAuthApi } from "../../../store/user/user.slice";
 
 export const ExpenseCard = ({ amount, percentage, dateSortByState }) => {
+
+    const { data: authData } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
     const {
         data,
         isError,
         isFetching,
         isLoading,
-        isSuccess
-    } = expenseApi.endpoints.getExpenses.useQueryState(dateSortByState);
+        isSuccess,
+        isUninitialized,
+    } = expenseApi.endpoints.getExpenses.useQueryState(undefined);
 
     let isContentLoading = isLoading && isFetching ? true : false;
 
+    useEffect(() => {
+        console.log(data);
+    }, [authData]);
+
+    console.log(data);
+
     return (
+        // <h1>yo</h1>
         <div className={styles.cardWrapper}>
             {
                 isContentLoading

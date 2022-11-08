@@ -140,7 +140,7 @@ const getUserAttributesBySubId = async (req, res, next) => {
         res.status(200).json({
             success: true,
             data: response
-        });
+        })
 
     } catch (error) {
         console.log(error);
@@ -167,7 +167,7 @@ const verifyAuth = async (req, res, next) => {
 
         // get user data from cognito
         const verifyAuthResponse = await authService.verifyAuth(req.cookies);
-
+        
         return res.status(200).json({
             success: true,
             data: verifyAuthResponse

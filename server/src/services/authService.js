@@ -194,17 +194,25 @@ const verifyAuth = async (cookies) => {
         const email = getUserResponse.UserAttributes.find(element => element.Name === "email");
         const subId = getUserResponse.UserAttributes.find(element => element.Name === "sub");
 
-        // const getUserAttributes = userProfile.getUserBySubId(subId);
-        // console.log(getUserAttributes);
+        // get user attributes
+        const userAttributesBySubId = await userProfile.getUserBySubId(subId.Value);
 
         const data = {
             email: email.Value,
             subId: subId.Value,
+            _id: userAttributesBySubId._id.toString(),
+            firstName: userAttributesBySubId.firstName,
+            lastName: userAttributesBySubId.lastName,
+            language: userAttributesBySubId.language,
+            country: userAttributesBySubId.country,
+            defaultSortPeriod: userAttributesBySubId.defaultSortPeriod,
+            defaultAccount: userAttributesBySubId.defaultAccount
         }
 
         return data;
         
     } catch (error) {
+        console.log('verified auth function ❌❌', error);
         throw error;
     }
 }

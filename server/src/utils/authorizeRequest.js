@@ -29,6 +29,9 @@ const authorizeRequest = async (req, res, next) => {
         };
         next();
     } catch(error) {
+
+        console.log('error here', error);
+
         /**
          * if access token is expired reassign new access & id tokens to client
          * if access token is invalid throw error
@@ -69,7 +72,8 @@ const authorizeRequest = async (req, res, next) => {
                     country: userAttributes.country,
                     defaultSortPeriod: userAttributes.defaultSortPeriod,
                     email: verifyAuthResponse.email,
-                    subId: verifyAuthResponse.subId
+                    subId: verifyAuthResponse.subId,
+                    defaultAccount: verifyAuthResponse.defaultAccount
                 };
                 return next();
             } catch(error) {

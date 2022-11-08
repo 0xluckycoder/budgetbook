@@ -6,18 +6,27 @@ export const expenseApi = createApi({
     tagTypes: ['Expense'],
     endpoints: (build) => ({
         getExpenses: build.query({
-            query: (para) => `/expense?date=${para}`,
-            providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense'],
+            query: ({ accountId, para }) => ({
+                url: `/expenses/accounts/${accountId}/?date=${para}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) => result.data ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense'],
+            transformResponse: (res) => {
+                return res.data;
+            }
+            // query: ({ accountId, para }) => `/expenses/accounts/${accountId}/?date=${para}`,
+            // providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense'],
         }),
         // getExpenseById: build.query({
         //     query: (id) => `/expense/${id}`,
         //     providesTags: (result, error, arg) => [{ type: 'Expense', id: arg }]
         // }),
         addExpense: build.mutation({
-            query: (initialExpense) => ({
-                url: '/expense',
+            query: ({ accountId, expenseData }) => ({
+                url: `/expenses/${accountId}`,
                 method: 'POST',
-                body: initialExpense
+                body: expenseData,
+                credentials: "include"
             }),
             invalidatesTags: ['Expense']
         }),

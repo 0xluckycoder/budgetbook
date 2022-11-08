@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppLayout } from "../../../components/layout/AppLayout";
 import styles from './homePage.module.scss';
 import { Col, Row } from 'antd';
@@ -10,22 +10,43 @@ import { ExpenseCard } from "../ExpenseCard/ExpenseCard";
 import { ExpenseRecordCard } from "../ExpenseRecordCard/ExpenseRecordCard";
 import { IncomeRecordCard } from "../IncomeRecordCard/IncomeRecordCard";
 
-import { useGetExpensesQuery } from "../../../store/expense/expense.slice";
-import { useGetIncomesQuery } from "../../../store/income/income.slice";
+import { useGetExpensesQuery, expenseApi } from "../../../store/expense/expense.slice";
+import { useGetIncomesQuery, incomeApi } from "../../../store/income/income.slice";
+import { useGetUserAttributesQuery, userAuthApi } from "../../../store/user/user.slice";
+import { useGetAccountsQuery, financeAccountApi } from "../../../store/financeAccount/financeAccount.slice";
 
 import { SORT_DATE_BY } from "../../../utils/constants";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 const HomePage = () => {
 
     const [state, setState] = useState(SORT_DATE_BY.THIS_MONTH);
 
-    const { 
-        data: returned 
-    } = useGetExpensesQuery(state.value);
-
     const {
-        data: returnedIncome
-    } = useGetIncomesQuery(state.value);
+        data: authData,
+        isUninitialized: authIsUninitiated,
+        isLoading: authIsLoading
+    } = userAuthApi.endpoints.verifyAuth.useQueryState();
+
+    const [
+        expenseApiTrigger,
+        expenseApiResult,
+        expenseApiLastPromiseInfo
+    ] = expenseApi.endpoints.getExpenses.useLazyQuery();
+
+    const [
+        incomeApiTrigger,
+        incomeApiResult,
+        incomeApiLastPromiseInfo
+    ] = expenseApi.endpoints.getExpenses.useLazyQuery();
+
+    useEffect(() => {
+        if (authData && !authIsUninitiated) {
+            // don't trigger data if already have it
+            expenseApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
+            incomeApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
+        }
+    }, [authData]);
 
     const values = [
         {
@@ -51,6 +72,7 @@ const HomePage = () => {
     }    
     return (
         <AppLayout>
+            {/* <h1>Testing</h1> */}
             <h2 className={styles.heading}>Dashboard</h2>
             <div className={styles.home}>
                 <div className={styles.dropdown}>
@@ -66,10 +88,10 @@ const HomePage = () => {
                         <AccountCard />
                     </Col>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <IncomeCard dateSortByState={state.value} />
+                        {/* <IncomeCard dateSortByState={state.value} /> */}
                     </Col>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <ExpenseCard dateSortByState={state.value} />
+                        {/* <ExpenseCard dateSortByState={state.value} /> */}
                     </Col>
                 </Row>
 
@@ -77,10 +99,10 @@ const HomePage = () => {
 
                 <Row gutter={20}>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <ExpenseRecordCard dateSortByState={state.value} />                
+                        <ExpenseRecordCard result={incomeApiResult} dateSortByState={state.value} />                
                     </Col>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <IncomeRecordCard dateSortByState={state.value} />                
+                        {/* <IncomeRecordCard result={incomeApiResult} dateSortByState={state.value} />                 */}
                     </Col>
                 </Row>
             </div>

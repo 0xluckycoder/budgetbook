@@ -11,6 +11,7 @@ import {
     useEditExpenseMutation,
     useDeleteExpenseMutation
 } from '../../../store/expense/expense.slice';
+import { userAuthApi } from '../../../store/user/user.slice';
 
 import { LoadingSpinner } from '../../../components/LoadingSpinner/LoadingSpinner';
 
@@ -20,15 +21,11 @@ import { EditCustomModal } from '../../../components/Modals/EditCustomModal/Edit
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
 
-export const ExpenseRecordCard = ({ dateSortByState }) => { 
+export const ExpenseRecordCard = ({ dateSortByState, result }) => { 
 
     const {
-        data,
-        isError,
-        isFetching,
-        isLoading,
-        isSuccess
-    } = expenseApi.endpoints.getExpenses.useQueryState(dateSortByState);
+        data: authData,
+    } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
     const [addModalState, setAddModalState] = useState(false);
 
@@ -39,7 +36,10 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
     // send add request
     const handleAddRecord = async (inputState) => {
         try {
-            await addExpense(inputState).unwrap();
+            await addExpense({
+                accountId: authData.defaultAccount,
+                expenseData: inputState
+            }).unwrap();
         } catch(error) {
             console.log(error);
         }
@@ -64,9 +64,10 @@ export const ExpenseRecordCard = ({ dateSortByState }) => {
             
             <RecordListWrapper>
                 {
-                    data !== undefined 
+                    // console.log(result.data)
+                    result.data !== undefined 
                     ? 
-                    data.data.map((item, index) => (
+                    result.data.map((item, index) => (
                         <RecordListItem
                             key={index}
                             itemData={item}

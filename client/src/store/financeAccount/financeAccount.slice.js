@@ -10,8 +10,8 @@ export const financeAccountApi = createApi({
         //     providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
         // }),
         getAccounts: build.query({
-            query: () => ({
-                url: '/accounts',
+            query: (userId) => ({
+                url: `/accounts/user/${userId}`,
                 credentials: "include"
             }),
             providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],

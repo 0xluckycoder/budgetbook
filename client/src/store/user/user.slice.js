@@ -32,13 +32,23 @@ export const userAuthApi = createApi({
                 body: signUpData
             }),
         }),
+        getUserAttributes: build.query({
+            query: () => ({
+                url: '/auth/users',
+                credentials: "include"
+            }),
+            transformResponse: (res) => {
+                return res.data;
+            }
+        }),
     }),
 });
 
 export const {
     useVerifyAuthQuery,
     useSignInMutation,
-    useSignUpMutation
+    useSignUpMutation,
+    useGetUserAttributesQuery
 } = userAuthApi;
 
 /*

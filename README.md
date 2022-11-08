@@ -218,11 +218,63 @@ test
                     - validate with req.user with entered api id to make sure user is fetching belonging data
 
                 - [x] - learn how github & spotify APIs are designed
-                - [/] - list down and restructure the endpoints
-                    - [ ] - change verbs to plural nouns not singular
-                    - [ ] - use HATEOAS structure in endpoints
+                - [x] - list down and restructure the endpoints
+                    - [x] - change verbs to plural nouns not singular
+                    - [x] - use HATEOAS structure in endpoints
 
-                - [ ] - also get user user's id from the related attributes object when authorizing the user
+                - [x] - also get user user's id from the related attributes object when authorizing the user
+
+                - [/] - Updated endpoints in redux query slice
+
+                - [x] - update user's attributes to have a one selected account (default is initial financial account created when signing up)
+
+                - [/] - verifyAuth should return user's attributes
+
+                - [ ] - state should hold all user attributes
+
+                    - [/] - Financial Account
+                        - [/] - /api/account/user/:id - get all the accounts related to user id
+                        - [ ] - /api/account - create account
+                        - [ ] - /api/account/:id - get account by id
+                        - [ ] - /api/account/:id - update income record
+                        - [ ] - /api/account/:id - delete income record
+
+                    - [/] - Expense
+                        - [x] - /api/expense - create expense record
+                        - [x] - /api/expense/:id - get expense record by id
+                        - [/] - /api/expense/:id - update expense record
+                        - [ ] - /api/expense/:id - delete expense record
+
+                    - [ ] - Income
+                        - [ ] - /api/income - create income record
+                        - [ ] - /api/income/:id - get income record by id
+                        - [ ] - /api/income/:id - update income record
+                        - [ ] - /api/income/:id - delete income record
+
+                    - [ ] - Sorting endpoints
+                        - [ ] - /api/expense/?date=7days
+
+
+                    - [ ] - User Account
+                        - [ ] - /api/auth/signup
+                        - [ ] - /api/auth/signin
+                        - [ ] - /confirmEmail/:token
+                        - [ ] - /verifyAuth
+
+                    - [/] - organize the data flow of frontend state
+                        - [/] - authenticated user with attributes
+                        - [x] - all the expenses based on financial account
+                        - [x] - all the incomes based on financial account
+                        - [/] - fix account dropdown issue & make the relationship
+                            - [ ] - fetch all available accounts
+                            - [ ] - show every account names in dropdown
+                            - [ ] - show selected account name in dropdown current state
+                            - [ ] - invalidate the tags and remove the record if user selected the different state
+
+
+                    - [ ] - test app
+
+                - [ ] - deep dive into redux and learn to manage state 
 
                 - [ ] - load the user's default account first (new users first created one)
                     - [ ] - users should have the ability to change their default account

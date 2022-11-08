@@ -84,7 +84,10 @@ const getExpensesByAccountId = async (req, res, next) => {
         const sortType = req.query.date;
         const { _id: userId } = req.user;
         const { accountId } = req.params;
-        // console.log('sort', sortType, 'userId', userId, 'accountId', accountId);
+
+        console.log(accountId);
+
+        console.log('sort', sortType, 'userId', userId, 'accountId', accountId);
 
         const response = await expenseService.getExpensesByAccountId(userId, accountId, sortType);
 
