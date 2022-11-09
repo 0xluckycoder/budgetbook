@@ -17,6 +17,7 @@ const createExpense = async (req, res, next) => {
         // validate user input
         const expenseSchema = yup.object().shape({
             title: yup.string('title must be a string')
+                        .required('title is required')
                         .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
                         .required('amount is required')
@@ -27,9 +28,9 @@ const createExpense = async (req, res, next) => {
             transactionDate: yup.string('transactionDate must be a string')
                         .required('transactionDate is required')
                         .max(127, 'transactionDate is too long'),
-            photos: yup.array().of(yup.string().max(127)).max(3),
+            photos: yup.array().of(yup.string().max(200)).max(3),
             comment: yup.string('comment must be a string')
-                        .max(127, 'comment is too long')
+                        .max(200, 'comment is too long')
         });
 
         const validated = await expenseSchema.validate(req.body);
@@ -133,9 +134,9 @@ const updateExpense = async (req, res, next) => {
         console.log(req.body);
 
         const expenseSchema = yup.object().shape({
-            accountId: yup.string('accountId must be a string')
-                            .required('accountId is required')
-                            .max(127, 'accountId is too long'),
+            accountId: yup.string('title must be a string')
+                        .required('title is required')
+                        .max(127, 'title is too long'),
             title: yup.string('title must be a string')
                         .required('title is required')
                         .max(127, 'title is too long'),
@@ -146,8 +147,8 @@ const updateExpense = async (req, res, next) => {
                         .required('category is required')
                         .max(127, 'category is too long'),
             transactionDate: yup.string('transactionDate must be a string')
-                            .required('transactionDate is required')
-                            .max(127, 'transactionDate is too long'),
+                        .required('transactionDate is required')
+                        .max(127, 'transactionDate is too long'),
             photos: yup.array().of(yup.string().max(200)).max(3),
             comment: yup.string('comment must be a string')
                         .max(200, 'comment is too long')
@@ -155,15 +156,12 @@ const updateExpense = async (req, res, next) => {
 
         const validated = await expenseSchema.validate(req.body);
         validated.userId = userId;
+        const updatedExpenseResponse = await expenseService.updateExpense(userId, expenseId, validated);
 
-        console.log(validated);
-
-        // const updatedExpenseResponse = await expenseService.updateExpense(userId, expenseId, validated);
-
-        // res.status(200).json({
-        //     success: true,
-        //     data: updatedExpenseResponse
-        // });
+        res.status(200).json({
+            success: true,
+            data: updatedExpenseResponse
+        });
 
     } catch(error) {
         next(error);

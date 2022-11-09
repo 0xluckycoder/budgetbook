@@ -37,8 +37,15 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
     const handleAddRecord = async (inputState) => {
         try {
             await addExpense({
-                accountId: authData.defaultAccount,
-                expenseData: inputState
+                accountId: inputState.accountId,
+                expenseData: {
+                    title: inputState.title,
+                    amount: inputState.amount,
+                    category: inputState.category,
+                    transactionDate: inputState.transactionDate,
+                    comment: inputState.comment,
+                    photos: inputState.photos
+                }
             }).unwrap();
         } catch(error) {
             console.log(error);
@@ -127,9 +134,24 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
         }
     }
 
+    /*
+    await addExpense({
+    accountId: inputState.accountId,
+    expenseData: {
+        title: inputState.title,
+        amount: inputState.amount,
+        category: inputState.category,
+        transactionDate: inputState.transactionDate,
+        comment: inputState.comment,
+        photos: inputState.photos
+    }
+}).unwrap();
+    */ 
+
     // send edit request
     const handleEditRecord = async (editData) => {
         try {
+            // console.log('🔥', editData);
             await editExpense(editData);
         } catch(error) {
             console.log(error);

@@ -40,15 +40,16 @@ export const expenseApi = createApi({
         }),
         editExpense: build.mutation({
             query: (patch) => ({
-                url: `/expense/${patch._id}`,
+                url: `/expenses/${patch._id}`,
                 method: 'PUT',
-                body: patch
+                body: patch,
+                credentials: "include"
             }),
             invalidatesTags: ['Expense']
         }),
         deleteExpense: build.mutation({
             query: (id) => ({
-                url: `/expense/${id}`,
+                url: `/expenses/${id}`,
                 method: 'DELETE'
             }),
             invalidatesTags: ['Expense']

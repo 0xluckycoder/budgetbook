@@ -273,9 +273,11 @@ test
                                     - [/] - expense card
                                         - [x] - construct the request body
                                         - [x] - add
-                                        - [ ] - view
-                                        - [ ] - edit
-                                        - [/] - match server validation with frontend
+                                        - [x] - view
+                                        - [x] - edit
+                                        - [x] - match server validation with frontend
+                                        - [ ] - test with images
+                                        - [ ] - go through workflow and do end to end testing
                                     - [ ] - incomes card
                                         - [ ] - construct the request body
                                         - [ ] - add

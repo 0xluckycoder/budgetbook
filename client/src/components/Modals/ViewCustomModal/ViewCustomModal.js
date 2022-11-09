@@ -6,6 +6,8 @@ import { ImagePreview } from '../ImagePreview/ImagePreview';
 
 import { DialogueCard } from '../../DialogueCard/DialogueCard';
 
+import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
+
 import { 
     useDeleteExpenseMutation,
 } from '../../../store/expense/expense.slice';
@@ -36,6 +38,21 @@ export const ViewCustomModal = ({
         }
     }
 
+    const [financeAccountState, setFinanceAccountState] = useState([]);
+
+    const {
+        data: financeAccountData,
+        isFetching: financeAccountFetching,
+        isLoading: financeAccountLoading,
+        isUninitialized: financeAccountUninitiated,
+    } = financeAccountApi.endpoints.getAccounts.useQueryState();
+
+    useEffect(() => {
+        if (!financeAccountLoading && !financeAccountFetching && !financeAccountUninitiated) {
+            setFinanceAccountState(financeAccountData.data);
+        }
+    }, [financeAccountData]);
+
     // handle dialogue card confirm
     const handleConfirm = () => {
         handleDelete(itemData._id);
@@ -43,6 +60,7 @@ export const ViewCustomModal = ({
         handleClose();
     };
 
+    const financeAccountName = financeAccountState.length > 0 && financeAccountState.find(account => account._id === itemData.accountId);
 
     return (
         <Modal
@@ -89,7 +107,7 @@ export const ViewCustomModal = ({
 
             <InlineField>
                 <Form.Item label="Account">
-                    <p>{itemData.account}</p>
+                    <p>{financeAccountName.name}</p>
                 </Form.Item>
                 <Form.Item label="Category">
                     <p>{itemData.category}</p>

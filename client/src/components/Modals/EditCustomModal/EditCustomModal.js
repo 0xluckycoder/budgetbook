@@ -9,6 +9,10 @@ import moment from 'moment';
 
 import { ImagePreview } from '../ImagePreview/ImagePreview';
 
+import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
+
+import { userAuthApi } from '../../../store/user/user.slice';
+
 import { 
     useUploadExpenseImagesMutation,
 } from '../../../store/expense/expense.slice';
@@ -21,6 +25,19 @@ export const EditCustomModal = ({
     handleEditRecord
 }) => {
 
+    const {
+        data: financeAccountData,
+        isFetching: financeAccountFetching,
+        isLoading: financeAccountLoading,
+        isUninitialized: financeAccountUninitiated,
+    } = financeAccountApi.endpoints.getAccounts.useQueryState();
+
+    const {
+        data: authData,
+        isUninitialized: authIsUninitiated,
+        isLoading: authIsLoading
+    } = userAuthApi.endpoints.verifyAuth.useQueryState();
+
     const [uploadExpenseImages, {
         isLoading: imageMutationLoading,
         data: imageResponse
@@ -32,14 +49,20 @@ export const EditCustomModal = ({
     const [imageFile, setImageFile] = useState([]);
     const [inputState, setInputState] = useState({});
     const [error, setError] = useState({
+        accountId: null,
         title: null,
         amount: null,
-        account: null,
-        comment: null,
-        transactionDate: null,
         category: null,
-        image: null
+        transactionDate: null,
+        image: null,
+        comment: null
     });
+
+    useEffect(() => {
+        if (!financeAccountLoading && !financeAccountFetching && !financeAccountUninitiated) {
+            setFinanceAccountState(financeAccountData.data);
+        }
+    }, [financeAccountData]);
 
     useEffect(() => {
         if (itemData !== {}) setInputState(itemData);
@@ -49,20 +72,15 @@ export const EditCustomModal = ({
         setInputState({...inputState, [e.target.name]: e.target.value});
     }
 
-    const accountMenuData = [
-        {
-            label: <p key={0} onClick={() => setInputState({...inputState, account: 'Bank'})}>Bank</p>,
-            key: '0'
-        },
-        {
-            label: <p key={1} onClick={() => setInputState({...inputState, account: 'Personal'})}>Personal</p>,
-            key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, account: 'Investment'})}>Investment</p>,
-            key: '2',
+    const [financeAccountState, setFinanceAccountState] = useState([]);
+
+    const accountMenuData = financeAccountState.map((account, index) => {
+        return {
+            label: <p key={index} onClick={() => setInputState({...inputState, accountId: account._id})}>{account.name}</p>,
+            key: index
         }
-    ];
+    });
+
     const categoryMenuData = [
         {
             key: '0',
@@ -137,7 +155,7 @@ export const EditCustomModal = ({
             }
         } 
         
-        if (field === 'account' || field === 'category' || field === 'transactionDate') {
+        if (field === 'accountId' || field === 'category' || field === 'transactionDate') {
             const validatedRequired = validateRequired(value);
             if (validatedRequired.error) {
                 setError(error => ({...error, [field]: { validateStatus: "error", help: 'This field is required' }}));
@@ -165,7 +183,7 @@ export const EditCustomModal = ({
             // validate necessary fields before submit
             validate(inputState.title, 'title');
             validate(inputState.amount, 'amount');
-            validate(inputState.account, 'account');
+            validate(inputState.accountId, 'accountId');
             validate(inputState.category, 'category');
             validate(inputState.transactionDate, 'transactionDate');
             validate(inputState.comment, 'comment');
@@ -173,13 +191,13 @@ export const EditCustomModal = ({
             if (
                 error.title === null &&
                 error.amount === null &&
-                error.account === null &&
+                error.accountId === null &&
                 error.category === null &&
                 error.transactionDate === null &&
                 error.comment === null &&
                 inputState.title &&
                 inputState.amount &&
-                inputState.account &&
+                inputState.accountId &&
                 inputState.category &&
                 inputState.transactionDate
             ) {                
@@ -197,7 +215,7 @@ export const EditCustomModal = ({
                     setError({
                         title: null,
                         amount: null,
-                        account: null,
+                        accountId: null,
                         comment: null,
                         transactionDate: null,
                         category: null
@@ -216,7 +234,7 @@ export const EditCustomModal = ({
                 setError({
                     title: null,
                     amount: null,
-                    account: null,
+                    accountId: null,
                     comment: null,
                     transactionDate: null,
                     category: null
@@ -235,7 +253,7 @@ export const EditCustomModal = ({
         setError({
             title: null,
             amount: null,
-            account: null,
+            accountId: null,
             comment: null,
             transactionDate: null,
             category: null
@@ -261,10 +279,12 @@ export const EditCustomModal = ({
         }
     }
 
-    const accountMenu = <Menu onBlur={() => validate(inputState.account, 'account')} items={accountMenuData} />;
+    const accountMenu = <Menu onBlur={() => validate(inputState.accountId, 'accountId')} items={accountMenuData} />;
     const categoryMenu = <Menu onBlur={() => validate(inputState.category, 'category')}  items={categoryMenuData} />;
     
-    const accountDropdownText = inputState.account === undefined ? 'Select Account' : inputState.account;
+    const accountDropdownText = inputState.accountId === undefined 
+    ? { name: 'Select Account' } 
+    : financeAccountState.find(item => item._id === inputState.accountId);
     const categoryDropdownText = inputState.category === undefined ? 'Select Category' : inputState.category;
 
     let totalImagesLength;
@@ -310,15 +330,15 @@ export const EditCustomModal = ({
             </InlineField>
 
             <InlineField>
-            <Form.Item label="Account" {...(error.account ? error.account : {})}>
+            <Form.Item label="Account" {...(error.accountId ? error.accountId : {})}>
             <Dropdown 
                 overlay={accountMenu}
                 trigger={['click']} 
-                name="account" 
-                value={inputState.account}
+                name="accountId" 
+                value={inputState.accountId}
             >
                 <Space className='themed-dropdown'>
-                    <p className='themed-dropdown'>{accountDropdownText}</p>
+                    <p className='themed-dropdown'>{accountDropdownText.name}</p>
                     <DownOutlined />
                 </Space>
             </Dropdown>
