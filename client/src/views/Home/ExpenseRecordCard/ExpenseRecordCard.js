@@ -151,7 +151,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     // send edit request
     const handleEditRecord = async (editData) => {
         try {
-            // console.log('🔥', editData);
+            console.log('🔥', editData);
             await editExpense(editData);
         } catch(error) {
             console.log(error);

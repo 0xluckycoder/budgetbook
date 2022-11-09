@@ -135,19 +135,14 @@ const updateExpense = async (req, res, next) => {
 
         const expenseSchema = yup.object().shape({
             accountId: yup.string('title must be a string')
-                        .required('title is required')
                         .max(127, 'title is too long'),
             title: yup.string('title must be a string')
-                        .required('title is required')
                         .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
-                        .required('amount is required')
                         .max(127, 'amount is too long'),
             category: yup.string('category must be a string')
-                        .required('category is required')
                         .max(127, 'category is too long'),
             transactionDate: yup.string('transactionDate must be a string')
-                        .required('transactionDate is required')
                         .max(127, 'transactionDate is too long'),
             photos: yup.array().of(yup.string().max(200)).max(3),
             comment: yup.string('comment must be a string')

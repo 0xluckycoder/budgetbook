@@ -239,11 +239,11 @@ test
                         - [ ] - /api/accounts/:id - update income record
                         - [ ] - /api/accounts/:id - delete income record
 
-                    - [/] - Expense
+                    - [x] - Expense
                         - [x] - /api/expense - create expense record
                         - [x] - /api/expense/:id - get expense record by id
-                        - [/] - /api/expense/:id - update expense record
-                        - [ ] - /api/expense/:id - delete expense record
+                        - [x] - /api/expense/:id - update expense record
+                        - [x] - /api/expense/:id - delete expense record
 
                     - [ ] - Income
                         - [ ] - /api/income - create income record
@@ -270,23 +270,24 @@ test
                             - [x] - show every account names in dropdown
                             - [x] - show selected account name in dropdown current state
                                 - [/] - apply this change everywhere
-                                    - [/] - expense card
+                                    - [x] - expense card
                                         - [x] - construct the request body
                                         - [x] - add
                                         - [x] - view
                                         - [x] - edit
                                         - [x] - match server validation with frontend
-                                        - [ ] - test with images
-                                        - [ ] - go through workflow and do end to end testing
+                                        - [x] - test with images
+                                        - [x] - go through workflow and do end to end testing
                                     - [ ] - incomes card
                                         - [ ] - construct the request body
                                         - [ ] - add
                                         - [ ] - view
                                         - [ ] - edit
                                         - [ ] - match server validation with frontend
+                                        - [ ] - test with images
+                                        - [ ] - go through workflow and do end to end testing
                                     - [ ] - test with new records (delete all previous records)
                             - [ ] - invalidate the tags and remove the record if user selected the different state
-
 
                     - [ ] - test app
 

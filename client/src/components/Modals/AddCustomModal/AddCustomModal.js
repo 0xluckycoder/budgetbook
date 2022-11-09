@@ -189,9 +189,7 @@ export const AddCustomModal = ({
                 const formData = constructFormData(imageFile);
                 if (formData) {
                     const returned = await uploadExpenseImages(formData);
-                    console.log(returned.data.data);
                     handleAddRecord({...inputState, photos: returned.data.data });
-                    // await addExpense().unwrap();
                     return;
                 }
 

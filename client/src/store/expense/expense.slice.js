@@ -14,13 +14,14 @@ export const expenseApi = createApi({
             transformResponse: (res) => {
                 return res.data;
             }
-            // query: ({ accountId, para }) => `/expenses/accounts/${accountId}/?date=${para}`,
-            // providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense'],
         }),
-        // getExpenseById: build.query({
-        //     query: (id) => `/expense/${id}`,
-        //     providesTags: (result, error, arg) => [{ type: 'Expense', id: arg }]
-        // }),
+        getExpenseById: build.query({
+            query: (id) => ({
+                url: `/expenses/${id}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) => [{ type: 'Expense', id: arg }],
+        }),
         addExpense: build.mutation({
             query: ({ accountId, expenseData }) => ({
                 url: `/expenses/${accountId}`,
@@ -32,7 +33,7 @@ export const expenseApi = createApi({
         }),
         uploadExpenseImages: build.mutation({
             query: (formData) => ({
-                url: '/expense/image',
+                url: '/expenses/uploads/image',
                 method: 'POST',
                 body: formData,
                 credentials: "include"
@@ -50,19 +51,13 @@ export const expenseApi = createApi({
         deleteExpense: build.mutation({
             query: (id) => ({
                 url: `/expenses/${id}`,
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: "include"
             }),
             invalidatesTags: ['Expense']
         })
     })
 });
-
-/*
-    getPost: build.query<Post, string>({
-      query: (id) => `posts/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Post', id }],
-    }),
-*/ 
 
 export const {
     useGetExpensesQuery,

@@ -23,7 +23,7 @@ const upload = multer({
 
 router.post('/:accountId', authorizeRequest, expenseController.createExpense);
 
-router.post('/image', upload.array('expense-images'), expenseController.uploadImage);
+router.post('/uploads/image', authorizeRequest, upload.array('expense-images'), expenseController.uploadImage);
 
 router.get('/accounts/:accountId', authorizeRequest, expenseController.getExpensesByAccountId);
 
