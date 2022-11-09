@@ -7,6 +7,10 @@ import { validateMax, validateMin, validateRequired } from '../../../utils/formV
 import { ImagePreview } from '../ImagePreview/ImagePreview';
 import styles from './addCustomModal.module.scss';
 
+import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
+
+import { userAuthApi } from '../../../store/user/user.slice';
+
 import { 
     useUploadExpenseImagesMutation,
 } from '../../../store/expense/expense.slice';
@@ -16,6 +20,19 @@ export const AddCustomModal = ({
     setAddModalState,
     handleAddRecord 
 }) => {
+
+    const {
+        data: financeAccountData,
+        isFetching: financeAccountFetching,
+        isLoading: financeAccountLoading,
+        isUninitialized: financeAccountUninitiated,
+    } = financeAccountApi.endpoints.getAccounts.useQueryState();
+
+    const {
+        data: authData,
+        isUninitialized: authIsUninitiated,
+        isLoading: authIsLoading
+    } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
     const [uploadExpenseImages, {
         isLoading: imageMutationLoading,
@@ -28,33 +45,28 @@ export const AddCustomModal = ({
     const [imageFile, setImageFile] = useState([]);
     const [inputState, setInputState] = useState({});
     const [error, setError] = useState({
+        accountId: null,
         title: null,
         amount: null,
-        account: null,
-        comment: null,
-        transactionDate: null,
         category: null,
-        image: null
+        transactionDate: null,
+        image: null,
+        comment: null
     });
 
     const handleInputChange = (e) => {
         setInputState({...inputState, [e.target.name]: e.target.value});
     }
 
-    const accountMenuData = [
-        {
-            label: <p key={0} onClick={() => setInputState({...inputState, account: 'Bank'})}>Bank</p>,
-            key: '0'
-        },
-        {
-            label: <p key={1} onClick={() => setInputState({...inputState, account: 'Personal'})}>Personal</p>,
-            key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, account: 'Investment'})}>Investment</p>,
-            key: '2',
+    const [financeAccountState, setFinanceAccountState] = useState([]);
+
+    const accountMenuData = financeAccountState.map((account, index) => {
+        return {
+            label: <p key={index} onClick={() => setInputState({...inputState, accountId: account._id})}>{account.name}</p>,
+            key: index
         }
-    ];
+    });
+
     const categoryMenuData = [
         {
             key: '0',
@@ -89,7 +101,7 @@ export const AddCustomModal = ({
                 setError({...error, [field]: null});
             }
 
-            const validatedMax = validateMax(15, value);
+            const validatedMax = validateMax(127, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -108,7 +120,7 @@ export const AddCustomModal = ({
                 setError(error => ({...error, [field]: null}));
             }
             
-            const validatedMax = validateMax(10, value);
+            const validatedMax = validateMax(127, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -119,7 +131,7 @@ export const AddCustomModal = ({
         } 
         
         if (field === 'comment' && value) {
-            const validatedMax = validateMax(50, value);
+            const validatedMax = validateMax(200, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -128,7 +140,7 @@ export const AddCustomModal = ({
             }
         } 
         
-        if (field === 'account' || field === 'category' || field === 'transactionDate') {
+        if (field === 'accountId' || field === 'category' || field === 'transactionDate') {
             const validatedRequired = validateRequired(value);
             if (validatedRequired.error) {
                 setError(error => ({...error, [field]: { validateStatus: "error", help: 'This field is required' }}));
@@ -156,7 +168,7 @@ export const AddCustomModal = ({
             // validate every field before submit
             validate(inputState.title, 'title');
             validate(inputState.amount, 'amount');
-            validate(inputState.account, 'account');
+            validate(inputState.accountId, 'accountId');
             validate(inputState.category, 'category');
             validate(inputState.transactionDate, 'transactionDate');
             validate(inputState.comment, 'comment');
@@ -164,13 +176,13 @@ export const AddCustomModal = ({
             if (
                 error.title === null &&
                 error.amount === null &&
-                error.account === null &&
+                error.accountId === null &&
                 error.category === null &&
                 error.transactionDate === null &&
                 error.comment === null &&
                 inputState.title &&
                 inputState.amount &&
-                inputState.account &&
+                inputState.accountId &&
                 inputState.category &&
                 inputState.transactionDate
             ) {
@@ -191,7 +203,7 @@ export const AddCustomModal = ({
                 setError({
                     title: null,
                     amount: null,
-                    account: null,
+                    accountId: null,
                     comment: null,
                     transactionDate: null,
                     category: null
@@ -210,7 +222,7 @@ export const AddCustomModal = ({
         setError({
             title: null,
             amount: null,
-            account: null,
+            accountId: null,
             comment: null,
             transactionDate: null,
             category: null
@@ -236,11 +248,22 @@ export const AddCustomModal = ({
         }
     }
 
-    const accountMenu = <Menu onBlur={() => validate(inputState.account, 'account')} items={accountMenuData} />;
+    useEffect(() => {
+        if (!financeAccountLoading && !financeAccountFetching && !financeAccountUninitiated) {
+            setFinanceAccountState(financeAccountData.data);
+        }
+    }, [financeAccountData]);
+
+    const accountMenu = <Menu onBlur={() => validate(inputState.accountId, 'accountId')} items={accountMenuData} />;
     const categoryMenu = <Menu onBlur={() => validate(inputState.category, 'category')}  items={categoryMenuData} />;
     
-    const accountDropdownText = inputState.account === undefined ? 'Select Account' : inputState.account;
-    const categoryDropdownText = inputState.category === undefined ? 'Select Category' : inputState.category;
+    const accountDropdownText = inputState.accountId === undefined 
+    ? { name: 'Select Account' } 
+    : financeAccountState.find(item => item._id === inputState.accountId);
+
+    const categoryDropdownText = inputState.category === undefined 
+    ? 'Select Category' 
+    : inputState.category;
 
     return (
         <Modal
@@ -281,18 +304,21 @@ export const AddCustomModal = ({
                 </InlineField>
 
                 <InlineField>
-                    <Form.Item label="Account" {...(error.account ? error.account : {})}>
+                    <Form.Item label="Account" {...(error.accountId ? error.accountId : {})}>
+                    {
                         <Dropdown 
                             overlay={accountMenu}
                             trigger={['click']} 
-                            name="account" 
-                            value={inputState.account}
+                            name="accountId" 
+                            value={inputState.accountId}
                         >
                             <Space className='themed-dropdown'>
-                                <p className='themed-dropdown'>{accountDropdownText}</p>
+                                <p className='themed-dropdown'>{accountDropdownText.name}</p>
                                 <DownOutlined />
                             </Space>
                         </Dropdown>
+
+                    }
                     </Form.Item>
                     <Form.Item label="Category" {...(error.category ? error.category : {})}>
                         <Dropdown

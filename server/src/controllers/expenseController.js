@@ -133,28 +133,37 @@ const updateExpense = async (req, res, next) => {
         console.log(req.body);
 
         const expenseSchema = yup.object().shape({
+            accountId: yup.string('accountId must be a string')
+                            .required('accountId is required')
+                            .max(127, 'accountId is too long'),
             title: yup.string('title must be a string')
+                        .required('title is required')
                         .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
+                        .required('amount is required')
                         .max(127, 'amount is too long'),
             category: yup.string('category must be a string')
+                        .required('category is required')
                         .max(127, 'category is too long'),
             transactionDate: yup.string('transactionDate must be a string')
-                        .max(127, 'transactionDate is too long'),
-            photos: yup.array().of(yup.string().max(127)).max(3),
+                            .required('transactionDate is required')
+                            .max(127, 'transactionDate is too long'),
+            photos: yup.array().of(yup.string().max(200)).max(3),
             comment: yup.string('comment must be a string')
-                        .max(127, 'comment is too long'),
-            account: yup.string('account must be a string')
-                        .max(127, 'account is too long'),
+                        .max(200, 'comment is too long')
         });
 
         const validated = await expenseSchema.validate(req.body);
-        const updatedExpenseResponse = await expenseService.updateExpense(userId, expenseId, validated);
+        validated.userId = userId;
 
-        res.status(200).json({
-            success: true,
-            data: updatedExpenseResponse
-        });
+        console.log(validated);
+
+        // const updatedExpenseResponse = await expenseService.updateExpense(userId, expenseId, validated);
+
+        // res.status(200).json({
+        //     success: true,
+        //     data: updatedExpenseResponse
+        // });
 
     } catch(error) {
         next(error);

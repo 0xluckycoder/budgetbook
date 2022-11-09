@@ -40,11 +40,18 @@ const HomePage = () => {
         incomeApiLastPromiseInfo
     ] = expenseApi.endpoints.getExpenses.useLazyQuery();
 
+    const [
+        financeAccountApiTrigger,
+        financeAccountApiResult,
+        financeAccountApiLastPromiseInfo
+    ] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
+
     useEffect(() => {
         if (authData && !authIsUninitiated) {
             // don't trigger data if already have it
             expenseApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
             incomeApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
+            financeAccountApiTrigger();
         }
     }, [authData]);
 

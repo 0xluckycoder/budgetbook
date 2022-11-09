@@ -11,11 +11,12 @@ const expenseEntrySchema = new Schema({
         required: true
     },
     title: {
-        type: String
+        type: String,
+        required: true
     },
     amount: {
         type: String,
-        required: true,
+        required: true
     },
     category: {
         type: String,

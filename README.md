@@ -233,11 +233,11 @@ test
                 - [ ] - state should hold all user attributes
 
                     - [/] - Financial Account
-                        - [/] - /api/account/user/:id - get all the accounts related to user id
-                        - [ ] - /api/account - create account
-                        - [ ] - /api/account/:id - get account by id
-                        - [ ] - /api/account/:id - update income record
-                        - [ ] - /api/account/:id - delete income record
+                        - [x] - /api/accounts - get all the accounts related to user id
+                        - [ ] - /api/accounts - create account
+                        - [ ] - /api/accounts/:id - get account by id
+                        - [ ] - /api/accounts/:id - update income record
+                        - [ ] - /api/accounts/:id - delete income record
 
                     - [/] - Expense
                         - [x] - /api/expense - create expense record
@@ -266,9 +266,23 @@ test
                         - [x] - all the expenses based on financial account
                         - [x] - all the incomes based on financial account
                         - [/] - fix account dropdown issue & make the relationship
-                            - [ ] - fetch all available accounts
-                            - [ ] - show every account names in dropdown
-                            - [ ] - show selected account name in dropdown current state
+                            - [x] - fetch all available accounts
+                            - [x] - show every account names in dropdown
+                            - [x] - show selected account name in dropdown current state
+                                - [/] - apply this change everywhere
+                                    - [/] - expense card
+                                        - [x] - construct the request body
+                                        - [x] - add
+                                        - [ ] - view
+                                        - [ ] - edit
+                                        - [/] - match server validation with frontend
+                                    - [ ] - incomes card
+                                        - [ ] - construct the request body
+                                        - [ ] - add
+                                        - [ ] - view
+                                        - [ ] - edit
+                                        - [ ] - match server validation with frontend
+                                    - [ ] - test with new records (delete all previous records)
                             - [ ] - invalidate the tags and remove the record if user selected the different state
 
 
@@ -373,6 +387,11 @@ changes you made may not be saved
 prevent this page from creating additional dialogs
 button 1 - reload
 button 2 - cancel
+
+#### Redux hacks
+
+get data when fully loaded
+!financeAccountLoading && !financeAccountFetching && !financeAccountUninitiated
 
 #### Backend API
 

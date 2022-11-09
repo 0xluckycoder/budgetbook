@@ -5,22 +5,13 @@ export const financeAccountApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5500/api/v1' }),
     tagTypes: ['Account'],
     endpoints: (build) => ({
-        // getAccounts: build.query({
-        //     query: () => `/account`,
-        //     providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
-        // }),
         getAccounts: build.query({
-            query: (userId) => ({
-                url: `/accounts/user/${userId}`,
+            query: () => ({
+                url: `/accounts`,
                 credentials: "include"
             }),
             providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
-            
         }),
-        // getAccountByUserId: build.query({
-        //     query: (userId) => `/account/user/${userId}`,
-        //     providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
-        // }),
         getAccountById: build.query({
             query: (id) => `/accounts/${id}`,
             providesTags: (result, error, arg) => [{ type: 'Expense', id: arg }]
