@@ -5,21 +5,34 @@ export const incomeApi = createApi({
     tagTypes: ['Income'],
     endpoints: (build) => ({
         getIncomes: build.query({
-            query: (para) => `/income?date=${para}`,
-            providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Income', id })), 'Income'] : ['Income'],
+            query: ({ accountId, para }) => ({
+                url: `/incomes/accounts/${accountId}/?date=${para}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) => result.data ? [...result.data.map(({ id }) => ({ type: 'Income', id })), 'Income'] : ['Income'],
+            transformResponse: (res) => {
+                return res.data;
+            }
+        }),
+        getIncomeById: build.query({
+            query: (id) => ({
+                url: `/expenses/${id}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) => [{ type: 'Income', id: arg }],
         }),
         addIncome: build.mutation({
-            query: (initialIncome) => ({
-                url: '/income',
+            query: ({ accountId, incomeData }) => ({
+                url: `/incomes/${accountId}`,
                 method: 'POST',
-                body: initialIncome,
+                body: incomeData,
                 credentials: "include"
             }),
             invalidatesTags: ['Income']
         }),
         uploadIncomeImages: build.mutation({
             query: (formData) => ({
-                url: '/income/image',
+                url: '/incomes/uploads/image',
                 method: 'POST',
                 body: formData,
                 credentials: "include"
@@ -27,7 +40,7 @@ export const incomeApi = createApi({
         }),
         editIncome: build.mutation({
             query: (patch) => ({
-                url: `/income/${patch._id}`,
+                url: `/incomes/${patch._id}`,
                 method: 'PUT',
                 body: patch,
                 credentials: "include"
@@ -36,7 +49,7 @@ export const incomeApi = createApi({
         }),
         deleteIncome: build.mutation({
             query: (id) => ({
-                url: `/income/${id}`,
+                url: `/incomes/${id}`,
                 method: 'DELETE',
                 credentials: "include"
             }),
@@ -44,20 +57,6 @@ export const incomeApi = createApi({
         })
     }),
 });
-
-/*
-        signIn: build.mutation({
-            query: (signInData) => ({
-                url: '/auth/signin',
-                method: 'POST',
-                body: signInData,
-                credentials: "include"
-            }),
-            transformResponse: (res) => {
-                return res.userData;
-            }
-        }),
-*/ 
 
 export const {
     useGetIncomesQuery,

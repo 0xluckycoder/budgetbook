@@ -146,7 +146,7 @@ export const EditCustomModal = ({
         
         if (field === 'comment') {
 
-            const validatedMax = validateMax(50, value);
+            const validatedMax = validateMax(200, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -389,7 +389,8 @@ export const EditCustomModal = ({
             />
             {   
                 // displaying existing images
-                inputState.photos && inputState.photos.length > 0 && inputState.photos.map(imageItem => <ImagePreview 
+                inputState.photos && inputState.photos.length > 0 && inputState.photos.map((imageItem, index) => <ImagePreview 
+                                                                                                            key={index}
                                                                                                             hideDelete={false}
                                                                                                             imageState={inputState} 
                                                                                                             setImageState={setInputState} 

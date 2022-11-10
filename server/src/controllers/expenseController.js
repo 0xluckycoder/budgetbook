@@ -5,7 +5,7 @@ const uploader = require('../utils/uploader');
 
 /**
  * @desc create expense record
- * @path POST /api/v1/expense
+ * @path POST /api/v1/expenses
  * @authorization Private
  * */
 const createExpense = async (req, res, next) => {
@@ -77,7 +77,7 @@ const uploadImage = async (req, res, next) => {
 
 /**
  * @desc get expense records by date period
- * @path GET /api/v1/expense?date=7days
+ * @path GET /api/v1/expenses/?date=7days
  * @authorization Private
  * */
 const getExpensesByAccountId = async (req, res, next) => {
@@ -85,10 +85,6 @@ const getExpensesByAccountId = async (req, res, next) => {
         const sortType = req.query.date;
         const { _id: userId } = req.user;
         const { accountId } = req.params;
-
-        console.log(accountId);
-
-        console.log('sort', sortType, 'userId', userId, 'accountId', accountId);
 
         const response = await expenseService.getExpensesByAccountId(userId, accountId, sortType);
 
@@ -103,7 +99,7 @@ const getExpensesByAccountId = async (req, res, next) => {
 
 /**
  * @desc get single expense record by id
- * @path GET /api/v1/expense/:id
+ * @path GET /api/v1/expenses/:id
  * @authorization Private
  * */
 const getExpenseById = async (req, res, next) => {
@@ -165,14 +161,16 @@ const updateExpense = async (req, res, next) => {
 
 /**
  * @desc delete single expense record
- * @path DELETE /api/v1/expense/:id
+ * @path DELETE /api/v1/expenses/:id
  * @authorization Private
  * */
 const deleteExpense = async (req, res, next) => {
     try {
         const { expenseId } = req.params;
         const { _id: userId } = req.user;
+
         const deleteExpenseResponse = await expenseService.deleteExpense(userId, expenseId);
+        
         res.status(200).json({
             success: true,
             data: deleteExpenseResponse

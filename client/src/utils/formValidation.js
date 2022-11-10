@@ -17,7 +17,7 @@ const validateMin = (min, value) => {
 const validateMax = (max, value) => {
     if (max) {
         // validate max value
-        if (value.length > max) {
+        if (value && value.length > max) {
             return {
                 error: true
             }

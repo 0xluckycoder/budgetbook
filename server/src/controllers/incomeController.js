@@ -3,11 +3,13 @@ const incomeService = require('../services/incomeService');
 
 /**
  * @desc create new income record
- * @path POST /api/v1/income
+ * @path POST /api/v1/incomes
  * @authorization Private
  * */
 const createIncome = async (req, res, next) => {
     try {
+
+        console.log(req.body);
 
         const { accountId } = req.params;
         const { _id: userId } = req.user;
@@ -15,6 +17,7 @@ const createIncome = async (req, res, next) => {
         // validate user input
         const incomeSchema = yup.object().shape({
             title: yup.string('title must be a string')
+                        .required('title is required')
                         .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
                         .required('amount is required')
@@ -74,11 +77,8 @@ const uploadImage = async (req, res, next) => {
 }
 
 /**
- * /api/v1/expense?date=7days
-*/
-/**
  * @desc get income records by date period
- * @path GET /api/v1/income?date=7days
+ * @path GET /api/v1/incomes/?date=7days
  * @authorization Private
  * */
 const getIncomesByAccountId = async (req, res, next) => {
@@ -101,7 +101,7 @@ const getIncomesByAccountId = async (req, res, next) => {
 
 /**
  * @desc get income record by id
- * @path GET /api/v1/income/:id
+ * @path GET /api/v1/incomes/:id
  * @authorization Private
  * */
 const getIncomeById = async (req, res, next) => {
@@ -131,6 +131,8 @@ const updateIncome = async (req, res, next) => {
         const { _id: userId } = req.user;
 
         const incomeSchema = yup.object().shape({
+            accountId: yup.string('title must be a string')
+                        .max(127, 'title is too long'),
             title: yup.string('title must be a string')
                         .max(127, 'title is too long'),
             amount: yup.string('amount must be a string')
@@ -139,14 +141,13 @@ const updateIncome = async (req, res, next) => {
                         .max(127, 'category is too long'),
             transactionDate: yup.string('transactionDate must be a string')
                         .max(127, 'transactionDate is too long'),
-            photos: yup.array().of(yup.string().max(127)).max(3),
+            photos: yup.array().of(yup.string().max(200)).max(3),
             comment: yup.string('comment must be a string')
-                        .max(127, 'comment is too long'),
-            account: yup.string('account must be a string')
-                        .max(127, 'account is too long'),
+                        .max(200, 'comment is too long')
         });
 
         const validated = await incomeSchema.validate(req.body);
+        validated.userId = userId;
         const updatedIncomeResponse = await incomeService.updateIncome(userId, incomeId, validated);
 
         res.status(200).json({
@@ -162,7 +163,7 @@ const updateIncome = async (req, res, next) => {
 
 /**
  * @desc delete single income record
- * @path DELETE /api/v1/income/:id
+ * @path DELETE /api/v1/incomes/:id
  * @authorization Private
  * */
 const deleteIncome = async (req, res, next) => {

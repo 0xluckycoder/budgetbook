@@ -18,6 +18,9 @@ import { useGetAccountsQuery, financeAccountApi } from "../../../store/financeAc
 import { SORT_DATE_BY } from "../../../utils/constants";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+
 const HomePage = () => {
 
     const [state, setState] = useState(SORT_DATE_BY.THIS_MONTH);
@@ -38,7 +41,7 @@ const HomePage = () => {
         incomeApiTrigger,
         incomeApiResult,
         incomeApiLastPromiseInfo
-    ] = expenseApi.endpoints.getExpenses.useLazyQuery();
+    ] = incomeApi.endpoints.getIncomes.useLazyQuery();
 
     const [
         financeAccountApiTrigger,
@@ -76,10 +79,10 @@ const HomePage = () => {
     const handleDropdownChange = async (data) => {
         // send as a parameter and trigger query
         setState(data);
-    }    
+    }
+        
     return (
         <AppLayout>
-            {/* <h1>Testing</h1> */}
             <h2 className={styles.heading}>Dashboard</h2>
             <div className={styles.home}>
                 <div className={styles.dropdown}>
@@ -92,13 +95,13 @@ const HomePage = () => {
                                         
                 <Row gutter={20}>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <AccountCard />
+                        <AccountCard result={financeAccountApiResult} />
                     </Col>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        {/* <IncomeCard dateSortByState={state.value} /> */}
+                        <IncomeCard result={incomeApiResult} />
                     </Col>
                     <Col lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        {/* <ExpenseCard dateSortByState={state.value} /> */}
+                        <ExpenseCard result={expenseApiResult} />
                     </Col>
                 </Row>
 
@@ -106,10 +109,10 @@ const HomePage = () => {
 
                 <Row gutter={20}>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <ExpenseRecordCard result={incomeApiResult} dateSortByState={state.value} />                
+                        <ExpenseRecordCard result={expenseApiResult} dateSortByState={state.value} />                
                     </Col>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        {/* <IncomeRecordCard result={incomeApiResult} dateSortByState={state.value} />                 */}
+                        <IncomeRecordCard result={incomeApiResult} dateSortByState={state.value} />                
                     </Col>
                 </Row>
             </div>

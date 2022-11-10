@@ -24,7 +24,7 @@ const upload = multer({
 
 router.post('/:accountId', authorizeRequest, incomeController.createIncome);
 
-router.post('/image', upload.array('income-images'), incomeController.uploadImage);
+router.post('/uploads/image', authorizeRequest, upload.array('income-images'), incomeController.uploadImage);
 
 router.get('/accounts/:accountId', authorizeRequest, incomeController.getIncomesByAccountId);
 

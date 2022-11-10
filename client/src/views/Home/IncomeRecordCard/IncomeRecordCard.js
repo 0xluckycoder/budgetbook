@@ -19,15 +19,7 @@ import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/View
 import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
-export const IncomeRecordCard = ({ dateSortByState }) => {
-
-    const {
-        data,
-        isError,
-        isFetching,
-        isLoading,
-        isSuccess
-    } = incomeApi.endpoints.getIncomes.useQueryState(dateSortByState);
+export const IncomeRecordCard = ({ dateSortByState, result }) => {
 
     const [addModalState, setAddModalState] = useState(false);
 
@@ -38,7 +30,17 @@ export const IncomeRecordCard = ({ dateSortByState }) => {
     // send add request
     const handleAddRecord = async (inputState) => {
         try {
-            await addIncome(inputState).unwrap();
+            await addIncome({
+                accountId: inputState.accountId,
+                incomeData: {
+                    title: inputState.title,
+                    amount: inputState.amount,
+                    category: inputState.category,
+                    transactionDate: inputState.transactionDate,
+                    comment: inputState.comment,
+                    photos: inputState.photos
+                }
+            }).unwrap();
         } catch(error) {
             console.log(error);
         }
@@ -63,9 +65,9 @@ export const IncomeRecordCard = ({ dateSortByState }) => {
 
             <RecordListWrapper>
                 {
-                    data !== undefined 
+                    result.data !== undefined 
                     ? 
-                    data.data.map((item, index) => (
+                    result.data.map((item, index) => (
                         <RecordListItem
                             key={index}
                             itemData={item}

@@ -127,6 +127,7 @@ export const ViewCustomModal = ({
                     {
                         itemData.photos.length > 0 
                         && itemData.photos.map((imageItem, index) => <ImagePreview 
+                                                                        key={index}
                                                                         imageSrc={imageItem}
                                                                         setImageState={null}
                                                                         imageState={null}

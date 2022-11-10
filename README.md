@@ -245,11 +245,11 @@ test
                         - [x] - /api/expense/:id - update expense record
                         - [x] - /api/expense/:id - delete expense record
 
-                    - [ ] - Income
-                        - [ ] - /api/income - create income record
-                        - [ ] - /api/income/:id - get income record by id
-                        - [ ] - /api/income/:id - update income record
-                        - [ ] - /api/income/:id - delete income record
+                    - [x] - Income
+                        - [x] - /api/income - create income record
+                        - [x] - /api/income/:id - get income record by id
+                        - [x] - /api/income/:id - update income record
+                        - [x] - /api/income/:id - delete income record
 
                     - [ ] - Sorting endpoints
                         - [ ] - /api/expense/?date=7days
@@ -257,9 +257,9 @@ test
 
                     - [ ] - User Account
                         - [ ] - /api/auth/signup
-                        - [ ] - /api/auth/signin
+                        - [x] - /api/auth/signin
                         - [ ] - /confirmEmail/:token
-                        - [ ] - /verifyAuth
+                        - [x] - /verifyAuth
 
                     - [/] - organize the data flow of frontend state
                         - [/] - authenticated user with attributes
@@ -269,7 +269,7 @@ test
                             - [x] - fetch all available accounts
                             - [x] - show every account names in dropdown
                             - [x] - show selected account name in dropdown current state
-                                - [/] - apply this change everywhere
+                                - [x] - apply this change everywhere
                                     - [x] - expense card
                                         - [x] - construct the request body
                                         - [x] - add
@@ -278,17 +278,23 @@ test
                                         - [x] - match server validation with frontend
                                         - [x] - test with images
                                         - [x] - go through workflow and do end to end testing
-                                    - [ ] - incomes card
-                                        - [ ] - construct the request body
-                                        - [ ] - add
-                                        - [ ] - view
-                                        - [ ] - edit
-                                        - [ ] - match server validation with frontend
-                                        - [ ] - test with images
-                                        - [ ] - go through workflow and do end to end testing
-                                    - [ ] - test with new records (delete all previous records)
-                            - [ ] - invalidate the tags and remove the record if user selected the different state
-
+                                    - [x] - incomes card
+                                        - [x] - update database schema
+                                        - [x] - construct the request body
+                                        - [x] - add
+                                        - [x] - view
+                                        - [x] - edit
+                                        - [x] - match server validation with frontend
+                                        - [x] - test with images
+                                        - [x] - go through workflow and do end to end testing
+                                    - [x] - test with new records (delete all previous records)
+                            - [x] - invalidate the tags and remove the record if user selected the different state
+                    - [x] - Home page account card
+                    - [x] - Income chart
+                    - [x] - Expense chart
+                    - [x] - Fix chart height problem
+                    - [/] - work on the account page
+                    - [ ] - work on the users page
                     - [ ] - test app
 
                 - [ ] - deep dive into redux and learn to manage state 

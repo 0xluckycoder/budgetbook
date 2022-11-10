@@ -6,18 +6,10 @@ import { CustomLineChart } from "../../../components/CustomLineChart/CustomLineC
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
 import { incomeApi } from "../../../store/income/income.slice";
 
-export const IncomeCard = ({ dateSortByState }) => {
+export const IncomeCard = ({ result }) => {
 
-    const {
-        data,
-        isError,
-        isFetching,
-        isLoading,
-        isSuccess
-    } = incomeApi.endpoints.getIncomes.useQueryState(dateSortByState);
-
-    let isContentLoading = isLoading && isFetching ? true : false;
-
+    let isContentLoading = result.isLoading && result.isFetching && result.isUninitialized;
+ 
     return (
         <div className={styles.cardWrapper}>
         {
@@ -36,7 +28,7 @@ export const IncomeCard = ({ dateSortByState }) => {
                         <FontAwesomeIcon className={styles.redCarrot} icon={faCaretUp} />
                     </div>
                 </div>
-                <CustomLineChart isContentLoading={isContentLoading} data={data} />
+                <CustomLineChart isContentLoading={isContentLoading} data={result} />
             </>
         }
     </div>

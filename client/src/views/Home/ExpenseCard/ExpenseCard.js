@@ -7,29 +7,11 @@ import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinne
 import { useGetExpensesQuery, expenseApi } from "../../../store/expense/expense.slice";
 import { userAuthApi } from "../../../store/user/user.slice";
 
-export const ExpenseCard = ({ amount, percentage, dateSortByState }) => {
+export const ExpenseCard = ({ result }) => {
 
-    const { data: authData } = userAuthApi.endpoints.verifyAuth.useQueryState();
-
-    const {
-        data,
-        isError,
-        isFetching,
-        isLoading,
-        isSuccess,
-        isUninitialized,
-    } = expenseApi.endpoints.getExpenses.useQueryState(undefined);
-
-    let isContentLoading = isLoading && isFetching ? true : false;
-
-    useEffect(() => {
-        console.log(data);
-    }, [authData]);
-
-    console.log(data);
-
+    let isContentLoading = result.isLoading && result.isFetching && result.isUninitialized;
+    
     return (
-        // <h1>yo</h1>
         <div className={styles.cardWrapper}>
             {
                 isContentLoading
@@ -47,7 +29,7 @@ export const ExpenseCard = ({ amount, percentage, dateSortByState }) => {
                             <FontAwesomeIcon className={styles.redCarrot} icon={faCaretDown} />
                         </div>
                     </div>
-                    <CustomLineChart isContentLoading={isContentLoading} data={data} />
+                    <CustomLineChart isContentLoading={isContentLoading} data={result} />
                 </>
             }
         </div>
