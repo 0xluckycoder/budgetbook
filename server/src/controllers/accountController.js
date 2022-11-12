@@ -129,6 +129,9 @@ const deleteAccount = async (req, res, next) => {
     try {
         const { _id: userId } = req.user;
         const { id: accountId } = req.params;
+
+        console.log('user', userId);
+        console.log('account', accountId);
         
         const response = await accountService.deleteAccount(userId, accountId);
         

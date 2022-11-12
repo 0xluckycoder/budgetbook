@@ -50,7 +50,7 @@ const deleteAccount = async (userId, accountId) => {
         const getSingleAccountByCurrentAuthUser = await account.getSingleAccountByCurrentAuthUser(accountId);
         if (getSingleAccountByCurrentAuthUser.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
         // delete the account
-        const deleteAccount = account.deleteAccount(id);
+        const deleteAccount = account.deleteAccount(accountId);
         return deleteAccount;
     } catch(error) {
         throw error;

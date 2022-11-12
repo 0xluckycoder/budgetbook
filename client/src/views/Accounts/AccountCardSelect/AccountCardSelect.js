@@ -41,14 +41,14 @@ export const AccountCardSelect = ({ itemData }) => {
         setEditModalState(true);
     }
 
-    // send delete request
-    const handleDelete = async (id) => {
-        try {
-            console.log('delete record', id);
-        } catch(error) {
-            console.log(error);
-        }
-    }
+    // // send delete request
+    // const handleDelete = async (id) => {
+    //     try {
+    //         await deleteAccount(id).unwrap();
+    //     } catch(error) {
+    //         console.log(error);
+    //     }
+    // }
 
     // send edit request
     const handleEditRecord = async (editData) => {
@@ -59,34 +59,28 @@ export const AccountCardSelect = ({ itemData }) => {
         }
     }
 
-    const handleConfirm = () => {
-        handleDelete(itemData._id);
-        setDialogueCardState(false);
-    }
+    // const handleConfirm = () => {
+    //     handleDelete(itemData._id);
+    //     setDialogueCardState(false);
+    // }
 
     return (
         <>
+            {/* view finance account modal */}
+            <ViewAccountModal 
+                    viewModalState={viewAccountState}
+                    handleEditButton={handleEditButton}
+                    itemData={itemData}
+                    handleClose={handleClose}
+            />
 
-        {/*     viewModalState,
-                handleEditButton,
-                itemData,
-                handleClose */}
-
-        {/* view finance account modal */}
-        <ViewAccountModal 
-                viewModalState={viewAccountState}
-                handleEditButton={handleEditButton}
+            {/* edit finance account */}
+            <EditAccountModal
+                editModalState={editModalState}
+                setEditModalState={setEditModalState}
                 itemData={itemData}
-                handleClose={handleClose}
-        />
-
-        {/* edit finance account */}
-        <EditAccountModal
-            editModalState={editModalState}
-            setEditModalState={setEditModalState}
-            itemData={itemData}
-            handleEditRecord={handleEditRecord}
-        />
+                handleEditRecord={handleEditRecord}
+            />
             <div 
                 className={styles.cardWrapper} 
                 onMouseEnter={() => handleIconStateChange(true)} 

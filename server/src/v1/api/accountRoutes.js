@@ -17,6 +17,6 @@ router.get('/:id', authorizeRequest, accountController.getSingleAccountByCurrent
 
 router.put('/:id', authorizeRequest, accountController.updateAccount);
 
-router.delete('/:id', accountController.deleteAccount);
+router.delete('/:id', authorizeRequest, accountController.deleteAccount);
 
 module.exports = router;

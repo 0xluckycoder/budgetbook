@@ -38,7 +38,8 @@ export const financeAccountApi = createApi({
         deleteAccount: build.mutation({
             query: (id) => ({
                 url: `/accounts/${id}`,
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: "include"
             }),
             invalidatesTags: ['Account']
         })
