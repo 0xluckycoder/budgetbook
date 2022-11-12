@@ -44,8 +44,8 @@ export const EditCustomModal = ({
     }] = useUploadExpenseImagesMutation();
 
     const { TextArea } = Input;
-
     const [form] = Form.useForm();
+    
     const [imageFile, setImageFile] = useState([]);
     const [inputState, setInputState] = useState({});
     const [error, setError] = useState({
@@ -299,9 +299,9 @@ export const EditCustomModal = ({
             className="form-modal"
             footer={[
                 <Button 
-                key={1}
-                className="themed-button"
-                onClick={() => handleSubmit()}
+                    key={1}
+                    className="themed-button"
+                    onClick={() => handleSubmit()}
                 >
                 Update
                 </Button>
@@ -338,7 +338,7 @@ export const EditCustomModal = ({
                 value={inputState.accountId}
             >
                 <Space className='themed-dropdown'>
-                    <p className='themed-dropdown'>{accountDropdownText.name}</p>
+                    <p className='themed-dropdown'>{accountDropdownText && accountDropdownText.name}</p>
                     <DownOutlined />
                 </Space>
             </Dropdown>

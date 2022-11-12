@@ -58,6 +58,11 @@ p {
     width: auto !important;
 }
 
+// fix for accounts page pie chart total value overlapping issue
+.g2-html-annotation {
+    z-index: auto !important;
+}
+
 // global auth styles
 %globalAuthCard {
     position: absolute;

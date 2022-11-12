@@ -1,19 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Dropdown, Button, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { InlineField } from "../../../components/Form/InlineField";
 import { validateRequired, validateMin, validateMax } from "../../../utils/formValidation";
 
-import {
-    financeAccountApi,
-    useAddAccountMutation
-} from '../../../store/financeAccount/financeAccount.slice';
-import { ErrorBar } from "recharts";
-
-export const AddAccountModal = ({ 
-    addAccountState, 
-    setAddAccountState,
-    handleAddAccount
+export const EditAccountModal = ({
+    editModalState,
+    setEditModalState,
+    itemData,
+    handleEditRecord
 }) => {
 
     const [inputState, setInputState] = useState({});
@@ -24,31 +19,9 @@ export const AddAccountModal = ({
         description: null
     });
 
-    const handleInputChange = (e) => {
-        setInputState({...inputState, [e.target.name]: e.target.value});
-    }
-
-    const { TextArea } = Input;
-    const [form] = Form.useForm();
-
-    const currencyMenuData = [
-        {
-            label: <p key={0} onClick={() => setInputState({...inputState, currencyType: 'USD'})}>US Dollar</p>,
-            key: '0'
-        },
-        {
-            label: <p key={1} onClick={() => setInputState({...inputState, currencyType: 'LKR'})}>LKR</p>,
-            key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, currencyType: 'GBP'})}>GBP</p>,
-            key: '2',
-        }
-    ];
-
-    const currencyDropdownText = inputState.currencyType === undefined ? 'Select Currency' : inputState.currencyType;
-
-    const currencyMenu = <Menu onBlur={(e) => validate(inputState.currencyType, 'currencyType')} items={currencyMenuData} />;
+    useEffect(() => {
+        if (itemData !== {}) setInputState(itemData);
+    }, [editModalState])
 
     const validate = (value, field) => {
         if (field === 'name') {
@@ -124,6 +97,21 @@ export const AddAccountModal = ({
         }
     }
 
+    const handleInputChange = (e) => {
+        setInputState({...inputState, [e.target.name]: e.target.value});
+    }
+
+    const handleClose = () => {
+        setInputState({});
+        setEditModalState(false);
+        setError({
+            name: null,
+            currencyType: null,
+            value: null,
+            description: null
+        });
+    }
+
     const handleSubmit = async () => {
         validate(inputState.name, 'name');
         validate(inputState.currencyType, 'currencyType');
@@ -140,35 +128,66 @@ export const AddAccountModal = ({
             inputState.value &&
             inputState.description
         ) {
-            handleAddAccount(inputState);
-            setAddAccountState(false);
+            handleEditRecord(inputState);
+            setEditModalState(false);
+            setInputState({});
+            setError({
+                name: null,
+                currencyType: null,
+                value: null,
+                description: null
+            })
+            handleClose();
             return
         }
     }
 
+    const { TextArea } = Input;
+    const [form] = Form.useForm();
+
+    const currencyMenuData = [
+        {
+            label: <p key={0} onClick={() => setInputState({...inputState, currencyType: 'USD'})}>US Dollar</p>,
+            key: '0'
+        },
+        {
+            label: <p key={1} onClick={() => setInputState({...inputState, currencyType: 'LKR'})}>LKR</p>,
+            key: '1'
+        },
+        {
+            label: <p key={2} onClick={() => setInputState({...inputState, currencyType: 'GBP'})}>GBP</p>,
+            key: '2',
+        }
+    ];
+
+    const currencyDropdownText = inputState.currencyType === undefined ? 'Select Currency' : inputState.currencyType;
+
+    const currencyMenu = <Menu onBlur={(e) => validate(inputState.currencyType, 'currencyType')} items={currencyMenuData} />;
+
     return (
         <Modal
-            title="New Account"
+            title="Edit Finance Account"
             centered
-            open={addAccountState}
-            onCancel={() => setAddAccountState(false)}
+            open={editModalState}
+            onCancel={() => handleClose()}
             className="form-modal"
             footer={[
-                <Button key={0} className="themed-button" onClick={() => handleSubmit()}>
-                    Save
-                </Button>,
-                <Button key={1} className="themed-button" onClick={() => setAddAccountState(false)}>
-                    Close
+                <Button
+                    key={1}
+                    className="themed-button"
+                    onClick={() => handleSubmit()}
+                >
+                    Update
                 </Button>
             ]}
-    >
+        >
             <Form form={form} layout="vertical">
                 <InlineField>
-                    
+
                     <Form.Item label="Account Name" {...(error.name ? error.name: {})}>
-                        <Input 
-                            name="name"
-                            value={inputState.name && inputState.name}
+                        <Input
+                            value={inputState.name && inputState.name} 
+                            name="name" 
                             onChange={handleInputChange} 
                             onBlur={(e) => validate(e.target.value, 'name')}
                         />
@@ -188,7 +207,7 @@ export const AddAccountModal = ({
                     </Form.Item>
 
                 </InlineField>
-                
+
                 <Form.Item label="Initial Account Value" {...(error.value ? error.value: {})}>
                     <Input 
                         type="number"
@@ -208,6 +227,7 @@ export const AddAccountModal = ({
                         onBlur={(e) => validate(e.target.value, 'description')}
                     />
                 </Form.Item>
+
             </Form>
         </Modal>
     );

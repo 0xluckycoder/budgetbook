@@ -57,7 +57,7 @@ export const ViewCustomModal = ({
     const handleConfirm = () => {
         handleDelete(itemData._id);
         setDialogueCardState(dialogueCardState => !dialogueCardState);
-        handleClose();
+        // handleClose();
     };
 
     const financeAccountName = financeAccountState.length > 0 && financeAccountState.find(account => account._id === itemData.accountId);

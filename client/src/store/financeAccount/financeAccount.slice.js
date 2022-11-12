@@ -11,10 +11,11 @@ export const financeAccountApi = createApi({
                 credentials: "include"
             }),
             providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
+            // no need transform response
         }),
         getAccountById: build.query({
             query: (id) => `/accounts/${id}`,
-            providesTags: (result, error, arg) => [{ type: 'Expense', id: arg }]
+            providesTags: (result, error, arg) => [{ type: 'Account', id: arg }]
         }),
         addAccount: build.mutation({
             query: (accountData) => ({
@@ -29,8 +30,10 @@ export const financeAccountApi = createApi({
             query: (patch) => ({
                 url: `/accounts/${patch._id}`,
                 method: 'PUT',
-                body: patch
-            })
+                body: patch,
+                credentials: "include"
+            }),
+            invalidatesTags: ['Account']
         }),
         deleteAccount: build.mutation({
             query: (id) => ({

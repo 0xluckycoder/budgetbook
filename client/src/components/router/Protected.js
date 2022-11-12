@@ -12,9 +12,7 @@ export const Protected = ({ children }) => {
     } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
     let isAuthLoading = isLoading && isFetching ? true : false;
-
-    console.log(data);
-
+    
     if (!isUninitialized) {
         if (isAuthLoading) {
             return (

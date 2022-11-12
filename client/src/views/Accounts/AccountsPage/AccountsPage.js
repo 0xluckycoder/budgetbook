@@ -15,6 +15,7 @@ import {
 
 const AccountPage = () => {
 
+    // add account modal state
     const [addAccountState, setAddAccountState] = useState(false);
 
     const {
@@ -55,9 +56,16 @@ const AccountPage = () => {
                 <Button 
                     className={`themed-button ${styles.addAccountBtn}`}
                     onClick={() => setAddAccountState(true)}
-                >Add Account</Button>
+                >
+                    Add Account
+                </Button>
 
-                <AddAccountModal handleAddAccount={handleAddAccount} addAccountState={addAccountState} setAddAccountState={setAddAccountState} />
+                {/* Add finance Account Modal */}
+                <AddAccountModal 
+                    addAccountState={addAccountState} 
+                    handleAddAccount={handleAddAccount} 
+                    setAddAccountState={setAddAccountState} 
+                />
 
                 <Row gutter={20}>
                 {
@@ -67,7 +75,7 @@ const AccountPage = () => {
                     :
                     accountData.data.map((account, index) => (
                         <Col key={index} lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                            <AccountCardSelect accountName={account.name} amount={account.value} />
+                            <AccountCardSelect itemData={account} />
                         </Col>
                     ))
                 }

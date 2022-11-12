@@ -20,8 +20,6 @@ const SignInPage = () => {
         }
     ] = useSignInMutation();
 
-    console.log(data);
-
     const [form] = Form.useForm();
     const [inputState, setInputState] = useState({});
     const [error, setError] = useState({

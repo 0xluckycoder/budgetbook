@@ -294,6 +294,14 @@ test
                     - [x] - Expense chart
                     - [x] - Fix chart height problem
                     - [/] - work on the account page
+                        - [x] - view account functionality (Modal)
+                        - [x] - add functionality
+                        - [x] - edit functionality
+                        - [ ] - delete functionality
+                        - [ ] - match sever validation with frontend
+                        - [ ] - ability to change current selected account
+                        - [ ] - restrict user from delete all the accounts user must at least have one account in their account 
+                    - [ ] - fix left side navigation
                     - [ ] - work on the users page
                     - [ ] - test app
 

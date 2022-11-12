@@ -19,6 +19,7 @@ const createAccount = async (req, res, next) => {
                         .required('value is required')
                         .max(127, 'value is too long'),
             currencyType: yup.string('currency type must be a string')
+                        .required('name is required')
                         .max(127, 'currency type is too long'),
             description: yup.string('description must be a string')
                         .max(127, 'description is too long'),

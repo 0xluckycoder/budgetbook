@@ -151,7 +151,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
 
     return (
         <>
-        {/* view expense record */}
+        {/* view expense modal */}
         <ViewCustomModal
             viewModalState={viewModalState}
             setViewModalState={setViewModalState}
