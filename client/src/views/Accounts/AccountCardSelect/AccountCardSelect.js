@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./accountCardSelect.module.scss";
-import { Radio } from 'antd';
+import { Radio, Tag } from 'antd';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,7 +11,7 @@ import { useEditAccountMutation } from "../../../store/financeAccount/financeAcc
 
 const plainOptions = ['Select'];
 
-export const AccountCardSelect = ({ itemData }) => {
+export const AccountCardSelect = ({ itemData, defaultAccount, handleAccountSelect }) => {
 
     const [state, setState] = useState(null);
     const [hoverIconsState, setHoverIconsState] = useState(false);
@@ -41,15 +41,6 @@ export const AccountCardSelect = ({ itemData }) => {
         setEditModalState(true);
     }
 
-    // // send delete request
-    // const handleDelete = async (id) => {
-    //     try {
-    //         await deleteAccount(id).unwrap();
-    //     } catch(error) {
-    //         console.log(error);
-    //     }
-    // }
-
     // send edit request
     const handleEditRecord = async (editData) => {
         try {
@@ -58,11 +49,6 @@ export const AccountCardSelect = ({ itemData }) => {
             console.log(error);
         }
     }
-
-    // const handleConfirm = () => {
-    //     handleDelete(itemData._id);
-    //     setDialogueCardState(false);
-    // }
 
     return (
         <>
@@ -82,11 +68,13 @@ export const AccountCardSelect = ({ itemData }) => {
                 handleEditRecord={handleEditRecord}
             />
             <div 
-                className={styles.cardWrapper} 
+                className={`${styles.cardWrapper} ${itemData._id === defaultAccount && styles.selectedCard}`} 
                 onMouseEnter={() => handleIconStateChange(true)} 
                 onMouseLeave={() => handleIconStateChange(false)}
+                onClick={() => handleAccountSelect(itemData._id)}
             >
-                <Radio.Group options={plainOptions} onChange={() => setState('account name')} />
+
+                {itemData._id === defaultAccount && <div><Tag className={styles.tag} color="#6F6AF8">Selected</Tag></div>}
 
                 <div className={styles.cardDetails}>
                     <p className={styles.amount}>{itemData.value}</p>
@@ -100,17 +88,18 @@ export const AccountCardSelect = ({ itemData }) => {
 
                 {hoverIconsState ? <FloatingIcons 
                                         setViewAccountState={setViewAccountState}
+                                        setEditModalState={setEditModalState}
                                     />     
-                                : null}
+                : null}
             </div>
         </>
     );
 }
 
-const FloatingIcons = ({ setViewAccountState }) => {
+const FloatingIcons = ({ setEditModalState, setViewAccountState }) => {
     return (
         <div className={styles.floatingIconsWrapper}>        
-            <div className={styles.icon}>
+            <div onClick={() => setEditModalState(true)} className={styles.icon}>
                 <FontAwesomeIcon icon={faPencil} />
             </div>
             <div onClick={() => setViewAccountState(true)} className={styles.icon}>

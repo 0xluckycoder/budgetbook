@@ -14,6 +14,8 @@ router.post('/signin', authController.signIn);
 
 router.get('/verifyAuth', authController.verifyAuth);
 
-router.get('/users', authorizeRequest, authController.getUserAttributesBySubId)
+router.get('/users', authorizeRequest, authController.getUserAttributesBySubId);
+
+router.put('/users', authorizeRequest, authController.updateUserAttributes);
 
 module.exports = router;

@@ -246,6 +246,15 @@ const refreshTokens = async (RefreshToken) => {
     }
 }
 
+const updateUserAttributes = async (userId, userData) => {
+    try {
+        const updateUserAttributes = await userProfile.updateUser(userData, userId);
+        return updateUserAttributes;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const getUserAttributesBySubId = async (subId) => {
     try {
         const userAttributesBySubId = await userProfile.getUserBySubId(subId);
@@ -260,5 +269,6 @@ module.exports = {
     signIn,
     verifyAuth,
     refreshTokens,
-    getUserAttributesBySubId
+    getUserAttributesBySubId,
+    updateUserAttributes
 }

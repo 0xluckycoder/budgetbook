@@ -41,6 +41,15 @@ export const userAuthApi = createApi({
                 return res.data;
             }
         }),
+        updateUserAttributes: build.mutation({
+            query: (updateData) => ({
+                url: '/auth/users',
+                method: 'PUT',
+                credentials: "include",
+                body: updateData
+            }),
+            invalidatesTags: ['Account']
+        })
     }),
 });
 
@@ -48,7 +57,8 @@ export const {
     useVerifyAuthQuery,
     useSignInMutation,
     useSignUpMutation,
-    useGetUserAttributesQuery
+    useGetUserAttributesQuery,
+    useUpdateUserAttributesMutation
 } = userAuthApi;
 
 /*

@@ -236,9 +236,48 @@ const verifyAuth = async (req, res, next) => {
     }
 }
 
+
+/**
+ * @desc update user attributes
+ * @path PUT /api/v1/auth/user
+ * @authorization Private
+ * */
+const updateUserAttributes = async (req, res, next) => {
+    try {
+
+        const { _id: userId } = req.user;
+
+        // validate user input
+        const userSchema = yup.object().shape({
+            firstName: yup.string('firstName must be a string')
+                            .max(127, 'firstName is too long'),
+            lastName: yup.string('lastName must be a string')
+                            .max(127, 'lastName is too long'),
+            language: yup.string('language must be a string')
+                            .max(127, 'language is too long'),
+            country: yup.string('country must be a string')
+                        .max(127, 'country is too long'),
+            defaultAccount: yup.string('defaultAccount must be a string')
+                        .max(127, 'defaultAccount is too long')
+        });
+
+        const validated = await userSchema.validate(req.body);
+        const response = await authService.updateUserAttributes(userId, validated);
+
+        res.status(200).json({
+            success: true,
+            data: response
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
     verifyAuth,
-    getUserAttributesBySubId
+    getUserAttributesBySubId,
+    updateUserAttributes
 }

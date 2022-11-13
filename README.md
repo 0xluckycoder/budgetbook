@@ -297,13 +297,17 @@ test
                         - [x] - view account functionality (Modal)
                         - [x] - add functionality
                         - [x] - edit functionality
-                        - [ ] - delete functionality
+                        - [x] - delete functionality
                         - [ ] - match sever validation with frontend
                         - [ ] - ability to change current selected account
                         - [ ] - restrict user from delete all the accounts user must at least have one account in their account 
+                        - [ ] - display data on main pie chart
                     - [ ] - fix left side navigation
                     - [ ] - work on the users page
                     - [ ] - test app
+                - [ ] - add substr maximum characters functionality every editable field
+
+                - [ ] - logout users when refresh token is expired
 
                 - [ ] - deep dive into redux and learn to manage state 
 

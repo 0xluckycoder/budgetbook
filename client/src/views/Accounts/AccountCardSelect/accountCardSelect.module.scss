@@ -7,6 +7,10 @@
     justify-content: space-between;
     border-radius: 3px;
 
+    &:hover {
+        cursor: pointer;
+    }
+
     .floatingIconsWrapper {
 
         display: flex;
@@ -39,4 +43,8 @@
     .cardFooter {
         color: rgba(0, 0, 0, 0.45);
     }
+}
+
+.selectedCard {
+    border: 2px solid #6F6AF8;
 }

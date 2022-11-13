@@ -87,7 +87,7 @@ export const EditAccountModal = ({
         }
 
         if (field === 'description') {
-            const validatedMax = validateMax(100, value);
+            const validatedMax = validateMax(200, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;

@@ -50,19 +50,6 @@ app.get('/', (req, res) => {
     // throw new Error('wrong');
 });
 
-// test moment
-// console.log(moment().day(0).format('YYYY-MM-DD'));
-// console.log(moment().day(0).format('MM'));
-// console.log(moment().day(0).format('DD'));
-
-/*
-2022-09-18T16:08:16.540+00:00 - DB date foramt
-2022-09-18T17:13:38.641Z - moment js date format
-
-const startOfMonth = moment().startOf('month').format('YYYY-MM-DD hh:mm');
-const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD hh:mm');
-*/ 
-
 console.log(moment().day(0).format('YYYY-MM-DD'))
 
 app.use('/api/v1/expenses', expenseRoutes);

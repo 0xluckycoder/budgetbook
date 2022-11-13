@@ -22,7 +22,7 @@ const createAccount = async (req, res, next) => {
                         .required('name is required')
                         .max(127, 'currency type is too long'),
             description: yup.string('description must be a string')
-                        .max(127, 'description is too long'),
+                        .max(200, 'description is too long'),
         });
 
         const validated = await accountSchema.validate(req.body);
@@ -103,7 +103,7 @@ const updateAccount = async (req, res, next) => {
             currencyType: yup.string('currency type must be a string')
                         .max(127, 'currency type is too long'),
             description: yup.string('description must be a string')
-                        .max(127, 'description is too long'),
+                        .max(200, 'description is too long'),
         });
         const validated = await accountSchema.validate(req.body);
 
