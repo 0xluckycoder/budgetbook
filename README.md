@@ -298,10 +298,11 @@ test
                         - [x] - add functionality
                         - [x] - edit functionality
                         - [x] - delete functionality
-                        - [ ] - match sever validation with frontend
-                        - [ ] - ability to change current selected account
+                        - [x] - match sever validation with frontend
+                        - [x] - ability to change current selected account
                         - [ ] - restrict user from delete all the accounts user must at least have one account in their account 
-                        - [ ] - display data on main pie chart
+                        - [/] - display account data on main pie chart
+                    - [ ] - fix loading scroll global issue
                     - [ ] - fix left side navigation
                     - [ ] - work on the users page
                     - [ ] - test app

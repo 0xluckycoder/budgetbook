@@ -95,7 +95,7 @@ const AccountPage = () => {
             <div className={styles.accounts}>
                 <Row gutter={12}>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
-                        <AccountTotalCard />
+                        <AccountTotalCard accountData={accountData.data} />
                     </Col>
                     <Col lg={12} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
                     </Col>

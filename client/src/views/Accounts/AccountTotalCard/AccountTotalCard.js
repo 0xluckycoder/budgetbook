@@ -1,36 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "@ant-design/charts";
 import styles from './accountTotalCard.module.scss';
 
-export const AccountTotalCard = () => {
-    const data = [
-        {
-          type: 'Personal',
-          value: 27,
-        },
-        {
-          type: 'Bank',
-          value: 25,
-        },
-        {
-          type: 'Investment',
-          value: 18,
-        },
-        {
-          type: 'Insurance',
-          value: 15,
-        },
-        {
-          type: 'Real Estate',
-          value: 10,
-        }
-      ];
+export const AccountTotalCard = ({ accountData }) => {
+
+  const [state, setState] = useState([]);
+
+  const [total, setTotal] = useState(0);
+
+    // const data = [
+    //     {
+    //       type: 'Personal',
+    //       value: 27,
+    //     },
+    //     {
+    //       type: 'Bank',
+    //       value: 25,
+    //     },
+    //     {
+    //       type: 'Investment',
+    //       value: 18,
+    //     },
+    //     {
+    //       type: 'Insurance',
+    //       value: 15,
+    //     },
+    //     {
+    //       type: 'Real Estate',
+    //       value: 10,
+    //     }
+    //   ];
+
+      useEffect(() => {
+        const converted = accountData.map(account => {
+          return {
+            ...account,
+            value: parseInt(account.value)
+          }
+        });
+        setState(converted);
+      }, []);
+
+      useEffect(() => {
+        // for (let index = 0; index < state.length; index++) {
+          // const element = array[index];
+        // }
+      }, [state])
 
       const config = {
         appendPadding: 10,
-        data,
+        data: state,
         angleField: 'value',
-        colorField: 'type',
+        colorField: 'name',
         radius: 1,
         innerRadius: 0.6,
         label: {
@@ -58,7 +79,7 @@ export const AccountTotalCard = () => {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             },
-            content: '10000',
+            content: 500,
           },
         },
       };
@@ -68,7 +89,7 @@ export const AccountTotalCard = () => {
             <div className={styles.cardHeading}>
                 <p>Accounts Total</p>
             </div>
-            <Pie {...config} />
+            {state.length > 0 && <Pie {...config} />}
         </div>
     );
 }
