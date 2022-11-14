@@ -11,7 +11,12 @@ import { useEditAccountMutation } from "../../../store/financeAccount/financeAcc
 
 const plainOptions = ['Select'];
 
-export const AccountCardSelect = ({ itemData, defaultAccount, handleAccountSelect }) => {
+export const AccountCardSelect = ({ 
+    itemData, 
+    defaultAccount, 
+    handleAccountSelect,
+    handleDelete 
+}) => {
 
     const [state, setState] = useState(null);
     const [hoverIconsState, setHoverIconsState] = useState(false);
@@ -58,6 +63,7 @@ export const AccountCardSelect = ({ itemData, defaultAccount, handleAccountSelec
                     handleEditButton={handleEditButton}
                     itemData={itemData}
                     handleClose={handleClose}
+                    handleDelete={handleDelete}
             />
 
             {/* edit finance account */}
@@ -71,7 +77,7 @@ export const AccountCardSelect = ({ itemData, defaultAccount, handleAccountSelec
                 className={`${styles.cardWrapper} ${itemData._id === defaultAccount && styles.selectedCard}`} 
                 onMouseEnter={() => handleIconStateChange(true)} 
                 onMouseLeave={() => handleIconStateChange(false)}
-                onClick={() => handleAccountSelect(itemData._id)}
+                onClick={(e) => handleAccountSelect(e, itemData._id)}
             >
 
                 {itemData._id === defaultAccount && <div><Tag className={styles.tag} color="#6F6AF8">Selected</Tag></div>}
@@ -99,11 +105,11 @@ export const AccountCardSelect = ({ itemData, defaultAccount, handleAccountSelec
 const FloatingIcons = ({ setEditModalState, setViewAccountState }) => {
     return (
         <div className={styles.floatingIconsWrapper}>        
-            <div onClick={() => setEditModalState(true)} className={styles.icon}>
-                <FontAwesomeIcon icon={faPencil} />
+            <div id="floating-icons" onClick={() => setEditModalState(true)} className={styles.icon}>
+                <FontAwesomeIcon id="floating-icons" icon={faPencil} />
             </div>
-            <div onClick={() => setViewAccountState(true)} className={styles.icon}>
-                <FontAwesomeIcon icon={faBarsStaggered} />
+            <div id="floating-icons" onClick={() => setViewAccountState(true)} className={styles.icon}>
+                <FontAwesomeIcon id="floating-icons" icon={faBarsStaggered} />
             </div>
         </div>
     );

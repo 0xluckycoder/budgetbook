@@ -49,9 +49,28 @@ const deleteAccount = async (userId, accountId) => {
         // throw error if requested account not belong to the user
         const getSingleAccountByCurrentAuthUser = await account.getSingleAccountByCurrentAuthUser(accountId);
         if (getSingleAccountByCurrentAuthUser.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        // restrict user from deleting all the accounts
+        const allAccounts = await account.getAccountsByCurrentAuthUser(userId);
+        if (allAccounts.length === 1) {
+            throw customError('cannot delete last available account', 'ValidationFailed');
+            return;   
+        }
+
         // delete the account
         const deleteAccount = account.deleteAccount(accountId);
+
+        // if user has is deleted their default account select next available account as the default account
+        const getUserById = await user.getUserById(userId);        
+        if (getUserById.defaultAccount === accountId) {
+            const nextAccountId = allAccounts[0]._id.toString();
+            const updatedUser = await user.updateUser({
+                defaultAccount: nextAccountId
+            }, userId);
+        }
+
         return deleteAccount;
+        
     } catch(error) {
         throw error;
     }

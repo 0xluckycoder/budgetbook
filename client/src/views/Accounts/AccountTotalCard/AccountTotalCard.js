@@ -43,7 +43,7 @@ export const AccountTotalCard = ({ accountData }) => {
 
         setState(converted);
         setTotal(totalValue);
-      }, []);
+      }, [accountData]);
 
       const config = {
         appendPadding: 10,

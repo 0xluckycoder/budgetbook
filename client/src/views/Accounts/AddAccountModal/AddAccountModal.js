@@ -137,8 +137,7 @@ export const AddAccountModal = ({
             error.description === null &&
             inputState.name &&
             inputState.currencyType &&
-            inputState.value &&
-            inputState.description
+            inputState.value
         ) {
             handleAddAccount(inputState);
             setAddAccountState(false);

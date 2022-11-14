@@ -3,31 +3,18 @@ import { Modal, Input, Form, Button } from "antd";
 import { InlineField } from "../../../components/Form/InlineField";
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 import styles from './viewAccountModal.module.scss';
-import { useDeleteAccountMutation } from "../../../store/financeAccount/financeAccount.slice";
+// import { useDeleteAccountMutation } from "../../../store/financeAccount/financeAccount.slice";
 
 export const ViewAccountModal = ({
     viewModalState,
     handleEditButton,
     itemData,
-    handleClose
+    handleClose,
+    handleDelete
 }) => {
 
     const [form] = Form.useForm();
     const [dialogueCardState, setDialogueCardState] = useState(false);
-
-    const [deleteAccount, {
-        isLoading: deleteAccountMutationLoading,
-        data: deleteAccountData
-    }] = useDeleteAccountMutation();
-
-    // send delete request
-    const handleDelete = async (id) => {
-        try {
-            await deleteAccount(id).unwrap();
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     // handle confirm before delete dialogue
     const handleConfirm = () => {

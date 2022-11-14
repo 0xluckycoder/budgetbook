@@ -6,6 +6,7 @@ import { AddAccountModal } from "../AddAccountModal/AddAccountModal";
 import { AccountCardSelect } from "../AccountCardSelect/AccountCardSelect";
 import styles from './accountPage.module.scss';
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
+import { DialogueCard } from "../../../components/DialogueCard/DialogueCard";
 
 import { 
     financeAccountApi,
@@ -13,6 +14,7 @@ import {
     useAddAccountMutation
 } from "../../../store/financeAccount/financeAccount.slice";
 import { userAuthApi, useUpdateUserAttributesMutation } from "../../../store/user/user.slice";
+import { useDeleteAccountMutation } from "../../../store/financeAccount/financeAccount.slice";
 
 const AccountPage = () => {
 
@@ -22,34 +24,22 @@ const AccountPage = () => {
     // select account loader
     const [selectLoader, setSelectLoader] = useState(false);
 
+    // api errors dialogue box
+    const [apiErrorDialogueBox, setApiErrorDialogueBox] = useState(false);
 
     // manual triggers
-    const [
-        financeAccountsApiTrigger,
-        financeAccountsResult
-    ] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
-    const [
-        authApiTrigger,
-        authApiResult
-    ] = userAuthApi.endpoints.verifyAuth.useLazyQuery();
-
+    const [financeAccountsApiTrigger] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
+    const [authApiTrigger] = userAuthApi.endpoints.verifyAuth.useLazyQuery();
+    const [addAccount] = useAddAccountMutation();
+    const [updateUserAttributes] = useUpdateUserAttributesMutation();
+    const [deleteAccount] = useDeleteAccountMutation();
+    const { data: authData } = userAuthApi.endpoints.verifyAuth.useQueryState();
+    
     const {
         data: accountData,
         isLoading,
-        isFetching,
-        // refetch: refetchAccounts
+        isFetching
     } = useGetAccountsQuery();
-
-    const {
-        data: authData,
-        isUninitialized: authIsUninitiated,
-        isLoading: authIsLoading,
-        // refetch: refetchUser
-    } = userAuthApi.endpoints.verifyAuth.useQueryState();
-
-    const [addAccount] = useAddAccountMutation();
-
-    const [updateUserAttributes] = useUpdateUserAttributesMutation();
 
     // send account add request
     const handleAddAccount = async (data) => {
@@ -60,14 +50,35 @@ const AccountPage = () => {
         }
     }
 
+    // send delete request
+    const handleDelete = async (id) => {
+        setSelectLoader(true);
+        try {
+            await deleteAccount(id).unwrap();
+            financeAccountsApiTrigger();
+            authApiTrigger();
+        } catch (error) {
+            console.log(error);
+            if (error.data.message === "cannot delete last available account") {
+                setApiErrorDialogueBox(true);
+            }
+        }
+        setSelectLoader(false);
+    }
+
     let isContentLoading = isLoading && isFetching ? true : false;
     
-    const handleAccountSelect = async (accountId) => {
-        // console.log('account selected', accountId);
+    const handleAccountSelect = async (event, accountId) => {
+
+        // prevent switch between accounts when user selects the edit / view buttons
+        const svgSelected = event.target.parentElement.parentElement.id;
+        const directSelected = event.target.id;
+        if (svgSelected === 'floating-icons' || directSelected === 'floating-icons') {
+            return;
+        }
+
         if (authData.defaultAccount !== accountId) {
-
             setSelectLoader(true);
-
             try {
                 await updateUserAttributes({ 
                     defaultAccount: accountId 
@@ -79,7 +90,6 @@ const AccountPage = () => {
             } catch (error) {
                 console.log(error);
             }
-
             setSelectLoader(false);
         }
     }
@@ -119,11 +129,21 @@ const AccountPage = () => {
                     setAddAccountState={setAddAccountState} 
                 />
 
+                {/* Warning Dialogue Card */}
+                <DialogueCard 
+                    message={"Unable to delete, user must have At least one finance account on their profile"}
+                    dialogueCardState={apiErrorDialogueBox}
+                    setDialogueCardState={setApiErrorDialogueBox}
+                    handleConfirm={() => true}
+                />
+                
+
                 <Row gutter={20}>
                     {
                         accountData.data.map((account, index) => (
                             <Col key={index} lg={8} md={24} sm={24} xs={24} className={`${styles.col} gutter-row`}>
                                 <AccountCardSelect
+                                    handleDelete={handleDelete}
                                     handleAccountSelect={handleAccountSelect} 
                                     defaultAccount={authData.defaultAccount} 
                                     itemData={account} 

@@ -125,8 +125,7 @@ export const EditAccountModal = ({
             error.description === null &&
             inputState.name &&
             inputState.currencyType &&
-            inputState.value &&
-            inputState.description
+            inputState.value
         ) {
             handleEditRecord(inputState);
             setEditModalState(false);

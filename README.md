@@ -300,10 +300,12 @@ test
                         - [x] - delete functionality
                         - [x] - match sever validation with frontend
                         - [x] - ability to change current selected account
-                        - [/] - restrict user from delete all the accounts user must at least have one account in their account 
+                        - [/] - restrict user from delete all the accounts user must at least 
+                        have one account in their account 
                         - [x] - display account data on main pie chart
                     - [ ] - fix loading scroll global issue
                     - [x] - fix left side navigation
+                    - [ ] - create dialogue box to show api errors
                     - [ ] - work on the users page
                     - [ ] - test app
                 - [ ] - add substr maximum characters functionality every editable field
