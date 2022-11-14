@@ -7,8 +7,6 @@ export const AccountTotalCard = ({ accountData }) => {
   const [state, setState] = useState([]);
 
   const [total, setTotal] = useState(0);
-
-    // const data = [
     //     {
     //       type: 'Personal',
     //       value: 27,
@@ -32,20 +30,20 @@ export const AccountTotalCard = ({ accountData }) => {
     //   ];
 
       useEffect(() => {
+
+        let totalValue = 0;
         const converted = accountData.map(account => {
+          const convertedValue = parseInt(account.value);
+          totalValue += convertedValue;
           return {
             ...account,
-            value: parseInt(account.value)
+            value: convertedValue
           }
         });
-        setState(converted);
-      }, []);
 
-      useEffect(() => {
-        // for (let index = 0; index < state.length; index++) {
-          // const element = array[index];
-        // }
-      }, [state])
+        setState(converted);
+        setTotal(totalValue);
+      }, []);
 
       const config = {
         appendPadding: 10,
@@ -79,7 +77,7 @@ export const AccountTotalCard = ({ accountData }) => {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             },
-            content: 500,
+            content: total,
           },
         },
       };
