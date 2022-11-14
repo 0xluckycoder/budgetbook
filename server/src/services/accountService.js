@@ -1,4 +1,6 @@
 const account = require('../database/account');
+const expense = require('../database/expense');
+const income = require('../database/income');
 const user = require('../database/user');
 const customError = require('../utils/customError');
 
@@ -56,6 +58,12 @@ const deleteAccount = async (userId, accountId) => {
             throw customError('cannot delete last available account', 'ValidationFailed');
             return;   
         }
+
+        // delete all related expenses
+        const deletedExpenses = await expense.deleteAllExpensesByAccountId(accountId);
+
+        // delete all related incomes
+        const deletedIncomes = await income.deleteAllExpensesByAccountId(accountId);
 
         // delete the account
         const deleteAccount = account.deleteAccount(accountId);

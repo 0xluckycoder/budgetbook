@@ -20,6 +20,10 @@
     padding: 5px 1rem;
     height: 39.5px;
 
+    &:not(:first-child) {
+        margin-top: 1rem;
+    }
+
     .name {
         width: 100px;
     }
@@ -79,8 +83,8 @@
     margin-top: 1rem;
 
     .recordListWrapper {
-        display: grid;
-        row-gap: 1rem;
+        // display: grid;
+        // row-gap: 1rem;
         overflow-y: auto;
         height: 100%;
     }

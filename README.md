@@ -18,8 +18,8 @@ test
 ## Todo
 - [x] - Research and list down core functionality of a budget managing app
 - [x] - Design a logo
-- [ ] - Complete the UI Design
-- [ ] - Start Building UI with antd
+- [x] - Complete the UI Design
+- [x] - Start Building UI with antd
 - [x] - Learn Redux State Management
 - [x] - Learn React hooks
 - [x] - Learn React HOC
@@ -57,18 +57,8 @@ test
 - [x] - redesign user profile
 
 - [x] - link functionality with endpoints
-    
-
-            - [ ] - User auth state must presist every reload
-        - [ ] - protect private routes
-    - [ ] - recap redux concepts
-        - [ ] - understand importance of combineReducers
-        - [ ] - learn data flow
-        - [ ] - learn queries
-    - [ ] - add top level redux state & make actions to retreive data properly
-    - [ ] - show loading animation in pages
         
-    - [/] - home
+    - [x] - home
         - [x] - home sort dropdown
         - [x] - add expense record
             - [x] - validate fields
@@ -81,7 +71,7 @@ test
             - [x] - handle backend image upload
             - [x] - construct the expense record add request with uploaded images
             - [x] - clean up the validation
-            - [ ] - add loading spinner
+            - [x] - add loading spinner
             - [x] - move popup modal to separate component if necessary
                 - think about ways to make it reusable
         - [x] - create Modal component that supports Add/Edit/View record data
@@ -136,13 +126,12 @@ test
         - [x] - create test account just for testing
         - [x] - add new account
         - [/] - user shouldn't be able to add more than 3 records.
-            - [/] - server validation (implement this after the authentication is completed)
-            - [ ] - frontend validation
-        - [ ] - deleting account should also delete all the transactions related to it
-        - [ ] - view account
-        - [ ] - edit account
+            - [x] - server validation (implement this after the authentication is completed)
+            - [x] - frontend validation
+        - [x] - view account
+        - [x] - edit account
         - [x] - list of accounts
-        - [ ] - feed pie chart by fetching all accounts records
+        - [x] - feed pie chart by fetching all accounts records
     - [/] - Authentication
         - [-] - add continue with google and github federation authentication
         - [-] - add recaptcha security
@@ -197,16 +186,7 @@ test
                 - [x] - signin
 
             - [x] - disable public image upload
-            - [-] - endpoint to update user profile attributes
-
-            - [/] - handle authentication
-                - [x] - make the authentication work and persist the user in global state before all
-                    - Verify Authentication Process
-                        - Request to "/verifyAuth" and store cookies in client and also get subId & email
-                        - data: {
-                            subId: "xxx-xxx",
-                            email: "user@email.com"
-                        }
+            - [x] - endpoint to update user profile attributes
 
                 - [x] - secure private endpoints & identify current logged in user by using cookies
                 - [x] - show auth loading
@@ -261,11 +241,11 @@ test
                         - [ ] - /confirmEmail/:token
                         - [x] - /verifyAuth
 
-                    - [/] - organize the data flow of frontend state
-                        - [/] - authenticated user with attributes
+                    - [x] - organize the data flow of frontend state
+                        - [x] - authenticated user with attributes
                         - [x] - all the expenses based on financial account
                         - [x] - all the incomes based on financial account
-                        - [/] - fix account dropdown issue & make the relationship
+                        - [x] - fix account dropdown issue & make the relationship
                             - [x] - fetch all available accounts
                             - [x] - show every account names in dropdown
                             - [x] - show selected account name in dropdown current state
@@ -293,76 +273,38 @@ test
                     - [x] - Income chart
                     - [x] - Expense chart
                     - [x] - Fix chart height problem
-                    - [/] - work on the account page
+                    - [x] - work on the account page
                         - [x] - view account functionality (Modal)
                         - [x] - add functionality
                         - [x] - edit functionality
                         - [x] - delete functionality
                         - [x] - match sever validation with frontend
                         - [x] - ability to change current selected account
-                        - [/] - restrict user from delete all the accounts user must at least 
+                        - [x] - restrict user from delete all the accounts user must at least 
                         have one account in their account 
                         - [x] - display account data on main pie chart
-                    - [ ] - fix loading scroll global issue
                     - [x] - fix left side navigation
-                    - [ ] - create dialogue box to show api errors
+                    - [x] - fix loading scroll global issue
+                    - [x] - make the list record UI better in expenses and incomes
+                    - [x] - create dialogue box to show API errors
+                    - [ ] - fix page loading issue
+                        - disable overflow when full page load or create seperate wrapper
+                    - [x] - add subStr maximum characters functionality every editable field
+                    - [ ] - deleting account should also delete all the transactions related to it
+                    - [ ] - delete associated images when user deleting a expense or income
+                    - [ ] - logout users when refresh token is expired
+                    - [ ] - list down and test features one by one before moving to user profile
                     - [ ] - work on the users page
-                    - [ ] - test app
-                - [ ] - add substr maximum characters functionality every editable field
-
-                - [ ] - logout users when refresh token is expired
-
-                - [ ] - deep dive into redux and learn to manage state 
-
-                - [ ] - load the user's default account first (new users first created one)
-                    - [ ] - users should have the ability to change their default account
-                    - [ ] - if user has deleted their default selected account, app will load the data from next available account
-                    - [ ] - user cannot delete every financial account from the app, user at least need to keep one financial account
-
                 - [ ] - Document the api for open source developers after building API
 
                 - Loading Account workflow
-                    - fetch the current auth user
 
-                - [ ] - get accounts from the user
-                    - [ ] - define the relationships properly
-                    - [ ] - fetch related incomes and expenses records
-
-                - [ ] - fix delete warning popup issue
-
-                - [ ] - fix add income
-                
-                - [ ] - update find queries to fetch by current user
-                    - [ ] - income
-                    - [ ] - expense
-                    - [ ] - account
-
-                - [ ] - add user id as foreign key to every object being created
-                    - [ ] - income
-                    - [ ] - expense
-                    - [ ] - account
-                - [ ] - logout unauthenticated users
-
-            - [/] - fix bugs in main app
-                - [/] - get expenses
-                - [ ] - get incomes
-                - [ ] - create expense
-                - [ ] - create income
-                - [ ] - update expense
-                - [ ] - update income   
-            - [ ] - make endpoints private
-
-            - [ ] - fix chart top cut off problem 
             - [ ] - currency conversion for bigger ammounts
                 - 2500000 to 2.5M
                 - use "new Intl.NumberFormat()" method
             - [ ] - match the min max validation with server
             - [ ] - optimize every view field with substr to show minimum number of characters
             - [ ] - optimize sass after styling
-            - [ ] - User info step 
-            - [ ] - Finance Account Step
-            - [ ] - Compete Step
-
             - [ ] - fix auth error alert error
 
         - Authentication work flow

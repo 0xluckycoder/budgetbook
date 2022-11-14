@@ -7,6 +7,7 @@ import { AccountCardSelect } from "../AccountCardSelect/AccountCardSelect";
 import styles from './accountPage.module.scss';
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
 import { DialogueCard } from "../../../components/DialogueCard/DialogueCard";
+import { WarningDialogueCard } from "../../../components/WarningDialogueCard/WarningDialogueCard";
 
 import { 
     financeAccountApi,
@@ -96,7 +97,7 @@ const AccountPage = () => {
 
     return (
         <AppLayout>
-            {
+           {
             isContentLoading || selectLoader ?
             <LoadingSpinner />
             :
@@ -130,11 +131,10 @@ const AccountPage = () => {
                 />
 
                 {/* Warning Dialogue Card */}
-                <DialogueCard 
+                <WarningDialogueCard 
                     message={"Unable to delete, user must have At least one finance account on their profile"}
                     dialogueCardState={apiErrorDialogueBox}
                     setDialogueCardState={setApiErrorDialogueBox}
-                    handleConfirm={() => true}
                 />
                 
 
@@ -155,7 +155,6 @@ const AccountPage = () => {
             </div>
             </>
             }
-
         </AppLayout>
     );
 }

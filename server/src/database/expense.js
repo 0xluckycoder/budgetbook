@@ -99,10 +99,20 @@ const deleteExpense = async (id) => {
     }
 }
 
+const deleteAllExpensesByAccountId = async (id) => {
+    try {
+        const expenseEntry = await ExpenseEntry.deleteMany({ accountId: id });
+        return expenseEntry;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     createExpense,
     getExpensesByAccountId,
     getExpenseById,
     updateExpense,
-    deleteExpense
+    deleteExpense,
+    deleteAllExpensesByAccountId
 }
