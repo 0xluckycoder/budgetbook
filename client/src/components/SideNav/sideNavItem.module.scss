@@ -14,8 +14,7 @@
         font-size: 16px;
     }
 
-    &:hover,
-    &:first-child {
+    &:hover {
         background-color: #6F6AF8;
         color: #fff;
 
@@ -26,5 +25,14 @@
 
     &:not(:first-child) {
         margin-top: 1rem;
+    }
+}
+
+.activeButton {
+    background-color: #6F6AF8;
+    color: #fff;
+
+    img {
+        filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(40deg) brightness(103%) contrast(101%);
     }
 }
