@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './expenseCard.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,16 @@ import { useGetExpensesQuery, expenseApi } from "../../../store/expense/expense.
 import { userAuthApi } from "../../../store/user/user.slice";
 
 export const ExpenseCard = ({ result }) => {
+
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        if (result.data) {
+            let initial = 0;
+            result.data.forEach(item => initial += parseInt(item.amount));
+            setTotal(initial);
+        }
+    }, [result]);
 
     let isContentLoading = result.isLoading && result.isFetching && result.isUninitialized;
     
@@ -23,7 +33,7 @@ export const ExpenseCard = ({ result }) => {
                         <p>Expenses</p>
                     </div>
                     <div className={styles.cardDetails}>
-                        <p className={styles.amount}>5000</p>
+                        <p className={styles.amount}>{total}</p>
                         <div className={`${styles.percentage} ${styles.red}`}>
                             <p>15%</p>
                             <FontAwesomeIcon className={styles.redCarrot} icon={faCaretDown} />

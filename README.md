@@ -214,10 +214,10 @@ test
 
                     - [/] - Financial Account
                         - [x] - /api/accounts - get all the accounts related to user id
-                        - [ ] - /api/accounts - create account
-                        - [ ] - /api/accounts/:id - get account by id
-                        - [ ] - /api/accounts/:id - update income record
-                        - [ ] - /api/accounts/:id - delete income record
+                        - [x] - /api/accounts - create account
+                        - [x] - /api/accounts/:id - get account by id
+                        - [x] - /api/accounts/:id - update income record
+                        - [x] - /api/accounts/:id - delete income record
 
                     - [x] - Expense
                         - [x] - /api/expense - create expense record
@@ -231,8 +231,8 @@ test
                         - [x] - /api/income/:id - update income record
                         - [x] - /api/income/:id - delete income record
 
-                    - [ ] - Sorting endpoints
-                        - [ ] - /api/expense/?date=7days
+                    - [x] - Sorting endpoints
+                        - [x] - /api/expense/?date=7days
 
 
                     - [ ] - User Account
@@ -298,14 +298,28 @@ test
                         - [x] - get all object names
                         - [x] - delete all objects from s3 command
                     - [x] - bug fix: modal not closing after adding a income or expense record
-                    - [ ] - add total income value in home page card
-                    - [ ] - add total expense value in home page card
-                    - [ ] - hide the growth percentage for now
+                    - [x] - add total income value in home page card
+                    - [x] - add total expense value in home page card
+                    - [x] - hide the growth percentage for now
+                    - [/] - make sorting dropdown work
                     - [ ] - logout users when refresh token is expired
                     - [ ] - list down and test features one by one before moving to user profile
                     - [ ] - work on the users page
                 - [ ] - Document the api for open source developers after building API
 
+                - [ ] - Settings
+                    - [ ] - show user name and email
+                    - [ ] - edit user info
+                    - [ ] - logout user
+                    - [ ] - ability to change default user app settings
+
+
+                - [ ] - authentication update 1.1
+                    - [ ] - for now disable forgot password feature
+                    - [ ] - configure real email for this app
+                        - [ ] - work on adding email confirmation
+                        - [ ] - forgot email feature
+            
                 - [ ] - Learn React performance
 
                 - Loading Account workflow
@@ -341,12 +355,6 @@ test
         - [ ] - handle authentication in frontend
 
         - [ ] - fix the chart tooltip bug
-
-    - [ ] - Settings
-        - [ ] - show user name and email
-        - [ ] - edit user info
-        - [ ] - logout user
-        - [ ] - change default user app settings
     
     - [ ] - validate the fetched data accuracy
         - test manually
