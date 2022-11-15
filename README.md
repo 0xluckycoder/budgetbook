@@ -291,13 +291,16 @@ test
                         - disable overflow when full page load or create seperate wrapper
                     - [x] - add subStr maximum characters functionality every editable field
                     - [x] - deleting account should also delete all the transactions related to it
-                    - [/] - delete associated images when user deleting a expense or income (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/deleteobjectcommand.html)
-                        - [ ] - make the delete function is a helper function
-                    - [/] - also delete the images when batch deleting expenses or incomes
-                        - [ ] - query all incomes and expenses
-                        - [ ] - get all object names
-                        - [ ] - delete all objects from s3 command
-                    - [ ] - bug fix: modal not closing after adding a income or expense record
+                    - [x] - delete associated images when user deleting a expense or income (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/deleteobjectcommand.html)
+                        - [x] - make the delete function is a helper function
+                    - [x] - also delete the images when batch deleting expenses or incomes
+                        - [x] - query all incomes and expenses
+                        - [x] - get all object names
+                        - [x] - delete all objects from s3 command
+                    - [x] - bug fix: modal not closing after adding a income or expense record
+                    - [ ] - add total income value in home page card
+                    - [ ] - add total expense value in home page card
+                    - [ ] - hide the growth percentage for now
                     - [ ] - logout users when refresh token is expired
                     - [ ] - list down and test features one by one before moving to user profile
                     - [ ] - work on the users page

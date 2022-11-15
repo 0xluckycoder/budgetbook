@@ -50,6 +50,7 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
         } catch(error) {
             console.log(error);
         }
+        setAddModalState(false);
     }
 
     return (

@@ -3,6 +3,8 @@ const expense = require('../database/expense');
 const income = require('../database/income');
 const user = require('../database/user');
 const customError = require('../utils/customError');
+const { getIncomesByAccountId } = require('./incomeService');
+const deleteObjects = require('../utils/deleteObjects');
 
 const createAccount = async (accountData) => {
     try {
@@ -59,6 +61,23 @@ const deleteAccount = async (userId, accountId) => {
             return;   
         }
 
+        // query all related records
+        const expensesByAccountId = await expense.getExpensesByAccountId(accountId, 'all');
+        const incomesByAccountId = await income.getIncomesByAccountId(accountId, 'all');
+
+        // format urls into one array
+        const twoDimensionalIncomeUrls = incomesByAccountId.map(income => income.photos);
+        const twoDimensionalExpenseUrls = expensesByAccountId.map(expense => expense.photos);         
+        const incomeUrls = [].concat(...twoDimensionalIncomeUrls);
+        const expenseUrls = [].concat(...twoDimensionalExpenseUrls);
+        const allUrls = [...incomeUrls, ...expenseUrls];
+
+        // delete objects from s3
+        if (allUrls.length > 0) {
+            const deletedResponse = await deleteObjects(allUrls);
+            console.log(deletedResponse);
+        }
+
         // delete all related expenses
         const deletedExpenses = await expense.deleteAllExpensesByAccountId(accountId);
 
@@ -76,7 +95,6 @@ const deleteAccount = async (userId, accountId) => {
                 defaultAccount: nextAccountId
             }, userId);
         }
-
         return deleteAccount;
         
     } catch(error) {

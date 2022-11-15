@@ -44,6 +44,7 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
         } catch(error) {
             console.log(error);
         }
+        setAddModalState(false);
     }
 
     return (

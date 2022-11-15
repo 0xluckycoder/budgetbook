@@ -65,7 +65,10 @@ const getIncomesByAccountId = async (accountId, sortType) => {
             accountId
             });
             return getIncome;
-        }
+        } else if (sortType === "all") {
+            const getIncome = await IncomeEntry.find({ accountId });
+            return getIncome;
+        } 
     } catch(error) {
         throw error;
     }
