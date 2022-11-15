@@ -45,7 +45,7 @@ const getExpensesByAccountId = async (accountId, sortType) => {
             return getExpense;
         } else if (sortType === "thisyear") {
             const firstDayOfThisYear = moment().startOf('year').format('YYYY-MM-DD');
-            const lastDayOfThisYear = moment().day(0).format('YYYY-MM-DD');
+            const lastDayOfThisYear = moment().endOf('year').format('YYYY-MM-DD');
     
             const getExpense = await ExpenseEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisYear,

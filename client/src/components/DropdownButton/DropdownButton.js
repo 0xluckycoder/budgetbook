@@ -2,7 +2,7 @@ import React from "react";
 import {  Dropdown, Menu, Button } from 'antd';
 
 export const DropdownButton = ({ state, handleDropdownChange, dropdownValues }) => {
-    // console.log('dropdownValues', dropdownValues);
+
     const dropdownItems = dropdownValues.map((item, index) => {
         return {
             key: `${index + 1}`,

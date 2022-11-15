@@ -24,6 +24,9 @@ const getIncomesByAccountId = async (accountId, sortType) => {
         } else if (sortType === "thismonth") {
             const firstDayOfThisMonth = moment().startOf('month').format('YYYY-MM-DD');
             const lastDayOfThisMonth = moment().endOf('month').format('YYYY-MM-DD');
+
+            console.log(firstDayOfThisMonth);
+            console.log(lastDayOfThisMonth);
     
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisMonth,
@@ -36,6 +39,9 @@ const getIncomesByAccountId = async (accountId, sortType) => {
             const firstDayOfLastMonth = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'); 
             const lastDayOfFirstMonth = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
     
+            console.log(firstDayOfLastMonth);
+            console.log(lastDayOfFirstMonth);
+
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfLastMonth,
                 "$lte": lastDayOfFirstMonth
@@ -45,8 +51,11 @@ const getIncomesByAccountId = async (accountId, sortType) => {
             return getIncome;
         } else if (sortType === "thisyear") {
             const firstDayOfThisYear = moment().startOf('year').format('YYYY-MM-DD');
-            const lastDayOfThisYear = moment().day(0).format('YYYY-MM-DD');
+            const lastDayOfThisYear = moment().endOf('year').format('YYYY-MM-DD');
     
+            console.log(firstDayOfThisYear);
+            console.log(lastDayOfThisYear);
+
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfThisYear,
                 "$lte": lastDayOfThisYear
@@ -58,6 +67,9 @@ const getIncomesByAccountId = async (accountId, sortType) => {
             const firstDayOfLastYear = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
             const lastDayOfLastYear = moment().subtract(1, 'year').endOf('year').format('YYYY-MM-DD');
     
+            console.log(firstDayOfLastYear);
+            console.log(lastDayOfLastYear);
+
             const getIncome = await IncomeEntry.find({"transactionDate": {
                 "$gte": firstDayOfLastYear,
                 "$lte": lastDayOfLastYear

@@ -50,6 +50,12 @@ const HomePage = () => {
     ] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
 
     useEffect(() => {
+        // console.log(state, 'changed');
+        expenseApiTrigger({ accountId: authData.defaultAccount, para: state.value });
+        incomeApiTrigger({ accountId: authData.defaultAccount, para: state.value });
+    }, [state]);
+
+    useEffect(() => {
         if (authData && !authIsUninitiated) {
             // don't trigger data if already have it
             expenseApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
