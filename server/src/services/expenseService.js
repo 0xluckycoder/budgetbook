@@ -3,6 +3,7 @@ const user = require('../database/user');
 const account = require('../database/account');
 const moment = require('moment');
 const customError = require('../utils/customError');
+const deleteObjects = require('../utils/deleteObjects');
 
 // const sharp = require('sharp');
 // const path = require('path');
@@ -55,7 +56,7 @@ const updateExpense = async (userId, expenseId, expenseData) => {
         const requestedExpense = await expense.getExpenseById(expenseId);
         if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
 
-        const updateExpense = expense.updateExpense(expenseData, expenseId);
+        const updateExpense = await expense.updateExpense(expenseData, expenseId);
         return updateExpense;
     } catch(error) {
         throw error;
@@ -66,7 +67,13 @@ const deleteExpense = async (userId, expenseId) => {
     try {
         // throw error if expense record not belong to the user
         const requestedExpense = await expense.getExpenseById(expenseId);
-        if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');        
+        if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        // delete objects from s3
+        if (requestedExpense.photos.length > 0) {
+            const deletedResponse = await deleteObjects(requestedExpense.photos);
+            console.log(deletedResponse);
+        }
 
         const deleteExpense = expense.deleteExpense(expenseId);
         return deleteExpense;

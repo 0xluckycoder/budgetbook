@@ -17,6 +17,7 @@ export const ViewCustomModal = ({
     setViewModalState,
     handleEditButton,
     itemData,
+    handleDelete,
     handleClose
 }) => {
 
@@ -30,13 +31,14 @@ export const ViewCustomModal = ({
     }] = useDeleteExpenseMutation();
 
     // send delete request
-    const handleDelete = async (id) => {
-        try {
-            await deleteExpense(id).unwrap();
-        } catch(error) {
-            console.log(error);
-        }
-    }
+    // const handleDelete = async (id) => {
+    //     alert(`expense ${id}`);
+    //     // try {
+    //     //     await deleteExpense(id).unwrap();
+    //     // } catch(error) {
+    //     //     console.log(error);
+    //     // }
+    // }
 
     const [financeAccountState, setFinanceAccountState] = useState([]);
 
@@ -80,7 +82,7 @@ export const ViewCustomModal = ({
             <Button 
                 key={2}
                 className="themed-button"
-                onClick={() => setDialogueCardState(true)}
+                onClick={() => handleDelete(itemData._id)}
             >
                 Delete
             </Button>
@@ -88,12 +90,12 @@ export const ViewCustomModal = ({
         >
 
         {/* Warning Dialogue Card */}
-        <DialogueCard 
+        {/* <DialogueCard 
             message={"Are you sure you want to delete this expense item ?"}
             dialogueCardState={dialogueCardState}
             setDialogueCardState={setDialogueCardState}
             handleConfirm={handleConfirm}
-        />
+        /> */}
 
         <Form form={form} layout="vertical">
             <InlineField>

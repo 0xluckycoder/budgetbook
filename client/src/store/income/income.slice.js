@@ -16,7 +16,7 @@ export const incomeApi = createApi({
         }),
         getIncomeById: build.query({
             query: (id) => ({
-                url: `/expenses/${id}`,
+                url: `/incomes/${id}`,
                 credentials: "include"
             }),
             providesTags: (result, error, arg) => [{ type: 'Income', id: arg }],

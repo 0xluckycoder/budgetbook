@@ -171,6 +171,8 @@ const deleteIncome = async (req, res, next) => {
         const { incomeId } = req.params;
         const { _id: userId } = req.user;
 
+        console.log('came here');
+
         const deleteIncomeResponse = await incomeService.deleteIncome(userId, incomeId);
         
         res.status(200).json({

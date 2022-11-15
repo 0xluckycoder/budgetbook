@@ -1,6 +1,7 @@
 const income = require('../database/income');
 const account = require('../database/account');
 const customError = require('../utils/customError');
+const deleteObjects = require('../utils/deleteObjects');
 
 // const sharp = require('sharp');
 // const path = require('path');
@@ -63,8 +64,17 @@ const deleteIncome = async (userId, incomeId) => {
         // throw error if income record does't belong to the user
         const requestedIncome = await income.getIncomeById(incomeId);
         if (requestedIncome.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        console.log(requestedIncome.photos.length > 0, 'requested income')
+
+        // delete objects from s3
+        if (requestedIncome.photos.length > 0) {
+            const deletedResponse = await deleteObjects(requestedIncome.photos);
+            console.log(deletedResponse);
+        }
         
         const deleteIncome = income.deleteIncome(incomeId);
+        console.log(deleteIncome);
         return deleteIncome;
     } catch(error) {
         throw error;

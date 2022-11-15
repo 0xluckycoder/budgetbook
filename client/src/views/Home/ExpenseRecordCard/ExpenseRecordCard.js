@@ -144,10 +144,20 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     }
 
     // handle dialogue card confirm
+    // const handleConfirm = () => {
+    //     handleDelete(itemData._id);
+    //     setDialogueCardState(true);
+    // };
+
     const handleConfirm = () => {
-        handleDelete(itemData._id);
         setDialogueCardState(false);
-    };
+        handleDelete(itemData._id);
+        setViewModalState(false);
+    }
+
+    const confirmDeleteCheck = () => {
+        setDialogueCardState(true);
+    }
 
     return (
         <>
@@ -157,6 +167,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
             setViewModalState={setViewModalState}
             itemData={itemData}
             handleEditButton={handleEditButton}
+            handleDelete={confirmDeleteCheck}
             handleClose={handleClose}
         />
 
