@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { CustomLineChart } from "../../../components/CustomLineChart/CustomLineChart";
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
-import { incomeApi } from "../../../store/income/income.slice";
 
 export const IncomeCard = ({ result }) => {
 
@@ -17,30 +16,20 @@ export const IncomeCard = ({ result }) => {
             setTotal(initial);
         }
     }, [result]);
-
-    let isContentLoading = result.isLoading && result.isFetching && result.isUninitialized;
  
     return (
         <div className={styles.cardWrapper}>
-        {
-            isContentLoading
-            ? 
-            <LoadingSpinner />
-            :
-            <>
-                <div className={styles.cardHeading}>
-                    <p>Incomes</p>
+            <div className={styles.cardHeading}>
+                <p>Incomes</p>
+            </div>
+            <div className={styles.cardDetails}>
+                <p className={styles.amount}>{total}</p>
+                <div className={`${styles.percentage} ${styles.red}`}>
+                    <p>15%</p>
+                    <FontAwesomeIcon className={styles.redCarrot} icon={faCaretUp} />
                 </div>
-                <div className={styles.cardDetails}>
-                    <p className={styles.amount}>{total}</p>
-                    <div className={`${styles.percentage} ${styles.red}`}>
-                        <p>15%</p>
-                        <FontAwesomeIcon className={styles.redCarrot} icon={faCaretUp} />
-                    </div>
-                </div>
-                <CustomLineChart isContentLoading={isContentLoading} data={result} />
-            </>
-        }
-    </div>
+            </div>
+            <CustomLineChart data={result} />
+        </div>
     );
 }

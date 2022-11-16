@@ -17,6 +17,9 @@ import {
     useUploadExpenseImagesMutation,
 } from '../../../store/expense/expense.slice';
 
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 export const EditCustomModal = ({ 
     editModalState, 
     setEditModalState, 
@@ -25,6 +28,9 @@ export const EditCustomModal = ({
     handleEditRecord
 }) => {
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const {
         data: financeAccountData,
         isFetching: financeAccountFetching,
@@ -32,16 +38,24 @@ export const EditCustomModal = ({
         isUninitialized: financeAccountUninitiated,
     } = financeAccountApi.endpoints.getAccounts.useQueryState();
 
-    const {
-        data: authData,
-        isUninitialized: authIsUninitiated,
-        isLoading: authIsLoading
-    } = userAuthApi.endpoints.verifyAuth.useQueryState();
-
     const [uploadExpenseImages, {
         isLoading: imageMutationLoading,
-        data: imageResponse
+        data: imageResponse,
+        error: uploadImageError
     }] = useUploadExpenseImagesMutation();
+
+    // // logout user if unauthorized
+    // if (uploadImageError.error) {
+    //     if (uploadImageError.error.data.message === "no cookies available") {
+    //         // clear auth state and redirect to login page
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
 
     const { TextArea } = Input;
     const [form] = Form.useForm();

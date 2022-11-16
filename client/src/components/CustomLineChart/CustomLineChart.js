@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export const CustomLineChart = ({ data, isContentLoading }) => {
+export const CustomLineChart = ({ data }) => {
 
   const [dataState, setDataState] = useState([]);
 

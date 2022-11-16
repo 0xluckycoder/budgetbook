@@ -18,41 +18,67 @@ import { useGetAccountsQuery, financeAccountApi } from "../../../store/financeAc
 import { SORT_DATE_BY } from "../../../utils/constants";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
+import { unAuthorizedErrors } from "../../../utils/errorTypes";
 
 const HomePage = () => {
 
     const [state, setState] = useState(SORT_DATE_BY.THIS_MONTH);
 
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
     const {
         data: authData,
         isUninitialized: authIsUninitiated,
-        isLoading: authIsLoading
+        isLoading: authIsLoading,
+        isError: isAuthError,
+        error: authError
     } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
     const [
         expenseApiTrigger,
-        expenseApiResult,
-        expenseApiLastPromiseInfo
+        expenseApiResult
     ] = expenseApi.endpoints.getExpenses.useLazyQuery();
 
     const [
         incomeApiTrigger,
-        incomeApiResult,
-        incomeApiLastPromiseInfo
+        incomeApiResult
     ] = incomeApi.endpoints.getIncomes.useLazyQuery();
 
     const [
         financeAccountApiTrigger,
-        financeAccountApiResult,
-        financeAccountApiLastPromiseInfo
+        financeAccountApiResult
     ] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
 
+    // logout user if unauthorized
+    if (
+        financeAccountApiResult.error || 
+        incomeApiResult.error || 
+        expenseApiResult.error
+    ) {
+        if (
+            unAuthorizedErrors.includes(expenseApiResult.error.data.message) ||
+            unAuthorizedErrors.includes(incomeApiResult.error.data.message) ||
+            unAuthorizedErrors.includes(financeAccountApiResult.error.data.message)
+        ) {
+            dispatch(
+                userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                    return draftPosts = {}
+                })
+            );
+            navigate('/auth/login');
+        }
+    }
+
     useEffect(() => {
-        // console.log(state, 'changed');
         expenseApiTrigger({ accountId: authData.defaultAccount, para: state.value });
         incomeApiTrigger({ accountId: authData.defaultAccount, para: state.value });
+
+
     }, [state]);
 
     useEffect(() => {
@@ -60,7 +86,7 @@ const HomePage = () => {
             // don't trigger data if already have it
             expenseApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
             incomeApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
-            financeAccountApiTrigger();
+            financeAccountApiTrigger();    
         }
     }, [authData]);
 

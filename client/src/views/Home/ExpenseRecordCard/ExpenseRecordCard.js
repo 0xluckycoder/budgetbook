@@ -20,18 +20,43 @@ import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/View
 import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
+import { unAuthorizedErrors } from '../../../utils/errorTypes';
 
 export const ExpenseRecordCard = ({ dateSortByState, result }) => { 
 
-    const {
-        data: authData,
-    } = userAuthApi.endpoints.verifyAuth.useQueryState();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [addModalState, setAddModalState] = useState(false);
 
     const [addExpense, {
-        isLoading: addMutationLoading 
+        isLoading: addMutationLoading,
+        error: addExpenseError 
     }] = useAddExpenseMutation();
+
+    // addExpenseError && console.log(addExpenseError.data.message);
+
+    if (addExpenseError) {
+        if (unAuthorizedErrors.includes(addExpenseError.data.message)) {
+            console.log(addExpenseError);
+        }
+    }
+
+    // logout user if unauthorized
+    // if (addExpenseError.error) {
+    //     if (addExpenseError.error.data.message === "no cookies available") {
+    //         // clear auth state and redirect to login page
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
 
     // send add request
     const handleAddRecord = async (inputState) => {
@@ -72,7 +97,6 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
             
             <RecordListWrapper>
                 {
-                    // console.log(result.data)
                     result.data !== undefined 
                     ? 
                     result.data.map((item, index) => (
@@ -100,6 +124,10 @@ const RecordListWrapper = ({ children }) => {
 }
 
 const RecordListItem = ({ itemData, dateSortByState }) => {    
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     // view modal state
     const [viewModalState, setViewModalState] = useState(false);
     // edit modal state
@@ -119,12 +147,30 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     const [deleteExpense, {
         data: deleteResponse,        
         isLoading: deleteExpenseMutationLoading,
+        error: deleteExpenseError
     }] = useDeleteExpenseMutation();
 
     const [editExpense, {
         isLoading: editExpenseMutationLoading,
-        data: editResponse
+        data: editResponse,
+        error: deleteIncomeError
     }] = useEditExpenseMutation();
+
+    // logout user if unauthorized
+    // if (
+    //     deleteExpenseError.error ||
+    //     deleteIncomeError.error
+    // ) {
+    //     if (deleteExpenseError.error.data.message === "no cookies available") {
+    //         // clear auth state and redirect to login page
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
 
     // send delete request
     const handleDelete = async (id) => {
@@ -143,12 +189,6 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
             console.log(error);
         }
     }
-
-    // handle dialogue card confirm
-    // const handleConfirm = () => {
-    //     handleDelete(itemData._id);
-    //     setDialogueCardState(true);
-    // };
 
     const handleConfirm = () => {
         setDialogueCardState(false);

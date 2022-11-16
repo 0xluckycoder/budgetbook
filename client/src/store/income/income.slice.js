@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { unAuthorizedErrors } from "../../utils/errorTypes";
 
 export const incomeApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5500/api/v1' }),
@@ -9,7 +10,10 @@ export const incomeApi = createApi({
                 url: `/incomes/accounts/${accountId}/?date=${para}`,
                 credentials: "include"
             }),
-            providesTags: (result, error, arg) => result.data ? [...result.data.map(({ id }) => ({ type: 'Income', id })), 'Income'] : ['Income'],
+            providesTags: (result, error, arg) => {
+                if (error && unAuthorizedErrors.includes(error.data.message)) return ['Income']
+                return result.data ? [...result.data.map(({ id }) => ({ type: 'Income', id })), 'Income'] : ['Income']
+            },
             transformResponse: (res) => {
                 return res.data;
             }

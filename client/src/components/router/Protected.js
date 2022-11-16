@@ -11,7 +11,7 @@ export const Protected = ({ children }) => {
         isUninitialized
     } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
-    let isAuthLoading = isLoading && isFetching ? true : false;
+    let isAuthLoading = isLoading || isFetching ? true : false;
     
     if (!isUninitialized) {
         if (isAuthLoading) {
@@ -21,7 +21,7 @@ export const Protected = ({ children }) => {
                 </div>
             )
         } else {
-            if (!data) {
+            if (!data || !data.subId) {
                 return <Navigate to="/auth/login" replace={true} />
             } else {
                 return children;

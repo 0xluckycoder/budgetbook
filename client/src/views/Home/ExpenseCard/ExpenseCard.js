@@ -18,30 +18,20 @@ export const ExpenseCard = ({ result }) => {
             setTotal(initial);
         }
     }, [result]);
-
-    let isContentLoading = result.isLoading && result.isFetching && result.isUninitialized;
     
     return (
         <div className={styles.cardWrapper}>
-            {
-                isContentLoading
-                ? 
-                <LoadingSpinner />
-                :
-                <>
-                    <div className={styles.cardHeading}>
-                        <p>Expenses</p>
-                    </div>
-                    <div className={styles.cardDetails}>
-                        <p className={styles.amount}>{total}</p>
-                        <div className={`${styles.percentage} ${styles.red}`}>
-                            <p>15%</p>
-                            <FontAwesomeIcon className={styles.redCarrot} icon={faCaretDown} />
-                        </div>
-                    </div>
-                    <CustomLineChart isContentLoading={isContentLoading} data={result} />
-                </>
-            }
+            <div className={styles.cardHeading}>
+                <p>Expenses</p>
+            </div>
+            <div className={styles.cardDetails}>            
+                <p className={styles.amount}>{total}</p>
+                <div className={`${styles.percentage} ${styles.red}`}>
+                    <p>15%</p>
+                    <FontAwesomeIcon className={styles.redCarrot} icon={faCaretDown} />
+                </div>
+            </div>
+            <CustomLineChart data={result} />
         </div>
     );
 }

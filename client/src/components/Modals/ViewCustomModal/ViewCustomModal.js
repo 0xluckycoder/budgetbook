@@ -3,14 +3,7 @@ import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker, Spin } f
 import { InlineField } from '../../../components/Form/InlineField';
 import styles from './viewCustomModal.module.scss';
 import { ImagePreview } from '../ImagePreview/ImagePreview';
-
-import { DialogueCard } from '../../DialogueCard/DialogueCard';
-
 import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
-
-import { 
-    useDeleteExpenseMutation,
-} from '../../../store/expense/expense.slice';
 
 export const ViewCustomModal = ({
     viewModalState,
@@ -22,23 +15,6 @@ export const ViewCustomModal = ({
 }) => {
 
     const [form] = Form.useForm();
-    const [dialogueCardState, setDialogueCardState] = useState(false);
-
-    // delete mutation
-    const [deleteExpense, {
-        data: deleteResponse,        
-        isLoading: deleteExpenseMutationLoading,
-    }] = useDeleteExpenseMutation();
-
-    // send delete request
-    // const handleDelete = async (id) => {
-    //     alert(`expense ${id}`);
-    //     // try {
-    //     //     await deleteExpense(id).unwrap();
-    //     // } catch(error) {
-    //     //     console.log(error);
-    //     // }
-    // }
 
     const [financeAccountState, setFinanceAccountState] = useState([]);
 
@@ -54,13 +30,6 @@ export const ViewCustomModal = ({
             setFinanceAccountState(financeAccountData.data);
         }
     }, [financeAccountData]);
-
-    // handle dialogue card confirm
-    const handleConfirm = () => {
-        handleDelete(itemData._id);
-        setDialogueCardState(dialogueCardState => !dialogueCardState);
-        // handleClose();
-    };
 
     const financeAccountName = financeAccountState.length > 0 && financeAccountState.find(account => account._id === itemData.accountId);
 
@@ -88,14 +57,6 @@ export const ViewCustomModal = ({
             </Button>
             ]}
         >
-
-        {/* Warning Dialogue Card */}
-        {/* <DialogueCard 
-            message={"Are you sure you want to delete this expense item ?"}
-            dialogueCardState={dialogueCardState}
-            setDialogueCardState={setDialogueCardState}
-            handleConfirm={handleConfirm}
-        /> */}
 
         <Form form={form} layout="vertical">
             <InlineField>

@@ -23,7 +23,7 @@ export const userAuthApi = createApi({
             }),
             transformResponse: (res) => {
                 return res.data;
-            }
+            },
         }),
         signUp: build.mutation({
             query: (signUpData) => ({

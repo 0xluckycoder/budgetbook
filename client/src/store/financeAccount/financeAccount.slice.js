@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { unAuthorizedErrors } from "../../utils/errorTypes";
 
 export const financeAccountApi = createApi({
     reducerPath: 'account',
@@ -10,7 +11,10 @@ export const financeAccountApi = createApi({
                 url: `/accounts`,
                 credentials: "include"
             }),
-            providesTags: (result, error, arg) => result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account'],
+            providesTags: (result, error, arg) => {
+                if (error && unAuthorizedErrors.includes(error.data.message)) return ['Account']
+                return result ? [...result.data.map(({ id }) => ({ type: 'Account', id })), 'Account'] : ['Account']
+            },
             // no need transform response
         }),
         getAccountById: build.query({

@@ -11,6 +11,7 @@ import {
     useEditIncomeMutation,
     useDeleteIncomeMutation
 } from '../../../store/income/income.slice';
+import { userAuthApi } from '../../../store/user/user.slice';
 
 import { LoadingSpinner } from '../../../components/LoadingSpinner/LoadingSpinner';
 
@@ -19,12 +20,19 @@ import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/View
 import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 export const IncomeRecordCard = ({ dateSortByState, result }) => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [addModalState, setAddModalState] = useState(false);
 
     const [addIncome, {
-        isLoading: addMutationLoading
+        isLoading: addMutationLoading,
+        error: addIncomeError
     }] = useAddIncomeMutation();
 
     // send add request
@@ -46,6 +54,19 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
         }
         setAddModalState(false);
     }
+
+    // // logout user if unauthorized
+    // if (addIncomeError.error) {
+    //     if (addIncomeError.error.data.message === "no cookies available") {
+    //         // clear auth state and redirect to login page
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
 
     return (
         <div className={styles.recordCardWrapper}>
@@ -92,7 +113,11 @@ const RecordListWrapper = ({ children }) => {
     );
 }
 
-const RecordListItem = ({ itemData, dateSortByState }) => {    
+const RecordListItem = ({ itemData, dateSortByState }) => {
+    
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
     // view modal state
     const [viewModalState, setViewModalState] = useState(false);
     // edit modal state
@@ -111,13 +136,31 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
 
     const [deleteIncome, {
         data: deleteResponse,
-        isLoading: deleteIncomeMutationLoading
+        isLoading: deleteIncomeMutationLoading,
+        error: deleteIncomeError
     }] = useDeleteIncomeMutation();
 
     const [editIncome, {
         data: editLoading,
-        isLoading: editIncomeMutationLoading
+        isLoading: editIncomeMutationLoading,
+        error: editIncomeError
     }] = useEditIncomeMutation();
+
+    // // logout user if unauthorized
+    // if (deleteIncomeError.error || editIncomeError.error) {
+    //     if (
+    //             deleteIncomeError.error.data.message === "no cookies available" ||
+    //             editIncomeError.error.data.message === "no cookies available"
+    //         ) {
+    //         // clear auth state and redirect to login page
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
 
     // send delete request
     const handleDelete = async (id) => {
@@ -136,12 +179,6 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
             console.log(error);
         }
     }
-
-    // handle dialogue card confirm
-    // const handleConfirm = () => {
-    //     handleDelete(itemData._id);
-    //     setDialogueCardState(true);
-    // };
 
     const handleConfirm = () => {
         setDialogueCardState(false);

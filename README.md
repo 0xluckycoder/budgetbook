@@ -301,8 +301,25 @@ test
                     - [x] - add total income value in home page card
                     - [x] - add total expense value in home page card
                     - [x] - hide the growth percentage for now
-                    - [/] - make sorting dropdown work
-                    - [ ] - logout users when refresh token is expired
+                    - [x] - make sorting dropdown work
+                    - [/] - logout users when refresh token is expired
+                        - [/] - manage error handling when caching
+                            - [ ] - income slice
+                            - [ ] - expense slice
+                            - [ ] - auth slice
+                            - [ ] - financial account slice
+                            - [x] - clear the auth state manually before logout
+                                - [x] - read and understand each redux capabilities & functionalities
+                                    - continue from reading about action
+                                - [x] - experiment
+                                - [x] - apply
+                                - [x] - test
+                            - [x] - debug code and fix protected routes
+                                - [x] - learn to debug with vscode step by step
+                        - [x] - home page
+                        - [/] - copy HomePage.js line 58 - 75 in every query/mutation using components
+                        - [ ] - account page
+                        - [ ] - parent components
                     - [ ] - list down and test features one by one before moving to user profile
                     - [ ] - work on the users page
                 - [ ] - Document the api for open source developers after building API

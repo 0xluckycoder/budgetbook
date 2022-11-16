@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { unAuthorizedErrors } from '../../utils/errorTypes';
 
 export const expenseApi = createApi({
     reducerPath: 'expense',
@@ -10,7 +11,10 @@ export const expenseApi = createApi({
                 url: `/expenses/accounts/${accountId}/?date=${para}`,
                 credentials: "include"
             }),
-            providesTags: (result, error, arg) => result.data ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense'],
+            providesTags: (result, error, arg) => {
+                if (error && unAuthorizedErrors.includes(error.data.message)) return ['Expense']
+                return result.data ? [...result.data.map(({ id }) => ({ type: 'Expense', id })), 'Expense'] : ['Expense']
+            },
             transformResponse: (res) => {
                 return res.data;
             }
