@@ -18,4 +18,6 @@ router.get('/users', authorizeRequest, authController.getUserAttributesBySubId);
 
 router.put('/users', authorizeRequest, authController.updateUserAttributes);
 
+router.get('/logout', authorizeRequest, authController.logout);
+
 module.exports = router;

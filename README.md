@@ -148,7 +148,7 @@ test
                 - [x] - /verifyAuth  
                 - [-] - /confirmEmail/:token
         - [x] - design authentication pages UI along with account setup steps
-        - [/] - develop frontend pages
+        - [x] - develop frontend pages
             - [x] - configure authentication slice
             - [x] - setup the auth state with RTK
             - [x] - SignIn
@@ -302,8 +302,8 @@ test
                     - [x] - add total expense value in home page card
                     - [x] - hide the growth percentage for now
                     - [x] - make sorting dropdown work
-                    - [/] - logout users when refresh token is expired
-                        - [/] - manage error handling when caching
+                    - [x] - logout users when refresh token is expired
+                        - [x] - manage error handling when caching
                             - [x] - income slice
                             - [x] - expense slice
                             - [x] - auth slice
@@ -317,20 +317,27 @@ test
                             - [x] - debug code and fix protected routes
                                 - [x] - learn to debug with vscode step by step
                         - [x] - home page
-                        - [/] - copy HomePage.js line 58 - 75 in every query/
-                        mutation using components
-                            - [/] - seperate each condition
-                        - [ ] - account page
-                        - [ ] - parent components
-                    - [ ] - list down and test features one by one before moving to user profile
-                    - [ ] - work on the users page
+                        - [x] - copy HomePage.js line 58 - 75 in every query/
+                        - mutation using components
+                            - [x] - account page
+                            - [x] - parent components
+                    - [/] - work on the users page
                 - [ ] - Document the api for open source developers after building API
 
-                - [ ] - Settings
-                    - [ ] - show user name and email
-                    - [ ] - edit user info
-                    - [ ] - logout user
-                    - [ ] - ability to change default user app settings
+                - [/] - Settings
+                    - [x] - show user setting details
+                    - [/] - logout user
+                        - [ ] - create authorized /auth endpoint to clear cookies
+                        - [ ] - create the query
+                    - [ ] - change default period feature
+                        - [ ] - assign "thismonth" as the default when new users singing up
+                        - [ ] - in home always use defaultSortPeriod to fetch data
+                    - [ ] - Remove user profile and defaultAccount dropdowns for now
+                    - [ ] - default Language feature
+                        - [ ] - for now just use english as the only value
+                        - [ ] - make the dropdown dynamic
+                    - [ ] - create a modal to edit every data
+                    - [ ] - use view dropdown fields readonly (user can only change values through edit user modal)
 
 
                 - [ ] - authentication update 1.1

@@ -84,12 +84,14 @@ const AccountPage = () => {
      * */
     const logOutUnauthorizedRequests = (errorObj) => {
         if (errorObj.error) {
-            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
-                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-                        return draftPosts = {}
-                }));
-                navigate('/auth/login');
-            }
+            // if (errorObj.error.data) {
+                if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                    dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                            return draftPosts = {}
+                    }));
+                    navigate('/auth/login');
+                }
+            // }
         }
     }
 

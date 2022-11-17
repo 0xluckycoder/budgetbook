@@ -49,7 +49,16 @@ export const userAuthApi = createApi({
                 body: updateData
             }),
             invalidatesTags: ['Account']
-        })
+        }),
+        logout: build.query({
+            query: () => ({
+                url: '/auth/logout',
+                credentials: "include"
+            }),
+            transformResponse: (res) => {
+                return res.data;
+            }
+        }),
     }),
 });
 

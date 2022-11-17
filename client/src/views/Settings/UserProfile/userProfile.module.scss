@@ -5,20 +5,14 @@
         padding-bottom: 1rem;
     }
 
+    .inline {
+        display: flex;
+        gap: 0.2rem;
+        padding-bottom: 1rem;
+    }
+
     background: #fff;
     max-width: 570px;
     padding: 1rem;
     border-radius: 3px;
-
-    .image {
-        padding-bottom: 1rem;
-    }
-
-    .name {
-        padding-bottom: 1rem;
-    }
-
-    .email {
-        padding-bottom: 1rem;
-    }
 }

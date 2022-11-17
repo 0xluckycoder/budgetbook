@@ -9,4 +9,21 @@
     max-width: 570px;
     padding: 1rem;
     border-radius: 3px;
+
+    .cardInner {
+
+        & > .item {
+            padding-bottom: 1rem;
+        }
+
+        .item {
+            .label {
+                // font-weight: bold;
+                padding-bottom: 0.5rem;
+            }
+
+            .text {
+            }
+        }
+    }
 }

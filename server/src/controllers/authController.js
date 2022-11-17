@@ -274,7 +274,35 @@ const updateUserAttributes = async (req, res, next) => {
     }
 }
 
+/**
+ * @desc clear cookies and logout the user
+ * @path GET /api/v1/auth/logout
+ * @authorization Private
+ * */ 
+ const logout = async (req, res, next) => {
+    try {
+
+        const { _id: userId } = req.user;
+
+        console.log(userId, 'logged out');
+
+        res.clearCookie('AccessToken');
+        res.clearCookie('IdToken');
+        res.clearCookie('RefreshToken');
+
+        res.status(200).json({
+            success: true,
+            data: response
+        });
+
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 module.exports = {
+    logout,
     signUp,
     signIn,
     verifyAuth,
