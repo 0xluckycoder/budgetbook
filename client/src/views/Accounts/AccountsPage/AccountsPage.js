@@ -17,7 +17,16 @@ import {
 import { userAuthApi, useUpdateUserAttributesMutation } from "../../../store/user/user.slice";
 import { useDeleteAccountMutation } from "../../../store/financeAccount/financeAccount.slice";
 
+import { unAuthorizedErrors } from "../../../utils/errorTypes";
+
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
+
 const AccountPage = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // add account modal state
     const [addAccountState, setAddAccountState] = useState(false);
@@ -29,18 +38,67 @@ const AccountPage = () => {
     const [apiErrorDialogueBox, setApiErrorDialogueBox] = useState(false);
 
     // manual triggers
-    const [financeAccountsApiTrigger] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
-    const [authApiTrigger] = userAuthApi.endpoints.verifyAuth.useLazyQuery();
-    const [addAccount] = useAddAccountMutation();
-    const [updateUserAttributes] = useUpdateUserAttributesMutation();
-    const [deleteAccount] = useDeleteAccountMutation();
-    const { data: authData } = userAuthApi.endpoints.verifyAuth.useQueryState();
+    const [
+        financeAccountsApiTrigger,
+        financeAccountApiResult
+    ] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
     
+    const [
+        authApiTrigger,
+        authApiResult
+    ] = userAuthApi.endpoints.verifyAuth.useLazyQuery();
+    
+    const [
+        addAccount,
+        {
+            error: addAccountError
+        }
+    ] = useAddAccountMutation();
+    
+    const [
+        updateUserAttributes,
+        {
+            error: updateAttributesError
+        }
+    ] = useUpdateUserAttributesMutation();
+    
+    const [
+        deleteAccount,
+        {
+            error: deleteAccountError
+        }
+    ] = useDeleteAccountMutation();
+    
+    const { data: authData } = userAuthApi.endpoints.verifyAuth.useQueryState();
+
     const {
         data: accountData,
         isLoading,
-        isFetching
+        isFetching,
+        error: getAccountsError
     } = useGetAccountsQuery();
+
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+    const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
+        }
+    }
+
+    logOutUnauthorizedRequests(financeAccountApiResult);
+    logOutUnauthorizedRequests(authApiResult);
+    logOutUnauthorizedRequests({ error: addAccountError });
+    logOutUnauthorizedRequests({ error: updateAttributesError });
+    logOutUnauthorizedRequests({ error: deleteAccountError });
+    logOutUnauthorizedRequests({ error: getAccountsError });
 
     // send account add request
     const handleAddAccount = async (data) => {
@@ -67,7 +125,7 @@ const AccountPage = () => {
         setSelectLoader(false);
     }
 
-    let isContentLoading = isLoading && isFetching ? true : false;
+    let isContentLoading = isLoading || isFetching ? true : false;
     
     const handleAccountSelect = async (event, accountId) => {
 

@@ -28,7 +28,6 @@ const HomePage = () => {
     const [state, setState] = useState(SORT_DATE_BY.THIS_MONTH);
 
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
 
     const {
@@ -54,31 +53,28 @@ const HomePage = () => {
         financeAccountApiResult
     ] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
 
-    // logout user if unauthorized
-    if (
-        financeAccountApiResult.error || 
-        incomeApiResult.error || 
-        expenseApiResult.error
-    ) {
-        if (
-            unAuthorizedErrors.includes(expenseApiResult.error.data.message) ||
-            unAuthorizedErrors.includes(incomeApiResult.error.data.message) ||
-            unAuthorizedErrors.includes(financeAccountApiResult.error.data.message)
-        ) {
-            dispatch(
-                userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-                    return draftPosts = {}
-                })
-            );
-            navigate('/auth/login');
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+    const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
         }
     }
+
+    logOutUnauthorizedRequests(financeAccountApiResult);
+    logOutUnauthorizedRequests(expenseApiResult);
+    logOutUnauthorizedRequests(incomeApiResult);
 
     useEffect(() => {
         expenseApiTrigger({ accountId: authData.defaultAccount, para: state.value });
         incomeApiTrigger({ accountId: authData.defaultAccount, para: state.value });
-
-
     }, [state]);
 
     useEffect(() => {

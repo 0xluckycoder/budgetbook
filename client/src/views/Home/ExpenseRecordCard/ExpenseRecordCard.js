@@ -37,18 +37,9 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
         error: addExpenseError 
     }] = useAddExpenseMutation();
 
-    // addExpenseError && console.log(addExpenseError.data.message);
-
-    if (addExpenseError) {
-        if (unAuthorizedErrors.includes(addExpenseError.data.message)) {
-            console.log(addExpenseError);
-        }
-    }
-
-    // logout user if unauthorized
-    // if (addExpenseError.error) {
-    //     if (addExpenseError.error.data.message === "no cookies available") {
-    //         // clear auth state and redirect to login page
+    // // logout user if unauthorized
+    // if (addExpenseError) {
+    //     if (unAuthorizedErrors.includes(addExpenseError.data.message)) {
     //         dispatch(
     //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
     //                 return draftPosts = {}
@@ -57,6 +48,23 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
     //         navigate('/auth/login');
     //     }
     // }
+
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+     const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
+        }
+    }
+
+    logOutUnauthorizedRequests({error: addExpenseError});
 
     // send add request
     const handleAddRecord = async (inputState) => {
@@ -153,16 +161,36 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     const [editExpense, {
         isLoading: editExpenseMutationLoading,
         data: editResponse,
-        error: deleteIncomeError
+        error: editExpenseError
     }] = useEditExpenseMutation();
 
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+    const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
+        }
+    }
+
+    logOutUnauthorizedRequests({ error: deleteExpenseError });
+    logOutUnauthorizedRequests({ error: editExpenseError });
+    
     // logout user if unauthorized
     // if (
-    //     deleteExpenseError.error ||
-    //     deleteIncomeError.error
+    //     deleteExpenseError ||
+    //     editExpenseError
     // ) {
-    //     if (deleteExpenseError.error.data.message === "no cookies available") {
-    //         // clear auth state and redirect to login page
+    //     if (
+    //         unAuthorizedErrors.includes(deleteExpenseError.data.message) ||
+    //         unAuthorizedErrors.includes(editExpenseError.data.message)
+    //     ) {
     //         dispatch(
     //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
     //                 return draftPosts = {}

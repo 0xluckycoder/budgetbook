@@ -304,10 +304,10 @@ test
                     - [x] - make sorting dropdown work
                     - [/] - logout users when refresh token is expired
                         - [/] - manage error handling when caching
-                            - [ ] - income slice
-                            - [ ] - expense slice
-                            - [ ] - auth slice
-                            - [ ] - financial account slice
+                            - [x] - income slice
+                            - [x] - expense slice
+                            - [x] - auth slice
+                            - [x] - financial account slice
                             - [x] - clear the auth state manually before logout
                                 - [x] - read and understand each redux capabilities & functionalities
                                     - continue from reading about action
@@ -317,7 +317,9 @@ test
                             - [x] - debug code and fix protected routes
                                 - [x] - learn to debug with vscode step by step
                         - [x] - home page
-                        - [/] - copy HomePage.js line 58 - 75 in every query/mutation using components
+                        - [/] - copy HomePage.js line 58 - 75 in every query/
+                        mutation using components
+                            - [/] - seperate each condition
                         - [ ] - account page
                         - [ ] - parent components
                     - [ ] - list down and test features one by one before moving to user profile

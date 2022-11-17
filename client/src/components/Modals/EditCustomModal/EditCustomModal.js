@@ -10,12 +10,13 @@ import moment from 'moment';
 import { ImagePreview } from '../ImagePreview/ImagePreview';
 
 import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
-
 import { userAuthApi } from '../../../store/user/user.slice';
 
 import { 
     useUploadExpenseImagesMutation,
 } from '../../../store/expense/expense.slice';
+
+import { unAuthorizedErrors } from '../../../utils/errorTypes';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -44,10 +45,11 @@ export const EditCustomModal = ({
         error: uploadImageError
     }] = useUploadExpenseImagesMutation();
 
-    // // logout user if unauthorized
-    // if (uploadImageError.error) {
-    //     if (uploadImageError.error.data.message === "no cookies available") {
-    //         // clear auth state and redirect to login page
+    // logout user if unauthorized
+    // if (uploadImageError) {
+    //     if (
+    //         unAuthorizedErrors.includes(uploadImageError.data.message)
+    //     ) {
     //         dispatch(
     //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
     //                 return draftPosts = {}
@@ -56,6 +58,23 @@ export const EditCustomModal = ({
     //         navigate('/auth/login');
     //     }
     // }
+
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+    const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
+        }
+    }
+
+    logOutUnauthorizedRequests({ error: uploadImageError });
 
     const { TextArea } = Input;
     const [form] = Form.useForm();

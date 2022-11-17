@@ -23,6 +23,8 @@ import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
+import { unAuthorizedErrors } from '../../../utils/errorTypes';
+
 export const IncomeRecordCard = ({ dateSortByState, result }) => {
 
     const navigate = useNavigate();
@@ -55,18 +57,17 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
         setAddModalState(false);
     }
 
-    // // logout user if unauthorized
-    // if (addIncomeError.error) {
-    //     if (addIncomeError.error.data.message === "no cookies available") {
-    //         // clear auth state and redirect to login page
-    //         dispatch(
-    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-    //                 return draftPosts = {}
-    //             })
-    //         );
-    //         navigate('/auth/login');
-    //     }
-    // }
+    // logout user if unauthorized
+    if (addIncomeError) {
+        if (unAuthorizedErrors.includes(addIncomeError.data.message)) {
+            dispatch(
+                userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                    return draftPosts = {}
+                })
+            );
+            navigate('/auth/login');
+        }
+    }
 
     return (
         <div className={styles.recordCardWrapper}>
@@ -146,21 +147,23 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
         error: editIncomeError
     }] = useEditIncomeMutation();
 
-    // // logout user if unauthorized
-    // if (deleteIncomeError.error || editIncomeError.error) {
-    //     if (
-    //             deleteIncomeError.error.data.message === "no cookies available" ||
-    //             editIncomeError.error.data.message === "no cookies available"
-    //         ) {
-    //         // clear auth state and redirect to login page
-    //         dispatch(
-    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-    //                 return draftPosts = {}
-    //             })
-    //         );
-    //         navigate('/auth/login');
-    //     }
-    // }
+    // logout user if unauthorized
+    if (
+        deleteIncomeError ||
+        editIncomeError
+    ) {
+        if (
+            unAuthorizedErrors.includes(deleteIncomeError.data.message) ||
+            unAuthorizedErrors.includes(editIncomeError.data.message)
+        ) {
+            dispatch(
+                userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                    return draftPosts = {}
+                })
+            );
+            navigate('/auth/login');
+        }
+    }
 
     // send delete request
     const handleDelete = async (id) => {

@@ -8,18 +8,25 @@ import { ImagePreview } from '../ImagePreview/ImagePreview';
 import styles from './addCustomModal.module.scss';
 
 import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
-
 import { userAuthApi } from '../../../store/user/user.slice';
 
 import { 
     useUploadExpenseImagesMutation,
 } from '../../../store/expense/expense.slice';
 
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
+import { unAuthorizedErrors } from '../../../utils/errorTypes';
+
 export const AddCustomModal = ({ 
     addModalState, 
     setAddModalState,
     handleAddRecord 
 }) => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {
         data: financeAccountData,
@@ -36,8 +43,40 @@ export const AddCustomModal = ({
 
     const [uploadExpenseImages, {
         isLoading: imageMutationLoading,
-        data: imageResponse
+        data: imageResponse,
+        error: uploadImageError
     }] = useUploadExpenseImagesMutation();
+
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+     const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
+        }
+    }
+
+    logOutUnauthorizedRequests({ error: uploadImageError });
+
+    // logout user if unauthorized
+    // if (uploadImageError) {
+    //     if (
+    //         unAuthorizedErrors.includes(uploadImageError.data.message)
+    //     ) {
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
 
     const { TextArea } = Input;
 
