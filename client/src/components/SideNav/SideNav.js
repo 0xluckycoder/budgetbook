@@ -20,9 +20,9 @@ export const SideNav = () => {
         <SideNavWrapper isActive={active}>
             <SideNavItem icon={Dashboard} name={"Home"} />
             <SideNavItem icon={Card} name={"Accounts"} />
-            <SideNavItem icon={Payment} name={"Payment"} />
-            <SideNavItem icon={Bell} name={"Goals"} />
-            <SideNavItem icon={Charts} name={"Charts"} />
+            {/* <SideNavItem icon={Payment} name={"Payment"} /> */}
+            {/* <SideNavItem icon={Bell} name={"Goals"} /> */}
+            {/* <SideNavItem icon={Charts} name={"Charts"} /> */}
             <SideNavItem icon={Setting} name={"Settings"} />
         </SideNavWrapper>
     );

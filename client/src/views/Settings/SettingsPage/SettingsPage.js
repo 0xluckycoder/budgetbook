@@ -43,8 +43,8 @@ const SettingsPage = () => {
 
     logOutUnauthorizedRequests(logoutApiResult);
 
+    // logout from app
     const logoutUser = () => {
-        console.log('logging out');
         logoutApiTrigger();
         dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
                 return draftPosts = {}
