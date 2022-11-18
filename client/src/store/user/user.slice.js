@@ -55,9 +55,9 @@ export const userAuthApi = createApi({
                 url: '/auth/logout',
                 credentials: "include"
             }),
-            transformResponse: (res) => {
-                return res.data;
-            }
+            // transformResponse: (res) => {
+            //     return res.data;
+            // }
         }),
     }),
 });
@@ -67,7 +67,8 @@ export const {
     useSignInMutation,
     useSignUpMutation,
     useGetUserAttributesQuery,
-    useUpdateUserAttributesMutation
+    useUpdateUserAttributesMutation,
+    useLazyLogoutQuery
 } = userAuthApi;
 
 /*

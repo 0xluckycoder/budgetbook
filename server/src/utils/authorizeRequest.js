@@ -16,6 +16,8 @@ const authorizeRequest = async (req, res, next) => {
         // get userSubId
         const userAttributes = await userProfile.getUserBySubId(verifyAuthResponse.subId);
 
+        console.log(userAttributes);
+
         // assign user data to req object
         req.user = {
             _id: userAttributes._id.toString(),

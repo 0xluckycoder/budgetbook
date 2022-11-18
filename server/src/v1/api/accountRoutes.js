@@ -19,6 +19,4 @@ router.put('/:id', authorizeRequest, accountController.updateAccount);
 
 router.delete('/:id', authorizeRequest, accountController.deleteAccount);
 
-router.get('/logout', authorizeRequest, accountController.logout)
-
 module.exports = router;

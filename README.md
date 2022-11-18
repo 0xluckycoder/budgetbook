@@ -327,8 +327,8 @@ test
                 - [/] - Settings
                     - [x] - show user setting details
                     - [/] - logout user
-                        - [ ] - create authorized /auth endpoint to clear cookies
-                        - [ ] - create the query
+                        - [x] - create authorized /auth endpoint to clear cookies
+                        - [x] - create the query
                     - [ ] - change default period feature
                         - [ ] - assign "thismonth" as the default when new users singing up
                         - [ ] - in home always use defaultSortPeriod to fetch data

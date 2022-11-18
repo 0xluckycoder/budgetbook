@@ -291,8 +291,7 @@ const updateUserAttributes = async (req, res, next) => {
         res.clearCookie('RefreshToken');
 
         res.status(200).json({
-            success: true,
-            data: response
+            success: true
         });
 
     } catch (error) {

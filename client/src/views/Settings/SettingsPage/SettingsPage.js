@@ -9,6 +9,7 @@ import { userAuthApi } from "../../../store/user/user.slice";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
+import { useLazyLogoutQuery } from "../../../store/user/user.slice";
 import { unAuthorizedErrors } from "../../../utils/errorTypes";
 
 const SettingsPage = () => {
@@ -16,16 +17,40 @@ const SettingsPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const [
+        logoutApiTrigger,
+        logoutApiResult
+    ] = useLazyLogoutQuery();
+
     const {
         data: authData
     } = userAuthApi.endpoints.verifyAuth.useQueryState();
 
-    const logoutUser = () => {
-        // dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-        //         return draftPosts = {}
-        // }));
-        // navigate('/auth/login');
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+    const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
+        }
     }
+
+    logOutUnauthorizedRequests(logoutApiResult);
+
+    const logoutUser = () => {
+        console.log('logging out');
+        logoutApiTrigger();
+        dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                return draftPosts = {}
+        }));
+        navigate('/auth/login');
+    };
 
     return (
         <AppLayout>
