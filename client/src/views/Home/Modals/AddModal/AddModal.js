@@ -331,7 +331,7 @@ export const AddModal = ({
 
     return (
         <Modal
-            title="New Expense"
+            title="Add"
             centered
             open={addModalState}
             onCancel={() => handleClose()}

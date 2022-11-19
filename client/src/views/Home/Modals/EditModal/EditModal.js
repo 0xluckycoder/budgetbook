@@ -348,7 +348,7 @@ export const EditModal = ({
 
     return (
         <Modal
-            title="Edit Expense"
+            title="Edit"
             centered
             open={editModalState}
             onCancel={() => handleClose()}

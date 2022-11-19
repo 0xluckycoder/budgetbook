@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './app.scss';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import {
   userAuthApi
@@ -39,6 +39,7 @@ function App() {
             <Route path="login" element={<AuthRedirect><SignInPage /></AuthRedirect>} />
             <Route path="signup" element={<AuthRedirect><SignUpPage /></AuthRedirect>} />
           </Route>
+          <Route path="*" element={<Navigate to="/auth/login" />} /> 
         </Routes>
       </BrowserRouter>
     </div>

@@ -37,7 +37,7 @@ export const ViewModal = ({
 
     return (
         <Modal
-            title="Expense Item"
+            title="View"
             centered
             open={viewModalState}
             onCancel={() => handleClose()}
