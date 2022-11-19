@@ -2,7 +2,7 @@
 
 Purpose of this application is to allow users to track their expenses and incomes
 
-#### ✨ Features
+### ✨ Features
 ---
 - Easily manage expenses/incomes over multiple accounts
   - ex - (bank / personal / investment)
@@ -13,7 +13,7 @@ Purpose of this application is to allow users to track their expenses and income
 - Low management because most of the infrastructure is cloud based
 - No Ads
 
-#### 🚀Getting Started
+### 🚀Getting Started
 ---
 Install frontend dependencies
 
@@ -24,7 +24,7 @@ Install backend dependencies
 ```
 cd ./server && npm install
 ```
-##### Setup .env File
+#### Setup .env File
 First you need a AWS IAM account with cognito pool and s3 bucket. you could call your cognito pool & s3 bucket whatever the name you want. just make sure to update appropriate values on .env file.
 
 I'm using mongodb cloud as the database. you can easily setup your mongodb account by visiting to this [link](https://www.mongodb.com/)
@@ -40,10 +40,10 @@ AWS_COGNITO_APP_CLIENT_ID=
 AWS_USER_POOL_ID=
 ```
 
-#### 🛠️Technologies
+### 🛠️Technologies
 ---
 Following are the main technologies that i've used. you can find more about dependencies by locating to ``package.json`` file on each client and server directories.
-##### Front end
+### Front end
 -   Figma UI
 -   React
 -   Redux RTK
@@ -51,11 +51,11 @@ Following are the main technologies that i've used. you can find more about depe
 -   Sass
 -   recharts (D3 based)
 
-##### Back end
+### Back end
 - Node / Express
 - AWS Cognito
 - AWS S3
 - MongoDB
 
-#### 📜License
+### 📜License
 ---
