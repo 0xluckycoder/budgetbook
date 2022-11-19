@@ -339,6 +339,31 @@ test
                     - [x] - for now hide the settings edit button
                     - [x] - create a modal to edit every user data
                     - [x] - use view dropdown fields readonly (user can only change values through edit user modal)
+                    - [ ] - for now just add the LKR and USD currencies
+                    - [/] - all incomes should update the account value
+                        - [/] - update value from incomes service
+                            - [/] - add income
+                            - [ ] - delete income
+                            - [ ] - update income
+                                - fetch current account
+                                - tostring
+                                - add
+                                - update
+                        - [ ] - fetch the updated account and display in UI 
+                    - [ ] - all expenses should update the account value
+                        - [ ] - update value from incomes service
+                            - [ ] - add expense
+                            - [ ] - delete expense
+                            - [ ] - update expense
+                                - fetch current account
+                                - tostring
+                                - add
+                                - update
+                        - [ ] - fetch the updated account and display in UI
+
+                - [ ] - correct modal titles
+                - [ ] - fix major bug: user got redirected to the login page after logginin in (happened after logging out of the system)
+                - [ ] - when creating a income record or expense record from api make sure to check whether the account is related to the user or not 
 
                 - [ ] - load different categories based on income or expenses
                 - [ ] - add all available currency formats to dropdown when selecting currency

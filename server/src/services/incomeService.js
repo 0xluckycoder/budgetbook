@@ -14,8 +14,22 @@ const deleteObjects = require('../utils/deleteObjects');
 
 const createIncome = async (incomeData) => {
     try {
-        const createExpense = await income.createIncome(incomeData);
-        return createExpense;
+        // fetch related account
+        const relatedAccount = await account.getAccountById(incomeData.accountId);
+
+        // update the account total
+        const currentAccountValue = parseInt(relatedAccount.value);
+        const incomeValue = parseInt(incomeData.amount);
+        const newAccountValue = currentAccountValue + incomeValue;
+        relatedAccount.value = newAccountValue.toString();
+
+        const updatedAccount = await account.updateAccount({
+            value: relatedAccount.value
+        }, incomeData.accountId);   
+
+        // create income
+        const createIncome = await income.createIncome(incomeData);
+        return createIncome;
     } catch(error) {
         throw error;
     }

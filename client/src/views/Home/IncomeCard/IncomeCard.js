@@ -25,8 +25,8 @@ export const IncomeCard = ({ result }) => {
             <div className={styles.cardDetails}>
                 <p className={styles.amount}>{total}</p>
                 <div className={`${styles.percentage} ${styles.red}`}>
-                    <p>15%</p>
-                    <FontAwesomeIcon className={styles.redCarrot} icon={faCaretUp} />
+                    {/* <p>15%</p> */}
+                    {/* <FontAwesomeIcon className={styles.redCarrot} icon={faCaretUp} /> */}
                 </div>
             </div>
             <CustomLineChart data={result} />
