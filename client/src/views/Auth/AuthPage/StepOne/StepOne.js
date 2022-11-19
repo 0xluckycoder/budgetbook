@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Alert } from "antd";
 import styles from './stepOne.module.scss';
+import { Link } from "react-router-dom";
 
 export const StepOne = ({ 
     width, 
@@ -88,9 +89,9 @@ export const StepOne = ({
                 className={`themed-button ${styles.longButton}`}
                 onClick={() => submitStep()}
             >
-                Sign up
+            Sign up
             </Button>
-            <p className={styles.signIn}>Already have an account ?<span className={styles.link}> Sign In</span></p>
+            <p className={styles.signIn}>Already have an account ?<span className={styles.link}> <Link to="/auth/login">Sign In</Link></span></p>
         </div>
     );
 }

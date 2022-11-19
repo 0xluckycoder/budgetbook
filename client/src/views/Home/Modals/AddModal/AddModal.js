@@ -1,25 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import imagePlaceholder from '../../../assets/Modal/add-photos-placeholder.svg';
-import { InlineField } from '../../../components/Form/InlineField';
-import { validateMax, validateMin, validateRequired } from '../../../utils/formValidation';
+import imagePlaceholder from '../../../../assets/Modal/add-photos-placeholder.svg';
+import { InlineField } from '../../../../components/Form/InlineField';
+import { validateMax, validateMin, validateRequired } from '../../../../utils/formValidation';
 import { ImagePreview } from '../ImagePreview/ImagePreview';
-import styles from './addCustomModal.module.scss';
+import styles from './addModal.module.scss';
 
-import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
-import { userAuthApi } from '../../../store/user/user.slice';
+import { financeAccountApi } from '../../../../store/financeAccount/financeAccount.slice';
+import { userAuthApi } from '../../../../store/user/user.slice';
 
-import { 
-    useUploadExpenseImagesMutation,
-} from '../../../store/expense/expense.slice';
+import {
+    useUploadExpenseImagesMutation
+} from '../../../../store/expense/expense.slice';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-import { unAuthorizedErrors } from '../../../utils/errorTypes';
+import { unAuthorizedErrors } from '../../../../utils/errorTypes';
 
-export const AddCustomModal = ({ 
+export const AddModal = ({ 
     addModalState, 
     setAddModalState,
     handleAddRecord 
@@ -109,14 +109,41 @@ export const AddCustomModal = ({
     const categoryMenuData = [
         {
             key: '0',
-            label: <p key={0} onClick={() => setInputState({...inputState, category: 'Food'})}>Food</p>
+            label: <p key={0} onClick={() => setInputState({...inputState, category: 'Food & Drinks'})}>Food & Drinks</p>
         },
         {
             key: '1',
-            label: <p key={1} onClick={() => setInputState({...inputState, category: 'Travel'})}>Travel</p>
+            label: <p key={1} onClick={() => setInputState({...inputState, category: 'Shopping'})}>Shopping</p>
         },
         {
             key: '2',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Housing'})}>Housing</p>
+        },
+        {
+            key: '3',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Transportation'})}>Transportation</p>
+        },
+        {
+            key: '4',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Vehicle'})}>Vehicle</p>
+        },
+        {
+            key: '5',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Devices'})}>Devices</p>
+        },
+        {
+            key: '6',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Investments'})}>Investments</p>
+        },
+        {
+            key: '7',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Gift'})}>Gift</p>
+        },
+        {
+            key: '8',
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Salary'})}>Salary</p>
+        },        {
+            key: '9',
             label: <p key={2} onClick={() => setInputState({...inputState, category: 'Other'})}>Other</p>
         }
     ];

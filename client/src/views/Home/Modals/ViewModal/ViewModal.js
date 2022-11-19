@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker, Spin } from 'antd';
-import { InlineField } from '../../../components/Form/InlineField';
-import styles from './viewCustomModal.module.scss';
-import { ImagePreview } from '../ImagePreview/ImagePreview';
-import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
+import React, { useState, useEffect } from 'react';
+import { Button, Modal, Form } from 'antd';
 
-export const ViewCustomModal = ({
+import { financeAccountApi } from '../../../../store/financeAccount/financeAccount.slice';
+import { ImagePreview } from '../ImagePreview/ImagePreview';
+import styles from './viewModal.module.scss';
+import { InlineField } from '../../../../components/Form/InlineField';
+
+
+export const ViewModal = ({
     viewModalState,
     setViewModalState,
     handleEditButton,

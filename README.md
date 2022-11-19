@@ -326,22 +326,27 @@ test
 
                 - [/] - Settings
                     - [x] - show user setting details
-                    - [/] - logout user
+                    - [x] - logout user
                         - [x] - create authorized /auth endpoint to clear cookies
                         - [x] - create the query
-                    - [ ] - change default period feature
-                        - [ ] - assign "thismonth" as the default when new users singing up
-                        - [ ] - in home always use defaultSortPeriod to fetch data
-                    - [ ] - Remove user profile and defaultAccount dropdowns for now
-                    - [ ] - default Language feature
-                        - [ ] - for now just use english as the only value
-                        - [ ] - make the dropdown dynamic
-                    - [ ] - create a modal to edit every data
-                    - [ ] - use view dropdown fields readonly (user can only change values through edit user modal)
+                    - [x] - change default period feature
+                        - [x] - assign "thismonth" as the default when new users singing up
+                        - [x] - in home always use defaultSortPeriod to fetch data
+                    - [x] - Remove user profile and defaultAccount dropdowns for now
+                    - [/] - default Language feature
+                        - [x] - for now just use english as the only value
+                        - [/] - make the dropdown dynamic
+                    - [x] - for now hide the settings edit button
+                    - [/] - create a modal to edit every user data
+                    - [/] - use view dropdown fields readonly (user can only change values through edit user modal)
 
+                - [ ] - load different categories based on income or expenses
+                - [ ] - add all available currency formats to dropdown when selecting currency
+                - [ ] - add all available country formats with their short name to dropdown when selecting currency
+                - [ ] - update categories dropdown with most common used categories
 
+                - [x] - for now disable forgot password feature
                 - [ ] - authentication update 1.1
-                    - [ ] - for now disable forgot password feature
                     - [ ] - configure real email for this app
                         - [ ] - work on adding email confirmation
                         - [ ] - forgot email feature

@@ -23,8 +23,7 @@ const userEntrySchema = new Schema({
         required: true
     },
     defaultAccount: {
-        type: String,
-        required: true
+        type: String
     },
     defaultSortPeriod: {
         type: String

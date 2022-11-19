@@ -80,8 +80,8 @@ const HomePage = () => {
     useEffect(() => {
         if (authData && !authIsUninitiated) {
             // don't trigger data if already have it
-            expenseApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
-            incomeApiTrigger({ accountId: authData.defaultAccount, para: 'thismonth' });
+            expenseApiTrigger({ accountId: authData.defaultAccount, para: authData.defaultSortPeriod });
+            incomeApiTrigger({ accountId: authData.defaultAccount, para: authData.defaultSortPeriod });
             financeAccountApiTrigger();    
         }
     }, [authData]);

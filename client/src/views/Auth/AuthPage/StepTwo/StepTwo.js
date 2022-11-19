@@ -18,6 +18,8 @@ export const StepTwo = ({
     handleNextNavigation
 }) => {
 
+    
+
     const [isValidated, setIsValidated] = useState(false);
 
     const [form] = Form.useForm();
@@ -26,29 +28,17 @@ export const StepTwo = ({
         {
             label: <p key={0} onClick={() => setInputState({...inputState, language: 'English'})}>English</p>,
             key: '0'
-        },
-        {
-            label: <p key={1} onClick={() => setInputState({...inputState, language: 'Mandarin'})}>Mandarin</p>,
-            key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, language: 'Japanese'})}>Japanese</p>,
-            key: '2',
         }
     ];
 
     const countryMenuData = [
         {
-            label: <p key={0} onClick={() => setInputState({...inputState, country: 'USA'})}>United States</p>,
+            label: <p key={0} onClick={() => setInputState({...inputState, country: 'Sri Lanka'})}>Sri Lanka</p>,
             key: '0'
         },
         {
-            label: <p key={1} onClick={() => setInputState({...inputState, country: 'China'})}>China</p>,
+            label: <p key={0} onClick={() => setInputState({...inputState, country: 'United States'})}>United States</p>,
             key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, country: 'Japan'})}>Japan</p>,
-            key: '2',
         }
     ];
 

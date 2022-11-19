@@ -24,9 +24,9 @@ export const AppSettings = ({
                 </div>
             </div>
 
-            <Button className="themed-button">
+            {/* <Button className="themed-button">
                 Edit
-            </Button>
+            </Button> */}
 
         </div>
     );

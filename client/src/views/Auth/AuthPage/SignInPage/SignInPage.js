@@ -7,6 +7,8 @@ import { LoadingSpinner } from '../../../../components/LoadingSpinner/LoadingSpi
 import { validateEmail, validateRequired, validateMax } from '../../../../utils/formValidation';
 import { useSignInMutation, userAuthApi } from '../../../../store/user/user.slice';
 
+import { Link } from 'react-router-dom';
+
 import styles from './signInPage.module.scss';
 
 const SignInPage = () => {
@@ -143,12 +145,12 @@ const SignInPage = () => {
                                 />
                             </Form.Item>
                         </Form>
-                        <p className={styles.forgotPassword}>Forgot Password</p>
+                        {/* <p className={styles.forgotPassword}>Forgot Password</p> */}
                         <Button 
                             onClick={handleSubmit} 
                             className={`themed-button ${styles.longButton}`}
                         >Sign In</Button>
-                        <p className={styles.signUp}>Don't have an account ? <span className={styles.link}>Sign up</span></p>
+                        <p className={styles.signUp}>Don't have an account ? <span className={styles.link}><Link to="/auth/signup">Sign up</Link></span></p>
                     </>
                     }
                 </div>                

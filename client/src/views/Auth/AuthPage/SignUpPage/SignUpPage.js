@@ -4,7 +4,7 @@ import styles from './signUp.module.scss';
 import { useSignUpMutation, userAuthApi } from '../../../../store/user/user.slice';
 
 import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, redirect } from 'react-router-dom';
 
 import { StepOne } from '../StepOne/StepOne';
 import { StepTwo } from '../StepTwo/StepTwo';
@@ -191,7 +191,11 @@ const SignUpPage = () => {
 
     const handleSubmit = async () => {
         try {
-            await signUp(inputState).unwrap();
+            const response = await signUp(inputState).unwrap();
+ 
+            if (response.success) {
+                navigate("/auth/login");
+            }
         } catch (error) {
             console.log(error);
             // refresh the page

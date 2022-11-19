@@ -15,9 +15,9 @@ import { userAuthApi } from '../../../store/user/user.slice';
 
 import { LoadingSpinner } from '../../../components/LoadingSpinner/LoadingSpinner';
 
-import { AddCustomModal } from '../../../components/Modals/AddCustomModal/AddCustomModal';
-import { ViewCustomModal } from '../../../components/Modals/ViewCustomModal/ViewCustomModal';
-import { EditCustomModal } from '../../../components/Modals/EditCustomModal/EditCustomModal';
+import { AddModal } from '../Modals/AddModal/AddModal';
+import { EditModal } from '../Modals/EditModal/EditModal';
+import { ViewModal } from '../Modals/ViewModal/ViewModal';
 import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
 
 import { useDispatch } from 'react-redux';
@@ -80,7 +80,7 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
             </Button>
 
             {/* add new expense modal */}
-            <AddCustomModal 
+            <AddModal 
                 addModalState={addModalState}
                 setAddModalState={setAddModalState}
                 handleAddRecord={handleAddRecord}
@@ -196,7 +196,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     return (
         <>
         {/* view expense record */}
-        <ViewCustomModal
+        <ViewModal
             viewModalState={viewModalState}
             setViewModalState={setViewModalState}
             itemData={itemData}
@@ -214,7 +214,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
         />
 
         {/* edit expense */}
-        <EditCustomModal
+        <EditModal
             editModalState={editModalState}
             setEditModalState={setEditModalState}
             itemData={itemData}
