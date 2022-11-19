@@ -43,7 +43,7 @@ AWS_USER_POOL_ID=
 ### 🛠️Technologies
 ---
 Following are the main technologies that i've used. you can find more about dependencies by locating to ``package.json`` file on each client and server directories.
-### Front end
+#### Front end
 -   Figma UI
 -   React
 -   Redux RTK
@@ -51,12 +51,60 @@ Following are the main technologies that i've used. you can find more about depe
 -   Sass
 -   recharts (D3 based)
 
-### Back end
+##### Architecture
+```
+src/
+├─ assets/
+├─ components/
+│  ├─ layout
+│  │  ├─ Layout.js
+│  ├─ router/
+│  │  ├─ RouterName.js
+│  ├─ GlobalComponent
+│  │  ├─ GlobalComponent.js
+│  │  ├─ GlobalComponent.scss
+├─ store/
+│  ├─ user/
+│  │  ├─ user.slice.js
+│  ├─ store.js
+├─ utils/
+├─ views/
+│  ├─ Home/
+│  │  ├─ HomePage/
+│  │  │  ├─ HomePage.js
+│  │  │  ├─ HomePage.scss
+│  │  ├─ HomeComponent/
+│  │  │  ├─ HomeComponent.js
+│  │  │  ├─ HomeComponent.scss
+App.js
+app.scss
+
+```
+#### Back end
 - Node / Express
 - AWS Cognito
 - AWS S3
 - MongoDB
 
+##### Architecture
+```
+src/
+├─ controllers/
+│  ├─ userController.js
+├─ database/
+│  ├─ user.js
+├─ images/
+├─ models/
+│  ├─ UserEntry.js
+├─ services/
+│  ├─ userService.js
+├─ utils/
+├─ v1/
+│  ├─ api
+|  |  ├─ userRoutes.js/
+index.js
+middlewares.js
+```
 ### 📜License
 ---
 Budgetbook is an MIT-licensed open source project.
