@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Input, Form, Button } from "antd";
-import { InlineField } from "../../../components/Form/InlineField";
-import { DialogueCard } from '../../../components/DialogueCard/DialogueCard';
-import styles from './viewAccountModal.module.scss';
-// import { useDeleteAccountMutation } from "../../../store/financeAccount/financeAccount.slice";
+import { Modal, Form, Button } from "antd";
+import { InlineField } from "../../../../components/Form/InlineField";
+import { DialogueCard } from '../../../../components/DialogueCard/DialogueCard';
+import styles from './viewModal.module.scss';
 
-export const ViewAccountModal = ({
+export const ViewModal = ({
     viewModalState,
     handleEditButton,
     itemData,

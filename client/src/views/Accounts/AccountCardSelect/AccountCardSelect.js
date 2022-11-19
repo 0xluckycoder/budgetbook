@@ -3,9 +3,8 @@ import styles from "./accountCardSelect.module.scss";
 import { Radio, Tag } from 'antd';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
-
-import { ViewAccountModal } from "../ViewAccountModal/ViewAccountModal";
-import { EditAccountModal } from "../EditAccountModal/EditAccountModal";
+import { ViewModal } from "../Modals/ViewModal/ViewModal";
+import { EditModal } from "../Modals/EditModal/EditModal";
 
 import { useEditAccountMutation } from "../../../store/financeAccount/financeAccount.slice";
 
@@ -58,7 +57,7 @@ export const AccountCardSelect = ({
     return (
         <>
             {/* view finance account modal */}
-            <ViewAccountModal 
+            <ViewModal 
                     viewModalState={viewAccountState}
                     handleEditButton={handleEditButton}
                     itemData={itemData}
@@ -67,7 +66,7 @@ export const AccountCardSelect = ({
             />
 
             {/* edit finance account */}
-            <EditAccountModal
+            <EditModal
                 editModalState={editModalState}
                 setEditModalState={setEditModalState}
                 itemData={itemData}

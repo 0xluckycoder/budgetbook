@@ -337,8 +337,8 @@ test
                         - [x] - for now just use english as the only value
                         - [/] - make the dropdown dynamic
                     - [x] - for now hide the settings edit button
-                    - [/] - create a modal to edit every user data
-                    - [/] - use view dropdown fields readonly (user can only change values through edit user modal)
+                    - [x] - create a modal to edit every user data
+                    - [x] - use view dropdown fields readonly (user can only change values through edit user modal)
 
                 - [ ] - load different categories based on income or expenses
                 - [ ] - add all available currency formats to dropdown when selecting currency

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AppLayout } from "../../../components/layout/AppLayout";
 import { Col, Row, Button, Radio } from 'antd';
 import { AccountTotalCard } from "../AccountTotalCard/AccountTotalCard";
-import { AddAccountModal } from "../AddAccountModal/AddAccountModal";
+import { AddModal } from '../Modals/AddModal/AddModal';
 import { AccountCardSelect } from "../AccountCardSelect/AccountCardSelect";
 import styles from './accountPage.module.scss';
 import { LoadingSpinner } from "../../../components/LoadingSpinner/LoadingSpinner";
@@ -184,7 +184,7 @@ const AccountPage = () => {
                 </Button>
 
                 {/* Add finance Account Modal */}
-                <AddAccountModal 
+                <AddModal 
                     addAccountState={addAccountState} 
                     handleAddAccount={handleAddAccount} 
                     setAddAccountState={setAddAccountState} 

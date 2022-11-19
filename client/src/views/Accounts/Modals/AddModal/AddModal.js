@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Form, Input, Dropdown, Button, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { InlineField } from "../../../components/Form/InlineField";
-import { validateRequired, validateMin, validateMax } from "../../../utils/formValidation";
 
-export const EditAccountModal = ({
-    editModalState,
-    setEditModalState,
-    itemData,
-    handleEditRecord
+import { InlineField } from "../../../../components/Form/InlineField";
+import { validateRequired, validateMax, validateMin } from '../../../../utils/formValidation';
+import { financeAccountApi, useAddAccountMutation } from '../../../../store/financeAccount/financeAccount.slice';
+import { ErrorBar } from "recharts";
+
+export const AddModal = ({ 
+    addAccountState, 
+    setAddAccountState,
+    handleAddAccount
 }) => {
 
     const [inputState, setInputState] = useState({});
@@ -19,9 +21,31 @@ export const EditAccountModal = ({
         description: null
     });
 
-    useEffect(() => {
-        if (itemData !== {}) setInputState(itemData);
-    }, [editModalState])
+    const handleInputChange = (e) => {
+        setInputState({...inputState, [e.target.name]: e.target.value});
+    }
+
+    const { TextArea } = Input;
+    const [form] = Form.useForm();
+
+    const currencyMenuData = [
+        {
+            label: <p key={0} onClick={() => setInputState({...inputState, currencyType: 'USD'})}>US Dollar</p>,
+            key: '0'
+        },
+        {
+            label: <p key={1} onClick={() => setInputState({...inputState, currencyType: 'LKR'})}>LKR</p>,
+            key: '1'
+        },
+        {
+            label: <p key={2} onClick={() => setInputState({...inputState, currencyType: 'GBP'})}>GBP</p>,
+            key: '2',
+        }
+    ];
+
+    const currencyDropdownText = inputState.currencyType === undefined ? 'Select Currency' : inputState.currencyType;
+
+    const currencyMenu = <Menu onBlur={(e) => validate(inputState.currencyType, 'currencyType')} items={currencyMenuData} />;
 
     const validate = (value, field) => {
         if (field === 'name') {
@@ -87,7 +111,7 @@ export const EditAccountModal = ({
         }
 
         if (field === 'description') {
-            const validatedMax = validateMax(200, value);
+            const validatedMax = validateMax(100, value);
             if (validatedMax.error)  {
                 setError({...error, [field]: { validateStatus: "error", help: "Too long" }});
                 return;
@@ -95,21 +119,6 @@ export const EditAccountModal = ({
                 setError({...error, [field]: null});
             }
         }
-    }
-
-    const handleInputChange = (e) => {
-        setInputState({...inputState, [e.target.name]: e.target.value});
-    }
-
-    const handleClose = () => {
-        setInputState({});
-        setEditModalState(false);
-        setError({
-            name: null,
-            currencyType: null,
-            value: null,
-            description: null
-        });
     }
 
     const handleSubmit = async () => {
@@ -127,66 +136,35 @@ export const EditAccountModal = ({
             inputState.currencyType &&
             inputState.value
         ) {
-            handleEditRecord(inputState);
-            setEditModalState(false);
-            setInputState({});
-            setError({
-                name: null,
-                currencyType: null,
-                value: null,
-                description: null
-            })
-            handleClose();
+            handleAddAccount(inputState);
+            setAddAccountState(false);
             return
         }
     }
 
-    const { TextArea } = Input;
-    const [form] = Form.useForm();
-
-    const currencyMenuData = [
-        {
-            label: <p key={0} onClick={() => setInputState({...inputState, currencyType: 'USD'})}>US Dollar</p>,
-            key: '0'
-        },
-        {
-            label: <p key={1} onClick={() => setInputState({...inputState, currencyType: 'LKR'})}>LKR</p>,
-            key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, currencyType: 'GBP'})}>GBP</p>,
-            key: '2',
-        }
-    ];
-
-    const currencyDropdownText = inputState.currencyType === undefined ? 'Select Currency' : inputState.currencyType;
-
-    const currencyMenu = <Menu onBlur={(e) => validate(inputState.currencyType, 'currencyType')} items={currencyMenuData} />;
-
     return (
         <Modal
-            title="Edit Finance Account"
+            title="New Account"
             centered
-            open={editModalState}
-            onCancel={() => handleClose()}
+            open={addAccountState}
+            onCancel={() => setAddAccountState(false)}
             className="form-modal"
             footer={[
-                <Button
-                    key={1}
-                    className="themed-button"
-                    onClick={() => handleSubmit()}
-                >
-                    Update
+                <Button key={0} className="themed-button" onClick={() => handleSubmit()}>
+                    Save
+                </Button>,
+                <Button key={1} className="themed-button" onClick={() => setAddAccountState(false)}>
+                    Close
                 </Button>
             ]}
-        >
+    >
             <Form form={form} layout="vertical">
                 <InlineField>
-
+                    
                     <Form.Item label="Account Name" {...(error.name ? error.name: {})}>
-                        <Input
-                            value={inputState.name && inputState.name} 
-                            name="name" 
+                        <Input 
+                            name="name"
+                            value={inputState.name && inputState.name}
                             onChange={handleInputChange} 
                             onBlur={(e) => validate(e.target.value, 'name')}
                         />
@@ -206,7 +184,7 @@ export const EditAccountModal = ({
                     </Form.Item>
 
                 </InlineField>
-
+                
                 <Form.Item label="Initial Account Value" {...(error.value ? error.value: {})}>
                     <Input 
                         type="number"
@@ -226,7 +204,6 @@ export const EditAccountModal = ({
                         onBlur={(e) => validate(e.target.value, 'description')}
                     />
                 </Form.Item>
-
             </Form>
         </Modal>
     );
