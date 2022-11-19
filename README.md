@@ -59,3 +59,4 @@ Following are the main technologies that i've used. you can find more about depe
 
 ### 📜License
 ---
+Budgetbook is an MIT-licensed open source project.
