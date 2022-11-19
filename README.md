@@ -340,21 +340,23 @@ test
                     - [x] - create a modal to edit every user data
                     - [x] - use view dropdown fields readonly (user can only change values through edit user modal)
                     - [ ] - for now just add the LKR and USD currencies
-                    - [/] - all incomes should update the account value
-                        - [/] - update value from incomes service
+                    - [x] - all incomes should update the account value
+                        - [x] - update value from incomes service
                             - [x] - add income
                             - [x] - delete income
                             - [x] - update income
+                                - [ ] - dont update if the value is same or 0
                                 - fetch current account
                                 - tostring
                                 - add
                                 - update
-                        - [/] - fetch the updated account and display in UI 
-                    - [ ] - all expenses should update the account value
-                        - [ ] - update value from incomes service
-                            - [ ] - add expense
-                            - [ ] - delete expense
-                            - [ ] - update expense
+                        - [x] - fetch the updated account and display in UI 
+                    - [/] - all expenses should update the account value
+                        - [/] - update value from expense service
+                            - [x] - add expense
+                            - [/] - delete expense
+                            - [x] - update expense
+                                - [ ] - dont update if the value is same or 0
                                 - fetch current account
                                 - tostring
                                 - add
@@ -421,6 +423,18 @@ test
         - https://youtu.be/4FhJkX18fS8 - react pro dos and donts
 
     - [ ] - Start to implement authentication
+
+current account = 10000
+
+current expense = 1000
+
+updated expense = 2000
+
+diff = current expense - updated expense
+
+-1000 = 1000 - 2000
+
+new account total = current account - current expense + diff
 
 
 Reload Site?

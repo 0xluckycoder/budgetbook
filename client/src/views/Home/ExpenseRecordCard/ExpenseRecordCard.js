@@ -25,12 +25,16 @@ import { useNavigate } from "react-router-dom";
 
 import { unAuthorizedErrors } from '../../../utils/errorTypes';
 
+import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
+
 export const ExpenseRecordCard = ({ dateSortByState, result }) => { 
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [addModalState, setAddModalState] = useState(false);
+
+    const [getAccountsApiTrigger, getAccountsResult] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
 
     const [addExpense, {
         isLoading: addMutationLoading,
@@ -80,6 +84,8 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
                     photos: inputState.photos
                 }
             }).unwrap();
+
+            await getAccountsApiTrigger();
         } catch(error) {
             console.log(error);
         }
@@ -143,6 +149,8 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     // dialogue card state
     const [dialogueCardState, setDialogueCardState] = useState(false);
 
+    const [getAccountsApiTrigger, getAccountsResult] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
+
     const handleClose = () => {
         setViewModalState(false);
     }
@@ -204,6 +212,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     const handleDelete = async (id) => {
         try {
             await deleteExpense(id).unwrap();
+            await getAccountsApiTrigger();
         } catch(error) {
             console.log(error);
         }
@@ -213,6 +222,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     const handleEditRecord = async (editData) => {
         try {
             await editExpense(editData);
+            await getAccountsApiTrigger();
         } catch(error) {
             console.log(error);
         }

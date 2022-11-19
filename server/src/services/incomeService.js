@@ -3,26 +3,18 @@ const account = require('../database/account');
 const customError = require('../utils/customError');
 const deleteObjects = require('../utils/deleteObjects');
 
-// const sharp = require('sharp');
-// const path = require('path');
-// const fs = require('fs');
-// const { 
-//     S3Client, 
-//     PutObjectCommand
-// } = require('@aws-sdk/client-s3');
-// const { v4: uuidv4 } = require('uuid');
-
 const createIncome = async (incomeData) => {
     try {
         // fetch related account
         const relatedAccount = await account.getAccountById(incomeData.accountId);
 
-        // update the account total
+        // calculate account total
         const currentAccountValue = parseInt(relatedAccount.value);
         const incomeValue = parseInt(incomeData.amount);
         const newAccountValue = currentAccountValue + incomeValue;
         relatedAccount.value = newAccountValue.toString();
 
+        // update account total
         const updatedAccount = await account.updateAccount({
             value: relatedAccount.value
         }, incomeData.accountId);   

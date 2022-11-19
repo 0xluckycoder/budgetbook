@@ -5,19 +5,23 @@ const moment = require('moment');
 const customError = require('../utils/customError');
 const deleteObjects = require('../utils/deleteObjects');
 
-// const sharp = require('sharp');
-// const path = require('path');
-// const fs = require('fs');
-// const { 
-//     S3Client, 
-//     PutObjectCommand
-// } = require('@aws-sdk/client-s3');
-// const { v4: uuidv4 } = require('uuid');
-// const customError = require('../utils/customError');
-
-
 const createExpense = async (expenseData) => {
     try {
+        // fetch related account
+        const relatedAccount = await account.getAccountById(expenseData.accountId);
+
+        // calculate account total
+        const currentAccountValue = parseInt(relatedAccount.value);
+        const expenseValue = parseInt(expenseData.amount);
+        const newAccountValue = currentAccountValue - expenseValue;
+        relatedAccount.value = newAccountValue.toString();
+
+        // update account total
+        const updatedAccount = await account.updateAccount({
+            value: relatedAccount.value
+        }, expenseData.accountId);
+
+        // create expense
         const createExpense = await expense.createExpense(expenseData);
         return createExpense;
     } catch(error) {
@@ -56,8 +60,23 @@ const updateExpense = async (userId, expenseId, expenseData) => {
         const requestedExpense = await expense.getExpenseById(expenseId);
         if (requestedExpense.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
 
-        const updateExpense = await expense.updateExpense(expenseData, expenseId);
-        return updateExpense;
+        // fetch related account
+        const relatedAccount = await account.getAccountById(expenseData.accountId);
+
+        // calculate new total account value
+        const currentAccountValue = parseInt(relatedAccount.value);
+        const currentExpenseValue = parseInt(requestedExpense.amount);
+        const newExpenseValue = parseInt(expenseData.amount);
+        const differenceValue = currentExpenseValue - newExpenseValue;
+        const newAccountValue = currentAccountValue + differenceValue;
+
+        // update new account value
+        const updatedAccount = await account.updateAccount({
+            value: newAccountValue.toString()
+        }, expenseData.accountId);
+
+        const updatedExpense = await expense.updateExpense(expenseData, expenseId);
+        return updatedExpense;
     } catch(error) {
         throw error;
     }
@@ -74,6 +93,19 @@ const deleteExpense = async (userId, expenseId) => {
             const deletedResponse = await deleteObjects(requestedExpense.photos);
             console.log(deletedResponse);
         }
+
+        // fetch related account
+        const relatedAccount = await account.getAccountById(requestedExpense.accountId);
+
+        // calculate new total account value
+        const currentAccountValue = parseInt(relatedAccount.value);
+        const expenseValue = parseInt(requestedExpense.amount);
+        const newAccountValue = currentAccountValue + expenseValue;
+
+        // update new account value
+        const updatedAccount = account.updateAccount({
+            value: newAccountValue.toString()
+        }, requestedExpense.accountId);
 
         const deleteExpense = expense.deleteExpense(expenseId);
         return deleteExpense;
