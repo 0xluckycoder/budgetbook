@@ -51,7 +51,8 @@ Following are the main technologies that i've used. you can find more about depe
 -   Sass
 -   recharts (D3 based)
 
-##### Architecture
+##### Front end File Structure
+Detailed guide for the frontend architecture can be found [here](https://www.taniarascia.com/react-architecture-directory-structure/)
 ```
 src/
 ├─ assets/
@@ -86,7 +87,8 @@ app.scss
 - AWS S3
 - MongoDB
 
-##### Architecture
+##### Back end File Structure
+Detailed guide for the backend architecture can be found [here](https://www.freecodecamp.org/news/rest-api-design-best-practices-build-a-rest-api/)
 ```
 src/
 ├─ controllers/
