@@ -62,9 +62,25 @@ const getIncomeById = async (userId, incomeId) => {
 
 const updateIncome = async (userId, incomeId, incomeData) => {
     try {
+
         // throw error if income record does't belong to the user
         const requestedIncome = await income.getIncomeById(incomeId);
         if (requestedIncome.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
+
+        // fetch related account
+        const relatedAccount = await account.getAccountById(incomeData.accountId);
+
+        // calculate new total account value
+        const currentAccountValue = parseInt(relatedAccount.value);
+        const currentIncomeValue = parseInt(requestedIncome.amount);
+        const newIncomeValue = parseInt(incomeData.amount);
+        const newAccountValue = currentAccountValue - currentIncomeValue + newIncomeValue;
+
+        // update new account value
+        const updatedAccount = await account.updateAccount({
+            value: newAccountValue.toString()
+        }, incomeData.accountId);   
+
 
         const updateIncome = income.updateIncome(incomeId, incomeData);
         return updateIncome;
@@ -79,16 +95,26 @@ const deleteIncome = async (userId, incomeId) => {
         const requestedIncome = await income.getIncomeById(incomeId);
         if (requestedIncome.userId !== userId) throw customError('Unauthorized request', 'Unauthorized');
 
-        console.log(requestedIncome.photos.length > 0, 'requested income')
-
         // delete objects from s3
         if (requestedIncome.photos.length > 0) {
             const deletedResponse = await deleteObjects(requestedIncome.photos);
             console.log(deletedResponse);
         }
+
+        // fetch related account
+        const relatedAccount = await account.getAccountById(requestedIncome.accountId);
+
+        // calculate new total account value
+        const currentAccountValue = parseInt(relatedAccount.value);
+        const incomeValue = parseInt(requestedIncome.amount);
+        const newAccountValue = currentAccountValue - incomeValue;
+
+        // update new account value
+        const updatedAccount = account.updateAccount({
+            value: newAccountValue.toString()
+        }, requestedIncome.accountId);
         
         const deleteIncome = income.deleteIncome(incomeId);
-        console.log(deleteIncome);
         return deleteIncome;
     } catch(error) {
         throw error;

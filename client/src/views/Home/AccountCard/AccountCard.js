@@ -24,6 +24,7 @@ export const AccountCard = () => {
         isFetching: accountIsFetching
     } = financeAccountApi.endpoints.getAccounts.useQueryState();
 
+    
     useEffect(() => {
         if (!authIsLoading && !authIsFetching && !authIsUninitiated && !accountIsFetching && !accountIsLoading && !accountIsUninitiated) {
             const currentAccount = accountData.data.find(account => account._id === authData.defaultAccount);

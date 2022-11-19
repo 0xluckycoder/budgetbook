@@ -342,14 +342,14 @@ test
                     - [ ] - for now just add the LKR and USD currencies
                     - [/] - all incomes should update the account value
                         - [/] - update value from incomes service
-                            - [/] - add income
-                            - [ ] - delete income
-                            - [ ] - update income
+                            - [x] - add income
+                            - [x] - delete income
+                            - [x] - update income
                                 - fetch current account
                                 - tostring
                                 - add
                                 - update
-                        - [ ] - fetch the updated account and display in UI 
+                        - [/] - fetch the updated account and display in UI 
                     - [ ] - all expenses should update the account value
                         - [ ] - update value from incomes service
                             - [ ] - add expense

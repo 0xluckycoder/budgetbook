@@ -24,6 +24,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import { unAuthorizedErrors } from '../../../utils/errorTypes';
+import { financeAccountApi } from '../../../store/financeAccount/financeAccount.slice';
 
 export const IncomeRecordCard = ({ dateSortByState, result }) => {
 
@@ -31,6 +32,8 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
     const dispatch = useDispatch();
 
     const [addModalState, setAddModalState] = useState(false);
+
+    const [getAccountsApiTrigger, getAccountsResult] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
 
     const [addIncome, {
         isLoading: addMutationLoading,
@@ -51,23 +54,42 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
                     photos: inputState.photos
                 }
             }).unwrap();
+
+            await getAccountsApiTrigger();
         } catch(error) {
             console.log(error);
         }
         setAddModalState(false);
     }
 
-    // logout user if unauthorized
-    if (addIncomeError) {
-        if (unAuthorizedErrors.includes(addIncomeError.data.message)) {
-            dispatch(
-                userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-                    return draftPosts = {}
-                })
-            );
-            navigate('/auth/login');
+    // // logout user if unauthorized
+    // if (addIncomeError) {
+    //     if (unAuthorizedErrors.includes(addIncomeError.data.message)) {
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
+
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+     const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
         }
     }
+
+    logOutUnauthorizedRequests({error: addIncomeError});
 
     return (
         <div className={styles.recordCardWrapper}>
@@ -126,6 +148,8 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     // dialogue card state
     const [dialogueCardState, setDialogueCardState] = useState(false);
 
+    const [getAccountsApiTrigger, getAccountsResult] = financeAccountApi.endpoints.getAccounts.useLazyQuery();
+
     const handleClose = () => {
         setViewModalState(false);
     }
@@ -148,27 +172,46 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     }] = useEditIncomeMutation();
 
     // logout user if unauthorized
-    if (
-        deleteIncomeError ||
-        editIncomeError
-    ) {
-        if (
-            unAuthorizedErrors.includes(deleteIncomeError.data.message) ||
-            unAuthorizedErrors.includes(editIncomeError.data.message)
-        ) {
-            dispatch(
-                userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-                    return draftPosts = {}
-                })
-            );
-            navigate('/auth/login');
+    // if (
+    //     deleteIncomeError ||
+    //     editIncomeError
+    // ) {
+    //     if (
+    //         unAuthorizedErrors.includes(deleteIncomeError.data.message) ||
+    //         unAuthorizedErrors.includes(editIncomeError.data.message)
+    //     ) {
+    //         dispatch(
+    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+    //                 return draftPosts = {}
+    //             })
+    //         );
+    //         navigate('/auth/login');
+    //     }
+    // }
+    
+    /**
+     * clear auth and redirect to login page if request is unauthorized
+     * @param { error: { data: { message: "error message" } } }
+     * */
+    const logOutUnauthorizedRequests = (errorObj) => {
+        if (errorObj.error) {
+            if (unAuthorizedErrors.includes(errorObj.error.data.message)) {
+                dispatch(userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
+                        return draftPosts = {}
+                }));
+                navigate('/auth/login');
+            }
         }
     }
+
+    logOutUnauthorizedRequests({error: deleteIncomeError});
+    logOutUnauthorizedRequests({error: editIncomeError});
 
     // send delete request
     const handleDelete = async (id) => {
         try {
             await deleteIncome(id).unwrap();
+            await getAccountsApiTrigger();
         } catch(error) {
             console.log(error);
         }
@@ -178,6 +221,7 @@ const RecordListItem = ({ itemData, dateSortByState }) => {
     const handleEditRecord = async (editData) => {
         try {
             await editIncome(editData);
+            await getAccountsApiTrigger();
         } catch(error) {
             console.log(error);
         }
