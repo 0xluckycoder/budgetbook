@@ -50,43 +50,6 @@ app.get('/', (req, res) => {
     // throw new Error('wrong');
 });
 
-console.log(moment().day(0).format('YYYY-MM-DD'));
-
-/* testing */ 
-
-const { 
-    S3Client,
-    DeleteObjectsCommand
-} = require('@aws-sdk/client-s3');
-
-app.get('/api/v1/test', async (req, res, next) => {
-    const client = new S3Client({
-        region: process.env.AWS_REGION,
-        credentials : {
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-        },
-    });
-    const deleteObjectsCommand = new DeleteObjectsCommand({
-        Bucket: process.env.AWS_S3_BUCKET_NAME,
-        Delete: {
-            Objects: [{
-                Key: 'example-delete-1-e3b8ecd2-4359-48ac-b37d-4a9d5d580de6.webp'
-            },
-            {
-                Key: 'example-delete-2-e3b8ecd2-4359-48ac-b37d-4a9d5d580de6.webp'
-            }]
-        }
-    });
-    const deleteObjectsResponse = await client.send(deleteObjectsCommand);
-    console.log('deleted', deleteObjectsResponse);
-    res.status(200).json({
-        message: "cat 😎"
-    });
-});
-
-/* testing end */ 
-
 app.use('/api/v1/expenses', expenseRoutes);
 app.use('/api/v1/incomes', incomeRoutes);
 app.use('/api/v1/accounts', accountRoutes);
