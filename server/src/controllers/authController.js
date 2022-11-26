@@ -94,7 +94,8 @@ const signIn = async (req, res, next) => {
         const cookiesConfig = {
             maxAge: 60000 * 60,
             httpOnly: true,
-            sameSite: 'none'
+            sameSite: 'none',
+            secure: false
         }
 
         res.cookie('AccessToken', tokens.accessToken, cookiesConfig);
@@ -166,7 +167,8 @@ const verifyAuth = async (req, res, next) => {
                 const cookiesConfig = {
                     maxAge: 60000 * 60,
                     httpOnly: true,
-                    sameSite: 'none'
+                    sameSite: 'none',
+                    secure: false
                 }
 
                 // clear existing token cookies

@@ -47,7 +47,8 @@ const authorizeRequest = async (req, res, next) => {
                 const cookiesConfig = {
                     maxAge: 60000 * 60,
                     httpOnly: true,
-                    sameSite: 'none'
+                    sameSite: 'none',
+                    secure: false
                 }
 
                 const cookies = {
