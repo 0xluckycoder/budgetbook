@@ -100,16 +100,6 @@ const signIn = async (req, res, next) => {
         res.cookie('RefreshToken', tokens.refreshToken, cookiesConfig);
         res.cookie('IdToken', tokens.idToken, cookiesConfig);
 
-        // mock data for testing
-        // throw new Error('error occurred');
-        // const data = {
-        //     firstName: 'john',
-        //     lastName: 'doe',
-        //     profilePic: 'pictureUrl',
-        //     email: 'info@email.com',
-        //     subId: '111111111'
-        // }
-
         console.log(tokens);
 
         // singin response
@@ -123,14 +113,6 @@ const signIn = async (req, res, next) => {
         next(error);
     }
 }
-
-// const uploadImage = async (req, res, next) => {
-//     try {
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-// }
 
 const getUserAttributesBySubId = async (req, res, next) => {
     try {
@@ -150,8 +132,8 @@ const getUserAttributesBySubId = async (req, res, next) => {
 
 /**
  * @desc authenticate if cookies exists & Refresh expired tokens
- * @path POST /api/v1/auth/signin
- * @authorization Private
+ * @path GET /api/v1/verifyAuth
+ * @authorization Public
  * */
 const verifyAuth = async (req, res, next) => {
 
