@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 export const userAuthApi = createApi({
     reducerPath: 'authAccount',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5500/api/v1' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://budgetbook.onrender.com/api/v1' }),
     tagTypes: ['Auth'],
     endpoints: (build) => ({
         verifyAuth: build.query({
