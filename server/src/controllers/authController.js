@@ -85,11 +85,6 @@ const signIn = async (req, res, next) => {
         // sign in the user
         const { tokens, data } = await authService.signIn(validated);
 
-        // clear existing token cookies
-        res.clearCookie('AccessToken');
-        res.clearCookie('IdToken');
-        res.clearCookie('RefreshToken');
-
         // set access token, refresh token, id token on client accordingly
         const cookiesConfig = {
             maxAge: 60000 * 60,
@@ -97,6 +92,11 @@ const signIn = async (req, res, next) => {
             sameSite: 'none',
             secure: true
         }
+
+        // clear existing token cookies
+        res.clearCookie('AccessToken', cookiesConfig);
+        res.clearCookie('IdToken', cookiesConfig);
+        res.clearCookie('RefreshToken', cookiesConfig);
 
         res.cookie('AccessToken', tokens.accessToken, cookiesConfig);
         res.cookie('RefreshToken', tokens.refreshToken, cookiesConfig);
@@ -172,8 +172,8 @@ const verifyAuth = async (req, res, next) => {
                 }
 
                 // clear existing token cookies
-                res.clearCookie('AccessToken');
-                res.clearCookie('IdToken');
+                res.clearCookie('AccessToken', cookiesConfig);
+                res.clearCookie('IdToken', cookiesConfig);
 
                 // reassign new access & id token cookies
                 res.cookie('AccessToken', refreshedTokens.AuthenticationResult.AccessToken, cookiesConfig);
@@ -272,9 +272,16 @@ const updateUserAttributes = async (req, res, next) => {
 
         console.log(userId, 'logged out');
 
-        res.clearCookie('AccessToken');
-        res.clearCookie('IdToken');
-        res.clearCookie('RefreshToken');
+        const cookiesConfig = {
+            maxAge: 60000 * 60,
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true
+        }
+
+        res.clearCookie('AccessToken', cookiesConfig);
+        res.clearCookie('IdToken', cookiesConfig);
+        res.clearCookie('RefreshToken', cookiesConfig);
 
         res.status(200).json({
             success: true

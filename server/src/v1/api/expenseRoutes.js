@@ -1,3 +1,4 @@
+const path = require('path');
 const { Router } = require('express');
 const expenseController = require('../../controllers/expenseController');
 const multer = require('multer');
@@ -10,7 +11,7 @@ const router = Router();
 // multer config
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'src/images')
+        cb(null, path.join(__dirname, 'src/images'))
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)

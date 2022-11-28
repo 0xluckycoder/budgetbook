@@ -57,8 +57,8 @@ const authorizeRequest = async (req, res, next) => {
                 const verifyAuthResponse = await authService.verifyAuth(cookies);
 
                 // clear existing token cookies
-                res.clearCookie('AccessToken');
-                res.clearCookie('IdToken');
+                res.clearCookie('AccessToken', cookiesConfig);
+                res.clearCookie('IdToken', cookiesConfig);
 
                 // reassign new access & id token cookies
                 res.cookie('AccessToken', refreshedTokens.AuthenticationResult.AccessToken, cookiesConfig);
