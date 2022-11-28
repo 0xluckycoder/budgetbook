@@ -45,7 +45,7 @@ const authorizeRequest = async (req, res, next) => {
             try {
                 const refreshedTokens = await authService.refreshTokens(RefreshToken);
                 const cookiesConfig = {
-                    maxAge: 60000 * 60,
+                    maxAge: (60000 * 60 * 24) * 30,
                     httpOnly: true,
                     sameSite: 'none',
                     secure: true

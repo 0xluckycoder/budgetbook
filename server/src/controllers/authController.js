@@ -87,7 +87,7 @@ const signIn = async (req, res, next) => {
 
         // set access token, refresh token, id token on client accordingly
         const cookiesConfig = {
-            maxAge: 60000 * 60,
+            maxAge: (60000 * 60 * 24) * 30,
             httpOnly: true,
             sameSite: 'none',
             secure: true
@@ -165,7 +165,7 @@ const verifyAuth = async (req, res, next) => {
             try {
                 const refreshedTokens = await authService.refreshTokens(RefreshToken);
                 const cookiesConfig = {
-                    maxAge: 60000 * 60,
+                    maxAge: (60000 * 60 * 24) * 30,
                     httpOnly: true,
                     sameSite: 'none',
                     secure: true
@@ -273,7 +273,7 @@ const updateUserAttributes = async (req, res, next) => {
         console.log(userId, 'logged out');
 
         const cookiesConfig = {
-            maxAge: 60000 * 60,
+            maxAge: (60000 * 60 * 24) * 30,
             httpOnly: true,
             sameSite: 'none',
             secure: true

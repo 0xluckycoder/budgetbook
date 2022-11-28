@@ -431,15 +431,14 @@ test
 
 - [/] - learn git and github in depth
 - [ ] - cors error occurred when log back in
-- [ ] - increase the lifetime of cookies
+- [/] - increase the lifetime of cookies
 - [ ] - split code into development and production
-- [ ] - add LKR currency type
-- [ ] - differenciate categories
-- [ ] - fix image upload issue
-    - upload to s3 through base64
-- [ ] - clear transaction date when user added
-- [ ] - fix categories
-- [ ] - fix logout issue
+- [x] - add LKR currency type
+- [x] - fix categories
+- [x] - fix image upload issue
+- [-] - clear transaction date state when after adding it
+- [x] - fix categories
+- [x] - fix logout issue
 
 
 Reload Site?
