@@ -430,6 +430,7 @@ test
 #### Fix Production Bugs
 
 - [/] - learn git and github in depth
+- [ ] - cors error occurred when log back in
 - [ ] - increase the lifetime of cookies
 - [ ] - split code into development and production
 - [ ] - add LKR currency type
