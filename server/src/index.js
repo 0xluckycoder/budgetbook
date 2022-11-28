@@ -32,7 +32,7 @@ app.use(morgan('common'));
 
 // config with only allowed origins
 app.use(cors({
-    origin: "http://budgetbook-app.s3-website.ap-south-1.amazonaws.com",
+    origin: ["http://budgetbook-app.s3-website.ap-south-1.amazonaws.com", "http://localhost:3000"],
     // origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
