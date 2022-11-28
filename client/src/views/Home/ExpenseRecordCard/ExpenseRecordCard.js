@@ -104,6 +104,7 @@ export const ExpenseRecordCard = ({ dateSortByState, result }) => {
 
             {/* add new expense modal */}
             <AddModal
+                modalName={'expense'}
                 addModalState={addModalState}
                 setAddModalState={setAddModalState}
                 handleAddRecord={handleAddRecord}

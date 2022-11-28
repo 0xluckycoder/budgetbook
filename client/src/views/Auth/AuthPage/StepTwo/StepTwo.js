@@ -83,17 +83,6 @@ export const StepTwo = ({
 
             <Form className={styles.form} form={form} layout="vertical">
 
-                {/* <Form.Item>
-                    <div className={styles.profileImage}>
-                        <img src={profilePlaceholder} alt="profile pic" />
-                    </div>
-                    <Button 
-                        className={`themed-button ${styles.upload}`}
-                    >
-                        Upload
-                    </Button>
-                </Form.Item> */}
-
                 <InlineField>
                     <Form.Item label="First Name" {...(error.firstName ? error.firstName : {})}>
                         <Input

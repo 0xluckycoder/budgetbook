@@ -62,18 +62,6 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
         setAddModalState(false);
     }
 
-    // // logout user if unauthorized
-    // if (addIncomeError) {
-    //     if (unAuthorizedErrors.includes(addIncomeError.data.message)) {
-    //         dispatch(
-    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-    //                 return draftPosts = {}
-    //             })
-    //         );
-    //         navigate('/auth/login');
-    //     }
-    // }
-
     /**
      * clear auth and redirect to login page if request is unauthorized
      * @param { error: { data: { message: "error message" } } }
@@ -102,7 +90,8 @@ export const IncomeRecordCard = ({ dateSortByState, result }) => {
             </Button>
 
             {/* add new expense modal */}
-            <AddModal 
+            <AddModal
+                modalName={'income'} 
                 addModalState={addModalState}
                 setAddModalState={setAddModalState}
                 handleAddRecord={handleAddRecord}

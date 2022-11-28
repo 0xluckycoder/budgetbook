@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Modal, Form, Input, Dropdown, Menu, Space, DatePicker, Spin } from 'antd';
+// import dayjs from 'dayjs';
+import moment from 'moment';
 import { DownOutlined } from '@ant-design/icons';
 import imagePlaceholder from '../../../../assets/Modal/add-photos-placeholder.svg';
 import { InlineField } from '../../../../components/Form/InlineField';
@@ -19,7 +21,8 @@ import { useNavigate } from "react-router-dom";
 
 import { unAuthorizedErrors } from '../../../../utils/errorTypes';
 
-export const AddModal = ({ 
+export const AddModal = ({
+    modalName, 
     addModalState, 
     setAddModalState,
     handleAddRecord 
@@ -63,20 +66,6 @@ export const AddModal = ({
     }
 
     logOutUnauthorizedRequests({ error: uploadImageError });
-
-    // logout user if unauthorized
-    // if (uploadImageError) {
-    //     if (
-    //         unAuthorizedErrors.includes(uploadImageError.data.message)
-    //     ) {
-    //         dispatch(
-    //             userAuthApi.util.updateQueryData("verifyAuth", undefined, (draftPosts) => {
-    //                 return draftPosts = {}
-    //             })
-    //         );
-    //         navigate('/auth/login');
-    //     }
-    // }
 
     const { TextArea } = Input;
 
@@ -137,13 +126,10 @@ export const AddModal = ({
         },
         {
             key: '7',
-            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Gift'})}>Gift</p>
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Life & Entertainment'})}>Life & Entertainment</p>
         },
         {
             key: '8',
-            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Salary'})}>Salary</p>
-        },        {
-            key: '9',
             label: <p key={2} onClick={() => setInputState({...inputState, category: 'Other'})}>Other</p>
         }
     ];
@@ -400,7 +386,8 @@ export const AddModal = ({
 
                 <Form.Item label="Transaction Date" {...(error.transactionDate ? error.transactionDate : {})}>
                     <Space direction="vertical">
-                        <DatePicker 
+                        <DatePicker
+                            showToday={true}
                             onChange={(date, dateString) => setInputState({...inputState, transactionDate: dateString})}
                             onBlur={() => validate(inputState.transactionDate, 'transactionDate')}
                         />

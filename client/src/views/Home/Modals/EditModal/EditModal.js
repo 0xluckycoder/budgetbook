@@ -141,13 +141,10 @@ export const EditModal = ({
         },
         {
             key: '7',
-            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Gift'})}>Gift</p>
+            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Life & Entertainment'})}>Life & Entertainment</p>
         },
         {
             key: '8',
-            label: <p key={2} onClick={() => setInputState({...inputState, category: 'Salary'})}>Salary</p>
-        },        {
-            key: '9',
             label: <p key={2} onClick={() => setInputState({...inputState, category: 'Other'})}>Other</p>
         }
     ];

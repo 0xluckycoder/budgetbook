@@ -30,12 +30,8 @@ export const StepThree = ({
             key: '0'
         },
         {
-            label: <p key={1} onClick={() => setInputState({...inputState, currency: 'Yuan'})}>Yuan</p>,
+            label: <p key={1} onClick={() => setInputState({...inputState, currency: 'LKR'})}>LKR</p>,
             key: '1'
-        },
-        {
-            label: <p key={2} onClick={() => setInputState({...inputState, currency: 'Yen'})}>Yen</p>,
-            key: '2',
         }
     ];
 
