@@ -426,6 +426,21 @@ test
     - [ ] - Start to implement authentication
 
 
+
+#### Fix Production Bugs
+
+- [/] - learn git and github in depth
+- [ ] - increase the lifetime of cookies
+- [ ] - split code into development and production
+- [ ] - add LKR currency type
+- [ ] - differenciate categories
+- [ ] - fix image upload issue
+    - upload to s3 through base64
+- [ ] - clear transaction date when user added
+- [ ] - fix categories
+- [ ] - fix logout issue
+
+
 Reload Site?
 changes you made may not be saved
 prevent this page from creating additional dialogs
