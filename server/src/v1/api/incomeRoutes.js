@@ -11,7 +11,7 @@ const router = Router();
 // multer config
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './src/images'))
+        cb(null, 'src/images')
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)
