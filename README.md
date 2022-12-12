@@ -1,6 +1,6 @@
 ![logo](https://budgetbook.s3.ap-south-1.amazonaws.com/Budgetbook..png)
 
-![App Preview](https://budgetbook.s3.ap-south-1.amazonaws.com/video-1.gif)
+[Click here for a Preview](https://budgetbook.s3.ap-south-1.amazonaws.com/video-1.gif)
 
 Purpose of this application is to allow users to track their expenses and incomes
 
